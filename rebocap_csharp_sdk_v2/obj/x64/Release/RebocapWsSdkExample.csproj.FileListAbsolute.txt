@@ -1,0 +1,12 @@
+D:\clionProject\reborn_cap\ws_sdk\csharp\RebocapWsSdkExample\bin\x64\Release\RebocapWsSdkExample.exe
+D:\clionProject\reborn_cap\ws_sdk\csharp\RebocapWsSdkExample\bin\x64\Release\RebocapWsSdkExample.pdb
+D:\clionProject\reborn_cap\ws_sdk\csharp\RebocapWsSdkExample\obj\x64\Release\RebocapWsSdkExample.csproj.AssemblyReference.cache
+D:\clionProject\reborn_cap\ws_sdk\csharp\RebocapWsSdkExample\obj\x64\Release\RebocapWsSdkExample.csproj.SuggestedBindingRedirects.cache
+D:\clionProject\reborn_cap\ws_sdk\csharp\RebocapWsSdkExample\obj\x64\Release\RebocapWsSdkExample.csproj.CoreCompileInputs.cache
+D:\clionProject\reborn_cap\ws_sdk\csharp\RebocapWsSdkExample\obj\x64\Release\RebocapWsSdkExample.csproj.CopyComplete
+D:\clionProject\reborn_cap\ws_sdk\csharp\RebocapWsSdkExample\obj\x64\Release\RebocapWsSdkExample.exe
+D:\clionProject\reborn_cap\ws_sdk\csharp\RebocapWsSdkExample\obj\x64\Release\RebocapWsSdkExample.pdb
+D:\clionProject\reborn_cap\ws_sdk\csharp\RebocapWsSdkExample\bin\x64\Release\Newtonsoft.Json.dll
+D:\clionProject\reborn_cap\ws_sdk\csharp\RebocapWsSdkExample\bin\x64\Release\Newtonsoft.Json.xml
+D:\clionProject\reborn_cap\ws_sdk\csharp\RebocapWsSdkExample\obj\x64\Release\RebocapWsSdkExample.Properties.Resources.resources
+D:\clionProject\reborn_cap\ws_sdk\csharp\RebocapWsSdkExample\obj\x64\Release\RebocapWsSdkExample.csproj.GenerateResource.cache

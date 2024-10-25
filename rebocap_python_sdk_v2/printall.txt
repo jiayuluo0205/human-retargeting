@@ -1,0 +1,742 @@
+PS D:\Projects\human-retargeting\rebocap_python_sdk_v2>                                                                                                                         > python -u "d:\Projects\human-retargeting\rebocap_python_sdk_v2\rebocap_ws_sdk_example.py"
+[2024-10-12 18:50:52] [connect] Successful connection
+[2024-10-12 18:50:52] [connect] WebSocket Connection 127.0.0.1:7690 v-2 "WebSocket++/0.8.2" / 101
+[2024-10-12 18:50:52] [frame_header] Dispatching write containing 1 message(s) containing 6 header bytes and 47 payload bytes
+[2024-10-12 18:50:52] [frame_header] Header Bytes: 
+[0] (6) 81 AF 00 00 00 00 
+
+[2024-10-12 18:50:52] [frame_payload] Payload Bytes: 
+[0] (47) [1] {"name":"reborn_app","uid":3815262549190392875}
+
+timestamp:1728730252.337current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[4.440459451870993e-05, 0.11320319771766663, 0.00038973416667431593, 0.9935717582702637]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[0.0005563569720834494, 0.7081103324890137, 5.0622402341105044e-05, 0.7061015963554382]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[-0.0006487233913503587, 0.7066903114318848, -0.002021422376856208, 0.7075198292732239]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[-0.00025108736008405685, 0.7071858644485474, -3.5894918255507946e-05, 0.7070276737213135]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+连接成功bone:L_Hand quaternion w,x,y,z is:[-0.00025108736008405685, 0.7071858644485474, -3.5894918255507946e-05, 0.7070276737213135]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+
+trans is:[-0.0, 0.9679999947547913, 0.0]
+pose24 is:[[0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [4.440459451870993e-05, 0.11320319771766663, 0.00038973416667431593, 0.9935717582702637], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0005563569720834494, 0.7081103324890137, 5.0622402341105044e-05, 0.7061015963554382], [0.0, -0.0, -0.0, 1.0], [-0.0006487233913503587, 0.7066903114318848, -0.002021422376856208, 0.7075198292732239], [0.0, -0.0, -0.0, 1.0], [-0.00025108736008405685, 0.7071858644485474, -3.5894918255507946e-05, 0.7070276737213135], [0.0, -0.0, -0.0, 1.0], [-0.00025108736008405685, 0.7071858644485474, -3.5894918255507946e-05, 0.7070276737213135], [0.0, -0.0, -0.0, 1.0]]
+static_index is:7
+tp is:1728730252337
+timestamp:1728730253.336current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[6.180703348945826e-05, 0.11320319771766663, 0.0005424733972176909, 0.9935716986656189]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[0.000570803415030241, 0.707819402217865, -2.192630199715495e-05, 0.7063931822776794]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[-0.0006329984753392637, 0.7068766355514526, -0.002110410714522004, 0.7073334455490112]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[-0.00030438986141234636, 0.7071718573570251, -4.178006201982498e-05, 0.7070416212081909]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hand quaternion w,x,y,z is:[-0.00030438986141234636, 0.7071718573570251, -4.178006201982498e-05, 0.7070416212081909]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+trans is:[-0.0, 0.9679999947547913, 0.0]
+pose24 is:[[0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0]]
+static_index is:7
+tp is:1728730253453
+timestamp:1728730254.336current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[8.507966413162649e-05, 0.11320318281650543, 0.0007467346731573343, 0.9935715794563293]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[0.0005387585842981935, 0.7080720663070679, -7.084744879648497e-07, 0.7061399221420288]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[-0.0006115424330346286, 0.7066465616226196, -0.0021706533152610064, 0.7075631022453308]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[-0.0002590337535366416, 0.7071344256401062, -5.8804755099117756e-05, 0.7070790529251099]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hand quaternion w,x,y,z is:[-0.0002590337535366416, 0.7071344256401062, -5.8804755099117756e-05, 0.7070790529251099]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+trans is:[-0.0, 0.9679999947547913, 0.0]
+pose24 is:[[0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0]]
+static_index is:7
+tp is:1728730254469
+timestamp:1728730255.337current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hand quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+trans is:[-0.0, 0.9679999947547913, 0.0]
+pose24 is:[[0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [3.281673707533628e-05, 0.11320321261882782, 0.0002880288229789585, 0.9935718178749084], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0005285698571242392, 0.7075186967849731, 8.443355000053998e-06, 0.7066943645477295], [0.0, -0.0, -0.0, 1.0], [-0.000674766895826906, 0.7061775922775269, -0.0021973850671201944, 0.7080309987068176], [0.0, -0.0, -0.0, 1.0], [-0.0002597054117359221, 0.7067301273345947, -4.76249260827899e-05, 0.707483172416687], [0.0, -0.0, -0.0, 1.0], [-0.0002597054117359221, 0.7067301273345947, -4.76249260827899e-05, 0.707483172416687], [0.0, -0.0, -0.0, 1.0]]
+static_index is:7
+tp is:1728730255486
+timestamp:1728730256.336current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hand quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+trans is:[-0.0, 0.9679999947547913, 0.0]
+pose24 is:[[0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.00011182980961166322, 0.11320314556360245, 0.0009815174853429198, 0.993571400642395], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0004947176785208285, 0.7080911993980408, -1.1249445378780365e-05, 0.7061207890510559], [0.0, -0.0, -0.0, 1.0], [-0.0006986084044910967, 0.7060591578483582, -0.002148275263607502, 0.708149254322052], [0.0, -0.0, -0.0, 1.0], [-0.0003602846700232476, 0.7061116099357605, -1.2603938557731453e-05, 0.7081004977226257], [0.0, -0.0, -0.0, 1.0], [-0.0003602846700232476, 0.7061116099357605, -1.2603938557731453e-05, 0.7081004977226257], [0.0, -0.0, -0.0, 1.0]]
+static_index is:7
+tp is:1728730256503
+timestamp:1728730257.336current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hand quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+trans is:[-0.0, 0.9679999947547913, 0.0]
+pose24 is:[[0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0]]
+static_index is:7
+tp is:1728730257519
+timestamp:1728730258.336current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hand quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+trans is:[-0.0, 0.9679999947547913, 0.0]
+pose24 is:[[0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [5.2225219405954704e-05, 0.11320320516824722, 0.00045837482321076095, 0.9935717582702637], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0004940977087244391, 0.7082618474960327, 8.901726687327027e-06, 0.7059496641159058], [0.0, -0.0, -0.0, 1.0], [-0.0007285529281944036, 0.7065326571464539, -0.0022315517999231815, 0.7076765894889832], [0.0, -0.0, -0.0, 1.0], [-0.00027494135429151356, 0.7068376541137695, -4.9129939725389704e-05, 0.7073757648468018], [0.0, -0.0, -0.0, 1.0], [-0.00027494135429151356, 0.7068376541137695, -4.9129939725389704e-05, 0.7073757648468018], [0.0, -0.0, -0.0, 1.0]]
+static_index is:7
+tp is:1728730258536
+timestamp:1728730259.336current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hand quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+trans is:[-0.0, 0.9679999947547913, 0.0]
+pose24 is:[[0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0]]
+static_index is:7
+tp is:1728730259552
+timestamp:1728730260.336current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[0.00010711295180954039, 0.11320317536592484, 0.0009401182760484517, 0.993571400642395]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[0.000529993383679539, 0.7079036831855774, 1.0916555766016245e-05, 0.7063087821006775]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[-0.0007384876371361315, 0.7064015865325928, -0.002233263337984681, 0.7078074216842651]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[-0.00024020113050937653, 0.7070519328117371, -6.254692561924458e-05, 0.707161545753479]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hand quaternion w,x,y,z is:[-0.00024020113050937653, 0.7070519328117371, -6.254692561924458e-05, 0.707161545753479]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+trans is:[-0.0, 0.9679999947547913, 0.0]
+pose24 is:[[0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [4.491345680435188e-05, 0.11320320516824722, 0.00039420032408088446, 0.9935717582702637], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0006414078525267541, 0.7076939344406128, -4.500671275309287e-05, 0.7065188884735107], [0.0, -0.0, -0.0, 1.0], [-0.0008208825602196157, 0.7066593766212463, -0.0022536502219736576, 0.7075498700141907], [0.0, -0.0, -0.0, 1.0], [-0.0002692864218261093, 0.7071019411087036, -3.3649150282144547e-05, 0.7071115970611572], [0.0, -0.0, -0.0, 1.0], [-0.0002692864218261093, 0.7071019411087036, -3.3649150282144547e-05, 0.7071115970611572], [0.0, -0.0, -0.0, 1.0]]
+static_index is:7
+tp is:1728730260570
+timestamp:1728730261.336current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hand quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+trans is:[-0.0, 0.9679999947547913, 0.0]
+pose24 is:[[0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0], [nan, nan, nan, nan], [0.0, -0.0, -0.0, 1.0]]
+static_index is:7
+tp is:1728730261570
+timestamp:1728730262.336current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hand quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+timestamp:1728730263.336current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[9.397479152539745e-05, 0.11320317536592484, 0.000824806047603488, 0.9935715198516846]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[0.0004846143419854343, 0.7083046436309814, 3.72359027096536e-05, 0.7059066891670227]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[-0.0006765228463336825, 0.7062042951583862, -0.0023850412108004093, 0.7080037593841553]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[-0.0002706806699279696, 0.7072665691375732, -6.560806650668383e-05, 0.7069469094276428]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hand quaternion w,x,y,z is:[-0.0002706806699279696, 0.7072665691375732, -6.560806650668383e-05, 0.7069469094276428]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+timestamp:1728730264.335current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[8.011848694877699e-05, 0.11320318281650543, 0.0007031909190118313, 0.9935715794563293]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[0.0005268464446999133, 0.707831859588623, 3.203144297003746e-05, 0.7063807845115662]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[-0.0007469927659258246, 0.7065212726593018, -0.002429995220154524, 0.7076871991157532]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[-0.00037231241003610194, 0.7070990800857544, -5.0681181164691225e-05, 0.7071143984794617]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hand quaternion w,x,y,z is:[-0.00037231241003610194, 0.7070990800857544, -5.0681181164691225e-05, 0.7071143984794617]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+timestamp:1728730265.336current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hand quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+timestamp:1728730266.336current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hand quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+timestamp:1728730267.336current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[6.982433842495084e-05, 0.11320318281650543, 0.0006128403474576771, 0.9935716390609741]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[0.0005089445621706545, 0.7078948616981506, 8.22027213871479e-05, 0.706317663192749]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[-0.0007245552260428667, 0.7066147327423096, -0.0025099359918385744, 0.7075936794281006]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[-0.0003886136692017317, 0.7067102789878845, -0.00010833994019776583, 0.7075029611587524]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hand quaternion w,x,y,z is:[-0.0003886136692017317, 0.7067102789878845, -0.00010833994019776583, 0.7075029611587524]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+timestamp:1728730268.335current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+timestamp:1728730268.335current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[9.244500688510016e-05, 0.11320316791534424, 0.0008113794610835612, 0.9935715198516846]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[0.0005755009478889406, 0.7075023055076599, -1.3940153621661011e-05, 0.7067107558250427]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[-0.0007364503690041602, 0.7065553665161133, -0.0024853486102074385, 0.7076529860496521]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[-0.0003122557536698878, 0.7070944309234619, 2.5718820324982516e-05, 0.7071190476417542]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hand quaternion w,x,y,z is:[-0.0003122557536698878, 0.7070944309234619, 2.5718820324982516e-05, 0.7071190476417542]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+timestamp:1728730269.336current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:L_Collar quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:L_Shoulder quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hand quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+timestamp:1728730270.337current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hand quaternion w,x,y,z is:[nan, nan, nan, nan]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+timestamp:1728730271.336current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[4.3857817217940465e-05, 0.11320320516824722, 0.00038493514875881374, 0.9935717582702637]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[0.0005581495934166014, 0.7086262702941895, 5.891367982258089e-05, 0.7055838108062744]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[-0.0008806679397821426, 0.7063695192337036, -0.002501692622900009, 0.7078382968902588]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[-0.00042464619036763906, 0.7072048783302307, -4.621396874426864e-05, 0.7070085406303406]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hand quaternion w,x,y,z is:[-0.00042464619036763906, 0.7072048783302307, -4.621396874426864e-05, 0.7070085406303406]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+timestamp:1728730272.336current coordinate_type: UnityCoordinateroot position:[-0.0, 0.9679999947547913, 0.0] left_on_floor:False  right_on_floor:True
+bone:Pelvis quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Hip quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine1 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Knee quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine2 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Ankle quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Spine3 quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:R_Foot quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Neck quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Collar quaternion w,x,y,z is:[9.833226795308292e-05, 0.11320317536592484, 0.0008630512747913599, 0.9935714602470398]
+bone:R_Collar quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:Head quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Shoulder quaternion w,x,y,z is:[0.0006247225683182478, 0.7083842754364014, -1.3790559023618698e-05, 0.7058266401290894]
+bone:R_Shoulder quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Elbow quaternion w,x,y,z is:[-0.0008600200526416302, 0.7060169577598572, -0.0026498143561184406, 0.7081894874572754]
+bone:R_Elbow quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Wrist quaternion w,x,y,z is:[-0.00039283736259676516, 0.7072280645370483, -5.5841173889348283e-05, 0.706985354423523]
+bone:R_Wrist quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+bone:L_Hand quaternion w,x,y,z is:[-0.00039283736259676516, 0.7072280645370483, -5.5841173889348283e-05, 0.706985354423523]
+bone:R_Hand quaternion w,x,y,z is:[0.0, -0.0, -0.0, 1.0]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[2024-10-12 18:51:12] [frame_header] Dispatching write containing 1 message(s) containing 6 header bytes and 2 payload bytes
+[2024-10-12 18:51:12] [frame_header] Header Bytes:
+[0] (6) 88 82 00 00 00 00
+
+[2024-10-12 18:51:12] [frame_payload] Payload Bytes:
+[0] (2) [8] 03 E8
