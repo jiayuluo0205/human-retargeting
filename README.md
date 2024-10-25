@@ -1,1 +1,1 @@
-# human-retargeting
+# teleoperation for Xarm6 + Rebocap + Udex Gloves

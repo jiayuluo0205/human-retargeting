@@ -145,5 +145,5 @@ class RebocapWsSdk:
     - static_index: int
     - tp: 毫秒时间戳
     '''
-    def get_last_msg(self):
+    def     get_last_msg(self):
         return rebocap_ws_sdk_ext.rebocap_ws_sdk_get_last_msg(self.handle)
