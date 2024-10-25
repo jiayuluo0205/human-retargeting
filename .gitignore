@@ -1,1 +1,3 @@
 *.ipch
+/LEAP_Hand_API
+/3rdparty
