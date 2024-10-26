@@ -21,19 +21,19 @@ void OnNewGloveData(GloveSDK* glovePtr)
 
 
 	//Print all data 
-	//glovePtr->PrintAllGloveData(glovePtr->gloveDataList[0]);
+	glovePtr->PrintAllGloveData(glovePtr->gloveDataList[0]);
 
-	// 获取设备的角色名
-	std::string name = glovePtr->gloveDataList[0].deviceName;
-	std::cout << "Device Name: " << name << std::endl;
+	//// 获取设备的角色名
+	//std::string name = glovePtr->gloveDataList[0].deviceName;
+	//std::cout << "Device Name: " << name << std::endl;
 
-	// 获取左手标定状态
-	float l_calibrationStatus = glovePtr->gloveDataList[0].handDatas.fingerJoints.fingerJoint_L[0].value;
-	std::cout << "Left Hand Calibration Status: " << l_calibrationStatus << std::endl;
+	//// 获取左手标定状态
+	//float l_calibrationStatus = glovePtr->gloveDataList[0].handDatas.fingerJoints.fingerJoint_L[0].value;
+	//std::cout << "Left Hand Calibration Status: " << l_calibrationStatus << std::endl;
 
-	// 获取左手食指第二指节俯仰角
-	float l_indexIntermediatePitch = glovePtr->gloveDataList[0].handDatas.fingerJoints.fingerJoint_L[6].value;
-	std::cout << "Left Index Intermediate Pitch: " << l_indexIntermediatePitch << std::endl;
+	//// 获取左手食指第二指节俯仰角
+	//float l_indexIntermediatePitch = glovePtr->gloveDataList[0].handDatas.fingerJoints.fingerJoint_L[6].value;
+	//std::cout << "Left Index Intermediate Pitch: " << l_indexIntermediatePitch << std::endl;
 
 	cout << endl << endl;
 

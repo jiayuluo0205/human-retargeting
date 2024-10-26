@@ -4,9 +4,9 @@ import numpy as np
 from scipy.spatial.transform import Rotation as R
 
 
-import pybullet as p
+# import pybullet as p
 from time import sleep
-import pybullet_data
+# import pybullet_data
 
 
 # physicsClient = p.connect(p.GUI)
@@ -23,9 +23,9 @@ link18_length = 0.257
 
 def initAxis(center, rot_mat):
     rotmat = np.array(rot_mat).reshape((3, 3))
-    p.addUserDebugLine(lineFromXYZ=center,lineToXYZ=center+ rotmat[:3,0] * 0.1,lineColorRGB=[1,0,0],lineWidth=10)
-    p.addUserDebugLine(lineFromXYZ=center, lineToXYZ=center + rotmat[:3, 1] * 0.1, lineColorRGB=[0, 1, 0], lineWidth=10)
-    p.addUserDebugLine(lineFromXYZ=center, lineToXYZ=center + rotmat[:3, 2] * 0.1, lineColorRGB=[0, 0, 1], lineWidth=10)
+    # p.addUserDebugLine(lineFromXYZ=center,lineToXYZ=center+ rotmat[:3,0] * 0.1,lineColorRGB=[1,0,0],lineWidth=10)
+    # p.addUserDebugLine(lineFromXYZ=center, lineToXYZ=center + rotmat[:3, 1] * 0.1, lineColorRGB=[0, 1, 0], lineWidth=10)
+    # p.addUserDebugLine(lineFromXYZ=center, lineToXYZ=center + rotmat[:3, 2] * 0.1, lineColorRGB=[0, 0, 1], lineWidth=10)
 
 
 
@@ -53,7 +53,7 @@ def get_link(sdk):
     X_RecocapLink17 = np.eye(4)
     X_Link9Link17 = np.eye(4)
     X_Link9Link17[:3, :3] = R.from_quat(pose24_np[17]).as_matrix()
-    X_Link9Link17[0, 3] = 0.25  # shoulder width 
+    X_Link9Link17[0, 3] = -0.25  # shoulder width 
     X_Link9Link17[1, 3] = 0.25  # shoulder height 
 
     X_RecocapLink18 = np.eye(4)
@@ -84,8 +84,9 @@ def get_link(sdk):
     X_RecocapLink21 = X_RecocapLink19 @ X_Link19Link21
 
     X_WorldLink20 = np.linalg.inv(X_RecocapWorld) @ X_RecocapLink20
+    X_WorldLink21 = np.linalg.inv(X_RecocapWorld) @ X_RecocapLink21
     
-    return X_RecocapLink9,X_RecocapLink16,X_RecocapLink17,X_RecocapLink18,X_RecocapLink19,X_RecocapLink20,X_RecocapLink21,X_WorldLink20
+    return X_RecocapLink9,X_RecocapLink16,X_RecocapLink17,X_RecocapLink18,X_RecocapLink19,X_RecocapLink20,X_RecocapLink21,X_WorldLink20,X_WorldLink21
 
 counter = 0
 
@@ -108,9 +109,9 @@ def main():
     # 姿态数据回调
     def pose_msg_callback(self: rebocap_ws_sdk.RebocapWsSdk, tran: list, pose24: list, static_index: int, ts: float):
         print(f'X_RecocapLink20: \n{X_RecocapLink20}\n')
-        message = socket.recv()
-        # 将 X_RecocapLink20 通过 zmq 发送
-        socket.send(X_RecocapLink20.tobytes())
+        # message = socket.recv()
+        # # 将 X_RecocapLink20 通过 zmq 发送
+        # socket.send(X_RecocapLink20.tobytes())
         pass
 
 
@@ -154,11 +155,11 @@ def main():
     sv = viser.ViserServer(port=8085)
 
     while True:
-        global X_WorldLink20
-        X_RecocapLink9,X_RecocapLink16,X_RecocapLink17,X_RecocapLink18,X_RecocapLink19,X_RecocapLink20,X_RecocapLink21,X_WorldLink20 = get_link(sdk)
+        global X_WorldLink20,X_WorldLink21
+        X_RecocapLink9,X_RecocapLink16,X_RecocapLink17,X_RecocapLink18,X_RecocapLink19,X_RecocapLink20,X_RecocapLink21,X_WorldLink20,X_WorldLink21 = get_link(sdk)
 
         sv.scene.add_frame(
-            "Link9", wxyz=R.from_matrix(X_RecocapLink9[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_RecocapLink16[:3, 3]
+            "Link9", wxyz=R.from_matrix(X_RecocapLink9[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_RecocapLink9[:3, 3]
         )
         sv.scene.add_frame(
             "Link16", wxyz=R.from_matrix(X_RecocapLink16[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_RecocapLink16[:3, 3]
@@ -175,11 +176,14 @@ def main():
         sv.scene.add_frame(
             "Link20", wxyz=R.from_matrix(X_RecocapLink20[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_RecocapLink20[:3, 3]
         )
-        # sv.scene.add_frame(
-        #     "World_Link20", wxyz=R.from_matrix(X_WorldLink20[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink20[:3, 3]
-        # )
+        sv.scene.add_frame(
+            "World_Link20", wxyz=R.from_matrix(X_WorldLink20[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink20[:3, 3]
+        )
         sv.scene.add_frame(
             "Link21", wxyz=R.from_matrix(X_RecocapLink21[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_RecocapLink21[:3, 3]
+        )
+        sv.scene.add_frame(
+            "World_Link21", wxyz=R.from_matrix(X_WorldLink21[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink21[:3, 3]
         )
 
         '''
