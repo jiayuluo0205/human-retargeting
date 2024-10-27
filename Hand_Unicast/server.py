@@ -1,6 +1,7 @@
 import socket
+import time
 
-def start_server(host='127.0.0.1', port=5555):
+def start_server(host='0.0.0.0', port=5555):
     # 创建 socket 对象
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((host, port))
@@ -16,13 +17,13 @@ def start_server(host='127.0.0.1', port=5555):
         # 接收数据
         try:
             while True:
-                # 接收 1024 字节的数据
-                chunk = client_socket.recv(1024)
+                chunk = client_socket.recv(65536)
                 if not chunk:
                     break
                 # 每次接收数据就打印
                 print("Received data chunk:")
                 print(chunk.decode('utf-8'))
+                time.sleep(0.1)
         except ConnectionResetError:
             print("Connection closed by the client.")
 
