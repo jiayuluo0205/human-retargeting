@@ -5,10 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{55B1BC2C-EC7E-443B-B194-8D0BC59DF9BB}|CM_YD_Unicast\\CM_YD_Unicast.vcxproj|C:\\Users\\Administrator\\OneDrive\\\u684C\u9762\\workspace\\human-retargeting\\Hand_Unicast\\CM_YD_Unicast\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{55B1BC2C-EC7E-443B-B194-8D0BC59DF9BB}|CM_YD_Unicast\\CM_YD_Unicast.vcxproj|solutionrelative:CM_YD_Unicast\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{55B1BC2C-EC7E-443B-B194-8D0BC59DF9BB}|CM_YD_Unicast\\CM_YD_Unicast.vcxproj|C:\\Users\\Administrator\\OneDrive\\\u684C\u9762\\workspace\\human-retargeting\\Hand_Unicast\\CM_YD_Unicast\\UnicastLib\\CM_YD_Unicast.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{55B1BC2C-EC7E-443B-B194-8D0BC59DF9BB}|CM_YD_Unicast\\CM_YD_Unicast.vcxproj|solutionrelative:CM_YD_Unicast\\UnicastLib\\CM_YD_Unicast.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,29 +14,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CM_YD_Unicast.h",
-              "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\\u684C\u9762\\workspace\\human-retargeting\\Hand_Unicast\\CM_YD_Unicast\\UnicastLib\\CM_YD_Unicast.h",
-              "RelativeDocumentMoniker": "CM_YD_Unicast\\UnicastLib\\CM_YD_Unicast.h",
-              "ToolTip": "C:\\Users\\Administrator\\OneDrive\\\u684C\u9762\\workspace\\human-retargeting\\Hand_Unicast\\CM_YD_Unicast\\UnicastLib\\CM_YD_Unicast.h",
-              "RelativeToolTip": "CM_YD_Unicast\\UnicastLib\\CM_YD_Unicast.h",
-              "ViewState": "AgIAADYAAAAAAAAAAAAlwFEAAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-25T12:18:05.281Z"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\\u684C\u9762\\workspace\\human-retargeting\\Hand_Unicast\\CM_YD_Unicast\\main.cpp",
               "RelativeDocumentMoniker": "CM_YD_Unicast\\main.cpp",
-              "ToolTip": "C:\\Users\\Administrator\\OneDrive\\\u684C\u9762\\workspace\\human-retargeting\\Hand_Unicast\\CM_YD_Unicast\\main.cpp",
-              "RelativeToolTip": "CM_YD_Unicast\\main.cpp",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABcAAAAgAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Administrator\\OneDrive\\\u684C\u9762\\workspace\\human-retargeting\\Hand_Unicast\\CM_YD_Unicast\\main.cpp*",
+              "RelativeToolTip": "CM_YD_Unicast\\main.cpp*",
+              "ViewState": "AgIAADgAAAAAAAAAAAAYwE4AAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-25T12:06:08.202Z",
               "EditorCaption": ""
