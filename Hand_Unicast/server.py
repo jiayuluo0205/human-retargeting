@@ -14,20 +14,17 @@ def start_server(host='127.0.0.1', port=5555):
         print(f"Connection from {client_address} established.")
 
         # 接收数据
-        data = b""
         try:
             while True:
                 # 接收 1024 字节的数据
                 chunk = client_socket.recv(1024)
                 if not chunk:
                     break
-                data += chunk
+                # 每次接收数据就打印
+                print("Received data chunk:")
+                print(chunk.decode('utf-8'))
         except ConnectionResetError:
             print("Connection closed by the client.")
-
-        # 打印接收到的数据
-        print("Received data:")
-        print(data.decode('utf-8'))
 
         # 关闭客户端连接
         client_socket.close()
