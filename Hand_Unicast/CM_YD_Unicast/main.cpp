@@ -33,7 +33,7 @@ bool InitializeSocket()
 	sockaddr_in serverAddr;
 	serverAddr.sin_family = AF_INET;
 	serverAddr.sin_port = htons(5555);
-	if (inet_pton(AF_INET, "127.0.0.1", &serverAddr.sin_addr) <= 0) {
+	if (inet_pton(AF_INET, "172.25.105.244", &serverAddr.sin_addr) <= 0) {
 		std::cerr << "Invalid address/ Address not supported" << std::endl;
 		closesocket(sock);
 		WSACleanup();
