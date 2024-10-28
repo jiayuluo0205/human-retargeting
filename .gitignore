@@ -1,5 +1,6 @@
 *.ipch
 /LEAP_Hand_API
-/3rdparty
 /.vscode
 /Hand_Unicast/.vs
+3rdparty/LEAP_Hand_API/
+3rdparty/xArm-Python-SDK/
