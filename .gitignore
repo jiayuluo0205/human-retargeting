@@ -4,3 +4,9 @@
 /Hand_Unicast/.vs
 3rdparty/LEAP_Hand_API/
 3rdparty/xArm-Python-SDK/
+3rdparty/amass/
+3rdparty/MANO/
+3rdparty/manotorch/
+3rdparty/smplx/
+3rdparty/SynthMoCap/
+3rdparty/WiLoR/
