@@ -12,7 +12,7 @@
 #pragma comment(lib,"Lib/CM_YD_SDK.lib")
 
 double roll, pitch, yaw;
-SOCKET sock;  // 将套接字定义为全局变量，保持连接
+
 
 //void OnNewGloveData(GloveSDK* glovePtr) //定义了一个函数用于注册回调
 //{
@@ -134,22 +134,18 @@ SOCKET sock;  // 将套接字定义为全局变量，保持连接
 //    cout << endl;
 //}
 
-// 初始化和连接套接字（只需要做一次）
-bool InitializeSocket()
+void OnNewGloveData(GloveSDK* glovePtr)
 {
     // 初始化Winsock
     WSADATA wsaData;
-    if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
-        std::cerr << "WSAStartup failed!" << std::endl;
-        return false;
-    }
+    WSAStartup(MAKEWORD(2, 2), &wsaData);
 
     // 创建套接字
-    sock = socket(AF_INET, SOCK_STREAM, 0);
+    SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock == INVALID_SOCKET) {
         std::cerr << "Socket creation failed!" << std::endl;
         WSACleanup();
-        return false;
+        return;
     }
 
     // 设置服务器地址
@@ -158,9 +154,6 @@ bool InitializeSocket()
     serverAddr.sin_port = htons(5555);  // 设置端口号
     if (inet_pton(AF_INET, "127.0.0.1", &serverAddr.sin_addr) <= 0) {
         std::cerr << "Invalid address/ Address not supported" << std::endl;
-        closesocket(sock);
-        WSACleanup();
-        return false;
     }
 
     // 连接服务器
@@ -168,21 +161,13 @@ bool InitializeSocket()
         std::cerr << "Connection failed!" << std::endl;
         closesocket(sock);
         WSACleanup();
-        return false;
+        return;
     }
 
-    std::cout << "Socket initialized and connected successfully!" << std::endl;
-    return true;
-}
-
-// 回调函数中使用已建立的套接字发送数据
-void OnNewGloveData(GloveSDK* glovePtr)
-{
-    // 发送左手数据
-    std::cout << "Sending Left Hand Data..." << std::endl;
+    // 遍历每个关节的数据并发送
     for (int joint = 0; joint < 15; ++joint)
     {
-        // 获取左手的四元数数据
+        // 获取每个关节的四元数数据
         auto& quaternion = glovePtr->GloveData[0].HandData_L.JointDatas[joint];
 
         // 根据 joint 的值决定关节的名称
@@ -217,100 +202,89 @@ void OnNewGloveData(GloveSDK* glovePtr)
         send(sock, data.c_str(), data.size(), 0);
     }
 
-    // 发送右手数据
-    std::cout << "Sending Right Hand Data..." << std::endl;
-    for (int joint = 0; joint < 15; ++joint)
-    {
-        // 获取右手的四元数数据
-        auto& quaternion = glovePtr->GloveData[0].HandData_R.JointDatas[joint];
-
-        // 根据 joint 的值决定关节的名称
-        std::string jointName;
-        switch (joint) {
-        case 0: jointName = "RightIndexProximal"; break;
-        case 1: jointName = "RightIndexIntermediate"; break;
-        case 2: jointName = "RightIndexDistal"; break;
-        case 3: jointName = "RightMiddleProximal"; break;
-        case 4: jointName = "RightMiddleIntermediate"; break;
-        case 5: jointName = "RightMiddleDistal"; break;
-        case 6: jointName = "RightRingProximal"; break;
-        case 7: jointName = "RightRingIntermediate"; break;
-        case 8: jointName = "RightRingDistal"; break;
-        case 9: jointName = "RightLittleProximal"; break;
-        case 10: jointName = "RightLittleIntermediate"; break;
-        case 11: jointName = "RightLittleDistal"; break;
-        case 12: jointName = "RightThumbProximal"; break;
-        case 13: jointName = "RightThumbIntermediate"; break;
-        case 14: jointName = "RightThumbDistal"; break;
-        }
-
-        // 拼接四元数数据成字符串
-        std::ostringstream dataStream;
-        dataStream << jointName << ": [" << quaternion[0] << ", " << quaternion[1] << ", " << quaternion[2] << ", " << quaternion[3] << "]";
-        std::string data = dataStream.str();
-
-        // 打印要发送的数据
-        std::cout << "Sending data: " << data << std::endl;
-
-        // 发送数据
-        send(sock, data.c_str(), data.size(), 0);
-    }
-}
-
-
-// 程序结束时关闭套接字（只关闭一次）
-void CleanupSocket()
-{
+    // 关闭套接字
     closesocket(sock);
     WSACleanup();
-    std::cout << "Socket closed and cleaned up." << std::endl;
 }
 
-// 主程序
+
 int main()
 {
-    // 创建一个 GloveSDK 的实例
-    GloveSDK glove_sdk;
+	//创建一个 GloveSDK 的实例
+	GloveSDK glove_sdk;
 
-    // 注册回调
-    glove_sdk.RegisterGloveCallBack(OnNewGloveData);
+	//注册回调
+	glove_sdk.RegisterGloveCallBack(OnNewGloveData);
 
-    // 初始化套接字
-    if (!InitializeSocket()) {
-        std::cerr << "Failed to initialize socket." << std::endl;
-        return -1;
-    }
+	//创建Socket并检测是否成功，成功则接受数据并解析
+	if (!glove_sdk.Initialize("127.0.0.1", 7777))
+	{
+		cerr << "Failed to initialize GloveSDK." << endl;
+		return -1;
+	}
 
-    // 创建Socket并检测是否成功，成功则接受数据并解析
-    if (!glove_sdk.Initialize("127.0.0.1", 7777))
-    {
-        std::cerr << "Failed to initialize GloveSDK." << std::endl;
-        CleanupSocket();
-        return -1;
-    }
+	//开启打印线程，打印glove_sdk的数据
+	thread print_th(print_control_thread, &glove_sdk);
 
-    // 开启打印线程，打印 glove_sdk 的数据
-    std::thread print_th(print_control_thread, &glove_sdk);
+	//调用后只打印帧数
 
-    // 持续运行主循环
-    while (true)
-    {
-        // 模拟一个条件，例如只打印帧数
-        int a = 1;
 
-        switch (a)
-        {
-        case 1:
-            OnlyPrintFrame();
-            break;
+	while (true)
+	{
+		int a;
+		a = 1;
 
-        case 0: // 结束，关闭并清理套接字
-            glove_sdk.Shutdown();
-            CleanupSocket();
-            std::cout << "Shutdown" << std::endl;
-            return 0;  // 退出程序
-        }
-    }
+		switch (a)
+		{
 
-    return 0;
+		case 1:
+			OnlyPrintFrame();
+			//print_control_thread(&glove_sdk);
+			break;
+
+		case 0://结束，关闭清理socket
+			glove_sdk.Shutdown();
+			printf("Shutdown");
+			break;
+		}
+	}
+
+	//等待输入 保存程序
+	//getchar();
+
+	//结束，关闭清理socket
+	glove_sdk.Shutdown();
+	printf("Shutdown");
+
+
+
+	return 0;
 }
+
+//数据示例
+/*
+{
+	"DevicelD":1,
+	"Framelndex" : 0,
+	"DeviceName" : "UDXST0001L",
+	"CalibrationStatus" : -2,
+	"Battery" : 5,
+	"Bones" : [
+		[1, 1, 1, 1],//{"LeftindexProximal":[1,1,1,1]}
+		[1, 1, 1, 1],///{"LeftindexIntermediate":[1,1,1,1,1]},
+		[1, 1, 1, 1],//{"LeftindexDistal":[1,1,1,1,1]}
+		[1, 1, 1, 1],//{"LeftMiddleProximal":[1,1,1,1]}
+		[1, 1, 1, 1],//{"LeftMiddlelntermediate":[1,1,1,1]}
+		[1, 1, 1, 1],//{"LeftMiddleDistal":[1,1,1,1]}
+		[1, 1, 1, 1],//"LeftRingProximal":[1,1,1,1]},
+		[1, 1, 1, 1],//{"LeftRingIntermediate":[1,1,1,1,1]}
+		[1, 1, 1, 1],//{"LeftRingDistal":[1,1,1,1,1]}
+		[1, 1, 1, 1],//{"LeftLittleProximal":[1,1,1, 1]}
+		[1, 1, 1, 1],//{"LeftLittlelntermediate":[1,1,1,1,1,1]}
+		[1, 1, 1, 1],//{"LeftLittleDistal":[1,1,1,1]
+		[1, 1, 1, 1],//{"LeftThumbProximal":[1,1,1,1]}
+		[1, 1, 1, 1],//{"LeftThumbintermediate":[1,1,1,1]}
+		[1, 1, 1, 1],//{"LeftThumbDistal":[1,1,1,1]}
+		[1, 1, 1, 1],//{"IMU数据
+	]
+}*/
