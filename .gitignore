@@ -10,3 +10,4 @@
 3rdparty/smplx/
 3rdparty/SynthMoCap/
 3rdparty/WiLoR/
+*.pkl
