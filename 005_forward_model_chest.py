@@ -1,38 +1,15 @@
 import zmq
+import sys
+sys.path.append('utils')
 import rebocap_ws_sdk
 import numpy as np
 from scipy.spatial.transform import Rotation as R
-
-
-# import pybullet as p
 from time import sleep
-# import pybullet_data
-
-
-# physicsClient = p.connect(p.GUI)
-
-# p.setAdditionalSearchPath(pybullet_data.getDataPath())
-
-# p.setGravity(0, 0, -10)
-# planeId = p.loadURDF("plane.urdf")
-
 ##### notice: manually copy these link lengths from the SDK
 link22_length = 0.04 # meter
 link20_length = 0.266
 link18_length = 0.257
 
-def initAxis(center, rot_mat):
-    rotmat = np.array(rot_mat).reshape((3, 3))
-    # p.addUserDebugLine(lineFromXYZ=center,lineToXYZ=center+ rotmat[:3,0] * 0.1,lineColorRGB=[1,0,0],lineWidth=10)
-    # p.addUserDebugLine(lineFromXYZ=center, lineToXYZ=center + rotmat[:3, 1] * 0.1, lineColorRGB=[0, 1, 0], lineWidth=10)
-    # p.addUserDebugLine(lineFromXYZ=center, lineToXYZ=center + rotmat[:3, 2] * 0.1, lineColorRGB=[0, 0, 1], lineWidth=10)
-
-
-
-# useRealTimeSimulation = 0
-
-# if (useRealTimeSimulation):
-#   p.setRealTimeSimulation(1)
 def get_link(sdk):
     tran, pose24, static_index, tp = sdk.get_last_msg()
     pose24_np = np.array(pose24)#.tobytes()

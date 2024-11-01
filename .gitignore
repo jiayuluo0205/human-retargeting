@@ -2,12 +2,4 @@
 /LEAP_Hand_API
 /.vscode
 /Hand_Unicast/.vs
-3rdparty/LEAP_Hand_API/
-3rdparty/xArm-Python-SDK/
-3rdparty/amass/
-3rdparty/manotorch/
-3rdparty/smplx/
-3rdparty/SynthMoCap/
-3rdparty/WiLoR/
 *.pkl
-3rdparty/manopth

@@ -3,7 +3,7 @@ from diff_robot_hand.hand_model import LeapHandRight
 from diff_robot_hand.utils.mesh_and_urdf_utils import joint_values_order_mapping
 import time 
 import viser 
-# from leaphand_rw import LeapNode
+
 from leaphand_rw.leaphand_rw import LeapNode, leap_from_rw_to_sim, leap_from_sim_to_rw
 
 from loguru import logger as lgr    
