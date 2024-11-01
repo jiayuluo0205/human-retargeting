@@ -10,3 +10,4 @@
 3rdparty/SynthMoCap/
 3rdparty/WiLoR/
 *.pkl
+/3rdparty/manopth
