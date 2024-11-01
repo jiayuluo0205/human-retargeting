@@ -79,4 +79,4 @@ with open(outmesh_path, 'w') as fp:
         fp.write( 'f %d %d %d\n' %  (f[0], f[1], f[2]) )
 
 # Print message
-print '..Output mesh saved to: ', outmesh_path 
+print('..Output mesh saved to:', outmesh_path)
