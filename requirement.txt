@@ -1,2 +1,6 @@
 pybullet
 loguru
+open3d
+robot_descriptions
+pylzfse
+pytorch_kinematics

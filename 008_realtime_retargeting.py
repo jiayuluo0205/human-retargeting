@@ -1,11 +1,13 @@
 import multiprocessing
 import time
 import tyro
+import sys
+sys.path.append('utils')
 import rebocap_ws_sdk
 from queue import Empty
+from calculator import calculate_joint, joint_memory
 import pybullet as p
 import pybullet_data
-from calculator import calculate_joint, joint_memory
 
 from loguru import logger
 
