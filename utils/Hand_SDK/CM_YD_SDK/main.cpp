@@ -13,7 +13,6 @@
 
 double roll, pitch, yaw;
 
-
 //void OnNewGloveData(GloveSDK* glovePtr) //定义了一个函数用于注册回调
 //{
 //	//这个函数将在接受线程中被调用
