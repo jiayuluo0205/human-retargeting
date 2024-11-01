@@ -1,5 +1,4 @@
 *.ipch
-/LEAP_Hand_API
 /.vscode
 /Hand_Unicast/.vs
 *.pkl
