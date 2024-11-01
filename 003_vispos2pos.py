@@ -12,6 +12,8 @@ import numpy as np
 import argparse
 
 import viser 
+import sys
+sys.path.append('3rdparty\differentiable_robot_hand')
 from config.config import *
 from config.leaphand_config import Leaphand_Config
 from config.shadowhand_config import Shadowhand_Config
