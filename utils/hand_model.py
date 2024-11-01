@@ -44,7 +44,7 @@ class HandModel:
         self.meshes = load_link_geometries(robot_name, self.urdf_path, self.pk_chain.get_link_names())
 
         self.vertices = {}
-        removed_links = json.load(open(os.path.join(ROOT_DIR, 'data_utils/removed_links.json')))[robot_name]
+        removed_links = json.load(open(os.path.join(ROOT_DIR, 'assets/robots/removed_links.json')))[robot_name]
         for link_name, link_mesh in self.meshes.items():
             if link_name in removed_links:  # remove links unrelated to contact
                 continue
