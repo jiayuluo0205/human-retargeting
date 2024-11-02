@@ -3,3 +3,6 @@ loguru
 open3d
 robot_descriptions
 pytorch_kinematics
+transform3d
+urdfpy
+gym
