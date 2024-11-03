@@ -7,3 +7,6 @@ transform3d
 urdfpy
 gym
 pygame
+dynamixel_sdk
+mplib
+sapien

@@ -9,7 +9,7 @@ from leaphand_rw.leaphand_rw import LeapNode, leap_from_rw_to_sim, leap_from_sim
 from loguru import logger as lgr    
 
 if __name__ == "__main__":
-    rw_hand = LeapNode()    
+    rw_hand = LeapNode(torque_enable=False)    
     sim_hand = LeapHandRight(load_visual_mesh=True, load_col_mesh=False, load_balls_urdf=False, load_n_collision_point=0)
 
     sv = viser.ViserServer()
