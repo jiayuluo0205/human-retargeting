@@ -135,7 +135,7 @@ void OnNewGloveData(GloveSDK* glovePtr)
 	PrintGloveData(glovePtr);
 
 	//Print all data 
-	//glovePtr->PrintAllGloveData(glovePtr->gloveDataList[0]);
+	glovePtr->PrintAllGloveData(glovePtr->gloveDataList[0]);
 
 	// 获取设备的角色名
 	//std::string name = glovePtr->gloveDataList[0].deviceName;
