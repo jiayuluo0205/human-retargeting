@@ -20,7 +20,4 @@ C:\Users\Administrator\OneDrive\桌面\workspace\human-retargeting\utils\Hand_SD
       参见“std::function<void (GloveSDK *)>”的声明
   
 C:\Users\Administrator\OneDrive\桌面\workspace\human-retargeting\utils\Hand_SDK_Unicast\CM_YD_Unicast\main.cpp(115,64): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-  LINK : 没有找到 C:\Users\Administrator\OneDrive\桌面\workspace\human-retargeting\utils\Hand_SDK_Unicast\x64\Debug\CM_YD_Unicast.exe 或上一个增量链接没有生成它；正在执行完全链接
-CM_YD_Unicast.lib(CM_YD_Unicast.obj) : warning LNK4099: 未找到 PDB“”(使用“CM_YD_Unicast.lib(CM_YD_Unicast.obj)”或在“”中寻找)；正在链接对象，如同没有调试信息一样
-    正在创建库 C:\Users\Administrator\OneDrive\桌面\workspace\human-retargeting\utils\Hand_SDK_Unicast\x64\Debug\CM_YD_Unicast.lib 和对象 C:\Users\Administrator\OneDrive\桌面\workspace\human-retargeting\utils\Hand_SDK_Unicast\x64\Debug\CM_YD_Unicast.exp
   CM_YD_Unicast.vcxproj -> C:\Users\Administrator\OneDrive\桌面\workspace\human-retargeting\utils\Hand_SDK_Unicast\x64\Debug\CM_YD_Unicast.exe
