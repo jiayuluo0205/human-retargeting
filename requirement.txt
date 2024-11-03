@@ -6,3 +6,4 @@ pytorch_kinematics
 transform3d
 urdfpy
 gym
+pygame
