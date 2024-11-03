@@ -4,16 +4,12 @@ Visualizes hand joint motion within joint range (upper & lower limits) using Vis
 
 import os
 import sys
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(ROOT_DIR)
 import time
-import argparse
 import torch
 import viser
-import pytorch_kinematics as pk
 from utils.hand_model import HandModel
-
-# 设置根目录路径
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(ROOT_DIR)
 
 urdf_path = 'assets/robots/mano/mano.urdf'
 robot_name = 'mano'
