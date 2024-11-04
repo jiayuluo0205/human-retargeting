@@ -12,3 +12,5 @@ mplib
 sapien
 smplx
 chumpy
+human_body_prior
+tables
