@@ -42,10 +42,6 @@ def get_link(sdk):
     # X_RebocapWorld[:3, :3] = R.from_euler("ZX", [-90, -90], degrees=True).as_matrix()
     X_WorldRebocap = np.eye(4)
     X_WorldRebocap[:3, :3] = R.from_euler("yx",[90.0, 90.0] , degrees=True).as_matrix()
-
-    # X_RebocapLink9 = np.eye(4)
-    # X_RebocapLink9[:3, :3] = R.from_quat(pose24_np[9]).as_matrix()
-    # X_RebocapLink9[1, 3] = 1.25  # pelvis2ground height 
     
     X_RebocapLink9 = np.eye(4)
     X_RebocapLink9[:3, :3] = R.from_quat(pose24_np[9]).as_matrix()
@@ -83,12 +79,24 @@ def get_link(sdk):
     X_Link19Link21[:3, :3] = R.from_quat(pose24_np[21]).as_matrix()
     X_Link19Link21[0, 3] = -0.266  # lower arm length 
 
+    X_RebocapLink22 = np.eye(4)
+    X_Link20Link22 = np.eye(4)
+    X_Link20Link22[:3, :3] = R.from_quat(pose24_np[22]).as_matrix()
+    X_Link20Link22[0, 3] = 0.04  # hand length
+
+    X_RebocapLink23 = np.eye(4)
+    X_Link21Link23 = np.eye(4)
+    X_Link21Link23[:3, :3] = R.from_quat(pose24_np[23]).as_matrix()
+    X_Link21Link23[0, 3] = -0.04  # hand length 
+
     X_RebocapLink16 = X_RebocapLink9 @ X_Link9Link16
     X_RebocapLink17 = X_RebocapLink9 @ X_Link9Link17
     X_RebocapLink18 = X_RebocapLink16 @ X_Link16Link18
     X_RebocapLink19 = X_RebocapLink17 @ X_Link17Link19
     X_RebocapLink20 = X_RebocapLink18 @ X_Link18Link20
     X_RebocapLink21 = X_RebocapLink19 @ X_Link19Link21
+    X_RebocapLink22 = X_RebocapLink20 @ X_Link20Link22
+    X_RebocapLink23 = X_RebocapLink21 @ X_Link21Link23
 
     # X_WorldLink9 = np.linalg.inv(X_RebocapWorld) @ X_RebocapLink9
     # X_WorldLink16 = np.linalg.inv(X_RebocapWorld) @ X_RebocapLink16
@@ -105,9 +113,11 @@ def get_link(sdk):
     X_WorldLink19 = X_WorldRebocap @ X_RebocapLink19
     X_WorldLink20 = X_WorldRebocap @ X_RebocapLink20
     X_WorldLink21 = X_WorldRebocap @ X_RebocapLink21
+    X_WorldLink22 = X_WorldRebocap @ X_RebocapLink22
+    X_WorldLink23 = X_WorldRebocap @ X_RebocapLink23
 
     
-    return X_WorldLink9, X_WorldLink16, X_WorldLink17, X_WorldLink18, X_WorldLink19, X_WorldLink20, X_WorldLink21
+    return X_WorldLink9, X_WorldLink16, X_WorldLink17, X_WorldLink18, X_WorldLink19, X_WorldLink20, X_WorldLink21, X_WorldLink22, X_WorldLink23
 
 counter = 0
 
@@ -180,7 +190,7 @@ def main():
 
         message_recv = socket.recv()
 
-        X_WorldLink9, X_WorldLink16, X_WorldLink17, X_WorldLink18, X_WorldLink19, X_WorldLink20, X_WorldLink21 = get_link(sdk)
+        X_WorldLink9, X_WorldLink16, X_WorldLink17, X_WorldLink18, X_WorldLink19, X_WorldLink20, X_WorldLink21, X_WorldLink22, X_WorldLink23 = get_link(sdk)
 
         sv.scene.add_frame(
             "Link9", wxyz=R.from_matrix(X_WorldLink9[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink9[:3, 3]
@@ -203,8 +213,17 @@ def main():
         sv.scene.add_frame(
             "Link21", wxyz=R.from_matrix(X_WorldLink21[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink21[:3, 3]
         )
+        sv.scene.add_frame(
+            "Link22", wxyz=R.from_matrix(X_WorldLink22[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink22[:3, 3]
+        )
+        sv.scene.add_frame(
+            "Link23", wxyz=R.from_matrix(X_WorldLink23[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink23[:3, 3]
+        )
 
-        message_send = np.array(X_WorldLink20).tobytes()
+        # message_send = np.array(X_WorldLink20).tobytes()
+        X_WorldLink22and23 = np.stack([X_WorldLink22, X_WorldLink23], axis=0)
+        # message_send = np.array(X_WorldLink22).tobytes()
+        message_send = X_WorldLink22and23.tobytes()
         socket.send(message_send)
 
         '''
