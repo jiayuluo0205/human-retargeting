@@ -62,10 +62,10 @@ def start_server(host='0.0.0.0', port=5556):
         "R2": {"glove_index": 3, "joint_name": "j_thumb1y", "scale": 0.5236, "reverse": True, "bias": 0.0},  # 右手拇指第一关节俯仰角
         "R3": {"glove_index": 4, "joint_name": "j_thumb1z", "scale": 0.3491, "reverse": False, "bias": 0.0},  # 右手拇指第一关节偏航角
 
-        "R4": {"glove_index": 4, "joint_name": "j_index3", "scale": 1.75, "reverse": True, "bias": 0.0}, # 右手食指第三关节俯仰角
-        "R5": {"glove_index": 5, "joint_name": "j_index2", "scale": 1.75, "reverse": True, "bias": 0.0}, # 右手食指第二关节俯仰角
-        "R6": {"glove_index": 6, "joint_name": "j_index1x", "scale": 1.57, "reverse": True, "bias": 0.0}, # 右手食指第一关节俯仰角
-        "R7": {"glove_index": 7, "joint_name": "j_index1y", "scale": 0.35, "reverse": True, "bias": 0.0}, # 右手食指第一关节偏航角
+        "R4": {"glove_index": 4, "joint_name": "j_index3", "scale": 80.0, "reverse": True, "bias": 0.0}, # 右手食指第三关节俯仰角
+        "R5": {"glove_index": 5, "joint_name": "j_index2", "scale": 80.0, "reverse": True, "bias": 0.0}, # 右手食指第二关节俯仰角
+        "R6": {"glove_index": 6, "joint_name": "j_index1x", "scale": 80.0, "reverse": True, "bias": 0.0}, # 右手食指第一关节俯仰角
+        "R7": {"glove_index": 7, "joint_name": "j_index1y", "scale": 80.0, "reverse": True, "bias": 0.0}, # 右手食指第一关节偏航角
 
         "R8": {"glove_index": 9, "joint_name": "j_middle3", "scale": 1.75, "reverse": True, "bias": 0.0},  # 右手中指第三关节俯仰角
         "R9": {"glove_index": 10, "joint_name": "j_middle2", "scale": 1.75, "reverse": True, "bias": 0.0},  # 右手中指第二关节俯仰角
@@ -85,7 +85,6 @@ def start_server(host='0.0.0.0', port=5556):
 
 
     def normalize_value(value, scale, bias=0.0, reverse=False):
-        """将 value 从 input_range 映射到 target_range，同时应用偏置和方向反转。"""
         # 应用偏置
         value -= bias
         

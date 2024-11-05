@@ -17,7 +17,7 @@ import tyro
 
 import viser
 import viser.transforms as tf
-
+import zmq
 
 @dataclass(frozen=True)
 class SmplOutputs:
@@ -76,7 +76,11 @@ def main(model_path: Path) -> None:
     server = viser.ViserServer()
     server.scene.set_up_direction("+y")
     server.gui.configure_theme(control_layout="collapsible")
-
+    # ljy
+    context = zmq.Context()
+    socket = context.socket(zmq.REQ)
+    socket.connect("tcp://172.25.108.174:5555")
+    
     # Main loop. We'll read pose/shape from the GUI elements, compute the mesh,
     # and then send the updated mesh in a loop.
     model = SmplHelper(model_path)
@@ -103,12 +107,12 @@ def main(model_path: Path) -> None:
         gui_elements.changed = False
 
         # ljy
-        x+=1
-        print(f"x is {x}")
-        if x%2==0:
-            gui_elements.gui_joints[0].value = (0.05, 0.0, 0.0)
-        else:
-            gui_elements.gui_joints[0].value = (0.5, 0.0, 0.0)
+        socket.send(b"request")
+        Euler_Joint_combo = socket.recv()
+        Euler_Joint_combo = np.frombuffer(Euler_Joint_combo, dtype=np.float64).reshape((24, 3))
+        print(Euler_Joint_combo)
+        for idx, Euler_Joint_i in enumerate(Euler_Joint_combo):
+            gui_elements.gui_joints[idx].value = tuple(Euler_Joint_i)
         # ljy
         # If anything has changed, re-compute SMPL outputs.
         smpl_outputs = model.get_outputs(
