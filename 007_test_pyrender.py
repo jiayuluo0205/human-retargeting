@@ -31,9 +31,12 @@ body_parms = {
 print('Body parameter vector shapes: \n{}'.format(' \n'.join(['{}: {}'.format(k,v.shape) for k,v in body_parms.items()])))
 print('time_length = {}'.format(time_length))
 
+torch.set_printoptions(threshold=float('inf'))
+print(body_parms['root_orient'][0])
+print(body_parms['pose_body'][0])
+
 body_pose_beta = bm(**{k:v for k,v in body_parms.items() if k in ['pose_body', 'betas']})
-print(type(body_pose_beta))
-print(body_pose_beta.v[0].shape)
+print(body_pose_beta.v.shape)
 
 body_mesh = trimesh.Trimesh(
         vertices=c2c(body_pose_beta.v[0]), 
