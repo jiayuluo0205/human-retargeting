@@ -6,7 +6,7 @@ import viser
 import pytorch_kinematics as pk
 from utils.hand_model import HandModel
 
-def start_server(host='0.0.0.0', port=5555):
+def start_server(host='0.0.0.0', port=5556):
     # 创建 socket 对象
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((host, port))
@@ -57,34 +57,34 @@ def start_server(host='0.0.0.0', port=5555):
 
 
     joint_mapping = {
-        "R0": {"glove_index": 1, "joint_name": "j_thumb3", "glove_range": (-30.0, 0.0), "target_range": (0.0, 0.5235987755982989), "reverse": True, "bias": 0.0},  # 右手拇指第三关节俯仰角
-        "R1": {"glove_index": 2, "joint_name": "j_thumb2", "glove_range": (-30.0, 0.0), "target_range": (0.0, 0.4363323129985824), "reverse": True, "bias": 0.0},  # 右手拇指第二关节俯仰角
-        "R2": {"glove_index": 3, "joint_name": "j_thumb1y", "glove_range": (-30.0, 0.0), "target_range": (0.0, 0.5235987755982989), "reverse": True, "bias": 0.0},  # 右手拇指第一关节俯仰角
-        "R3": {"glove_index": 4, "joint_name": "j_thumb1z", "glove_range": (-30.0, 30.0), "target_range": (-0.34906585039886584, 0.34906585039886584), "reverse": False, "bias": 0.0},  # 右手拇指第一关节偏航角
+        "R0": {"glove_index": 1, "joint_name": "j_thumb3", "scale": 0.5236, "reverse": True, "bias": 0.0},  # 右手拇指第三关节俯仰角
+        "R1": {"glove_index": 2, "joint_name": "j_thumb2", "scale": 0.4363, "reverse": True, "bias": 0.0},  # 右手拇指第二关节俯仰角
+        "R2": {"glove_index": 3, "joint_name": "j_thumb1y", "scale": 0.5236, "reverse": True, "bias": 0.0},  # 右手拇指第一关节俯仰角
+        "R3": {"glove_index": 4, "joint_name": "j_thumb1z", "scale": 0.3491, "reverse": False, "bias": 0.0},  # 右手拇指第一关节偏航角
 
-        "R4": {"index": 4, "joint_name": "j_index3", "glove_range": (-80.0, 0.0), "target_range": (0.0, 1.75), "reverse": True, "bias": 0.0}, #右手食指第三关节俯仰角
-        "R5": {"index": 5, "joint_name": "j_index2", "glove_range": (-100.0, 0.0), "target_range": (0.0, 1.75), "reverse": True, "bias": 0.0}, #右手食指第二关节俯仰角
-        "R6": {"index": 6, "joint_name": "j_index1x", "glove_range": (-80.0, 0.0), "target_range": (-0.17, 1.57), "reverse": True, "bias": 0.0}, #右手食指第一关节俯仰角
-        "R7": {"index": 7, "joint_name": "j_index1y", "glove_range": (-80.0, 0.0), "target_range": (-0.35, 0.35), "reverse": True, "bias": 0.0}, #右手食指第一关节偏航角
-        
-        "R8": {"glove_index": 9, "joint_name": "j_middle3", "glove_range": (-80.0, 0.0), "target_range": (0.0, 1.75), "reverse": True, "bias": 0.0},  # 右手中指第三关节俯仰角
-        "R9": {"glove_index": 10, "joint_name": "j_middle2", "glove_range": (-80.0, 0.0), "target_range": (0.0, 1.75), "reverse": True, "bias": 0.0},  # 右手中指第二关节俯仰角
-        "R10": {"glove_index": 11, "joint_name": "j_middle1x", "glove_range": (-80.0, 0.0), "target_range": (-0.17, 1.57), "reverse": True, "bias": 0.0},  # 右手中指第一关节俯仰角
-        "R11": {"glove_index": 12, "joint_name": "j_middle1y", "glove_range": (-80.0, 0.0), "target_range": (-0.52, 0.35), "reverse": True, "bias": 0.0},  # 右手中指第一关节偏航角
+        "R4": {"glove_index": 4, "joint_name": "j_index3", "scale": 1.75, "reverse": True, "bias": 0.0}, # 右手食指第三关节俯仰角
+        "R5": {"glove_index": 5, "joint_name": "j_index2", "scale": 1.75, "reverse": True, "bias": 0.0}, # 右手食指第二关节俯仰角
+        "R6": {"glove_index": 6, "joint_name": "j_index1x", "scale": 1.57, "reverse": True, "bias": 0.0}, # 右手食指第一关节俯仰角
+        "R7": {"glove_index": 7, "joint_name": "j_index1y", "scale": 0.35, "reverse": True, "bias": 0.0}, # 右手食指第一关节偏航角
 
-        "R12": {"glove_index": 13, "joint_name": "j_ring3", "glove_range": (-80.0, 0.0), "target_range": (0.0, 0.4363323129985824), "reverse": True, "bias": 0.0},  # 右手无名指第三关节俯仰角
-        "R13": {"glove_index": 14, "joint_name": "j_ring2", "glove_range": (-80.0, 0.0), "target_range": (0.0, 0.4363323129985824), "reverse": True, "bias": 0.0},  # 右手无名指第二关节俯仰角
-        "R14": {"glove_index": 15, "joint_name": "j_ring1x", "glove_range": (-80.0, 0.0), "target_range": (0.0, 0.26179938779914946), "reverse": True, "bias": 0.0},  # 右手无名指第一关节俯仰角
-        "R15": {"glove_index": 16, "joint_name": "j_ring1y", "glove_range": (-80.0, 0.0), "target_range": (-0.30543261909900765, 0.30543261909900765), "reverse": True, "bias": 0.0},  # 右手无名指第一关节偏航角
+        "R8": {"glove_index": 9, "joint_name": "j_middle3", "scale": 1.75, "reverse": True, "bias": 0.0},  # 右手中指第三关节俯仰角
+        "R9": {"glove_index": 10, "joint_name": "j_middle2", "scale": 1.75, "reverse": True, "bias": 0.0},  # 右手中指第二关节俯仰角
+        "R10": {"glove_index": 11, "joint_name": "j_middle1x", "scale": 1.57, "reverse": True, "bias": 0.0},  # 右手中指第一关节俯仰角
+        "R11": {"glove_index": 12, "joint_name": "j_middle1y", "scale": 0.35, "reverse": True, "bias": 0.0},  # 右手中指第一关节偏航角
 
-        "R16": {"glove_index": 17, "joint_name": "j_pinky3", "glove_range": (-80.0, 0.0), "target_range": (0.0, 0.4363323129985824), "reverse": True, "bias": 0.0},  # 右手小指第三关节俯仰角
-        "R17": {"glove_index": 18, "joint_name": "j_pinky2", "glove_range": (-80.0, 0.0), "target_range": (0.0, 0.4363323129985824), "reverse": True, "bias": 0.0},  # 右手小指第二关节俯仰角
-        "R18": {"glove_index": 19, "joint_name": "j_pinky1x", "glove_range": (-80.0, 0.0), "target_range": (0.0, 0.26179938779914946), "reverse": True, "bias": 0.0},  # 右手小指第一关节俯仰角
-        "R19": {"glove_index": 20, "joint_name": "j_pinky1y", "glove_range": (-80.0, 0.0), "target_range": (-0.43633231299858233, 0.43633231299858233), "reverse": True, "bias": 0.0},  # 右手小指第一关节偏航角
+        "R12": {"glove_index": 13, "joint_name": "j_ring3", "scale": 0.4363, "reverse": True, "bias": 0.0},  # 右手无名指第三关节俯仰角
+        "R13": {"glove_index": 14, "joint_name": "j_ring2", "scale": 0.4363, "reverse": True, "bias": 0.0},  # 右手无名指第二关节俯仰角
+        "R14": {"glove_index": 15, "joint_name": "j_ring1x", "scale": 0.2618, "reverse": True, "bias": 0.0},  # 右手无名指第一关节俯仰角
+        "R15": {"glove_index": 16, "joint_name": "j_ring1y", "scale": 0.3054, "reverse": True, "bias": 0.0},  # 右手无名指第一关节偏航角
+
+        "R16": {"glove_index": 17, "joint_name": "j_pinky3", "scale": 0.4363, "reverse": True, "bias": 0.0},  # 右手小指第三关节俯仰角
+        "R17": {"glove_index": 18, "joint_name": "j_pinky2", "scale": 0.4363, "reverse": True, "bias": 0.0},  # 右手小指第二关节俯仰角
+        "R18": {"glove_index": 19, "joint_name": "j_pinky1x", "scale": 0.2618, "reverse": True, "bias": 0.0},  # 右手小指第一关节俯仰角
+        "R19": {"glove_index": 20, "joint_name": "j_pinky1y", "scale": 0.4363, "reverse": True, "bias": 0.0},  # 右手小指第一关节偏航角
     }
 
 
-    def normalize_value(value, input_range, target_range, bias=0.0, reverse=False):
+    def normalize_value(value, scale, bias=0.0, reverse=False):
         """将 value 从 input_range 映射到 target_range，同时应用偏置和方向反转。"""
         # 应用偏置
         value -= bias
@@ -93,10 +93,7 @@ def start_server(host='0.0.0.0', port=5555):
         if reverse:
             value = -value
         
-        # 执行归一化
-        input_min, input_max = input_range
-        target_min, target_max = target_range
-        return target_min + (value - input_min) * (target_max - target_min) / (input_max - input_min)
+        return value/scale
 
     try:
         while True:
@@ -121,22 +118,17 @@ def start_server(host='0.0.0.0', port=5555):
                     for mapping in joint_mapping.values():
                         glove_index = mapping["glove_index"]
                         glove_value = right_hand_data[glove_index]
-                        glove_range = mapping["glove_range"]
+                        scale = mapping["scale"]
                         joint_name = mapping["joint_name"]
                         
                         # 仅对 joint_mapping 中指定的滑条进行归一化和更新
                         if joint_name in gui_joints:
                             slider = gui_joints[joint_name]
                             
-                            # 如果在 mapping 中指定了 target_range，则使用它
-                            target_range = mapping.get("target_range", (lower[hand.get_joint_orders().index(joint_name)],
-                                                                        upper[hand.get_joint_orders().index(joint_name)]))
-                            
                             # 调用 normalize_value 函数，传入 bias 和 reverse
                             normalized_value = normalize_value(
                                 glove_value,
-                                glove_range,
-                                target_range,
+                                scale,
                                 bias=mapping.get("bias", 0.0),
                                 reverse=mapping.get("reverse", False)
                             )
@@ -144,9 +136,8 @@ def start_server(host='0.0.0.0', port=5555):
                             # 更新仅在 joint_mapping 中定义的滑条值
                             slider.value = normalized_value
 
-                    # 更新三维模型，仅使用 joint_mapping 中定义的滑条值
-                    ordered_joint_values = [slider.value if joint_name in joint_mapping else 0 for joint_name, slider in gui_joints.items()]
-                    update(torch.tensor(ordered_joint_values))
+                    ordered_joint_values = [slider.value for slider in gui_joints.values()]
+                    update(torch.tensor(ordered_joint_values, dtype=torch.float32))
 
 
             except ConnectionResetError:
