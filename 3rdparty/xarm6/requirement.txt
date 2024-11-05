@@ -1,0 +1,7 @@
+viser 
+mplib 
+torch 
+numpy 
+pytorch-kinematics 
+sapien>=3.0.0b1
+trimesh 

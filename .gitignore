@@ -1,3 +1,5 @@
 *.ipch
-/LEAP_Hand_API
-/3rdparty
+/.vscode
+/Hand_Unicast/.vs
+*.pkl
+/data
