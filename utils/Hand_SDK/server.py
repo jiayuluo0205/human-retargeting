@@ -1,10 +1,11 @@
 import socket
+import time
 
 # 创建 TCP/IP 套接字
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # 绑定到本地端口 5555
-server_address = ('127.0.0.1', 5555)
+server_address = ('0.0.0.0', 5555)
 print('Starting up on {} port {}'.format(*server_address))
 sock.bind(server_address)
 
@@ -21,11 +22,12 @@ try:
 
     # 持续接收数据
     while True:
-        # 接收数据，1024字节为数据块大小
-        data = connection.recv(1024)
+        data = ""
+        data = connection.recv(65536)
         if data:
             # 解码并打印收到的数据
             print(f"Received: {data.decode('utf-8')}")
+            time.sleep(0.1)
 
 finally:
     # 关闭连接

@@ -1,7 +1,7 @@
 import socket
 import time
 
-def start_server(host='0.0.0.0', port=5555):
+def start_server(host='0.0.0.0', port=5556):
     # 创建 socket 对象
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((host, port))
