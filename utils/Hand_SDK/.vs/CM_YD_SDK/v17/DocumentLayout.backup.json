@@ -1,10 +1,14 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Administrator\\OneDrive\\\u684C\u9762\\workspace\\human-retargeting\\utils\\Hand_SDK\\",
+  "WorkspaceRootPath": "C:\\Users\\50129\\Documents\\GitHub\\human-retargeting\\utils\\Hand_SDK\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{CA600260-A4F1-496C-9C46-2CA2B9A53ABD}|CM_YD_SDK\\CM_YD_SDK.vcxproj|C:\\Users\\Administrator\\OneDrive\\\u684C\u9762\\workspace\\human-retargeting\\utils\\Hand_SDK\\CM_YD_SDK\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{CA600260-A4F1-496C-9C46-2CA2B9A53ABD}|CM_YD_SDK\\CM_YD_SDK.vcxproj|C:\\Users\\50129\\Documents\\GitHub\\human-retargeting\\utils\\Hand_SDK\\CM_YD_SDK\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{CA600260-A4F1-496C-9C46-2CA2B9A53ABD}|CM_YD_SDK\\CM_YD_SDK.vcxproj|solutionrelative:CM_YD_SDK\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CA600260-A4F1-496C-9C46-2CA2B9A53ABD}|CM_YD_SDK\\CM_YD_SDK.vcxproj|C:\\Users\\50129\\Documents\\GitHub\\human-retargeting\\utils\\Hand_SDK\\CM_YD_SDK\\Lib\\CM_YD_SDK.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CA600260-A4F1-496C-9C46-2CA2B9A53ABD}|CM_YD_SDK\\CM_YD_SDK.vcxproj|solutionrelative:CM_YD_SDK\\Lib\\CM_YD_SDK.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,17 +18,30 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CM_YD_SDK.h",
+              "DocumentMoniker": "C:\\Users\\50129\\Documents\\GitHub\\human-retargeting\\utils\\Hand_SDK\\CM_YD_SDK\\Lib\\CM_YD_SDK.h",
+              "RelativeDocumentMoniker": "CM_YD_SDK\\Lib\\CM_YD_SDK.h",
+              "ToolTip": "C:\\Users\\50129\\Documents\\GitHub\\human-retargeting\\utils\\Hand_SDK\\CM_YD_SDK\\Lib\\CM_YD_SDK.h",
+              "RelativeToolTip": "CM_YD_SDK\\Lib\\CM_YD_SDK.h",
+              "ViewState": "AgIAADQAAAAAAAAAAAAhwEwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-06T14:11:21.776Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "main.cpp",
-              "DocumentMoniker": "C:\\Users\\Administrator\\OneDrive\\\u684C\u9762\\workspace\\human-retargeting\\utils\\Hand_SDK\\CM_YD_SDK\\main.cpp",
+              "DocumentMoniker": "C:\\Users\\50129\\Documents\\GitHub\\human-retargeting\\utils\\Hand_SDK\\CM_YD_SDK\\main.cpp",
               "RelativeDocumentMoniker": "CM_YD_SDK\\main.cpp",
-              "ToolTip": "C:\\Users\\Administrator\\OneDrive\\\u684C\u9762\\workspace\\human-retargeting\\utils\\Hand_SDK\\CM_YD_SDK\\main.cpp*",
+              "ToolTip": "C:\\Users\\50129\\Documents\\GitHub\\human-retargeting\\utils\\Hand_SDK\\CM_YD_SDK\\main.cpp*",
               "RelativeToolTip": "CM_YD_SDK\\main.cpp*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAKcAAAAAAAAAAAAAAO8AAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-02T18:47:47.451Z",
               "EditorCaption": ""

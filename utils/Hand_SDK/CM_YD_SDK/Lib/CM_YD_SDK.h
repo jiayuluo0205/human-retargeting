@@ -34,7 +34,7 @@ void OnlyPrintFrame();
 //数据结构
 struct HandDriverData
 {
-	int DeviceID = 0;
+	//int DeviceID = 0;
 	int FrameIndex = 0;
 	string DeviceName;
 	int CalibrationStatus;

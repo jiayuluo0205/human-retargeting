@@ -3,3 +3,5 @@
 /Hand_Unicast/.vs
 *.pkl
 /data
+/utils/Hand_SDK_Unicast/.vs
+/utils/Hand_SDK/.vs

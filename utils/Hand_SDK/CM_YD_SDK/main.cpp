@@ -151,7 +151,7 @@ void OnNewGloveData(GloveSDK* glovePtr)
     sockaddr_in serverAddr;
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(5555);  // 设置端口号
-    if (inet_pton(AF_INET, "127.0.0.1", &serverAddr.sin_addr) <= 0) {
+    if (inet_pton(AF_INET, "172.25.105.244", &serverAddr.sin_addr) <= 0) {
         std::cerr << "Invalid address/ Address not supported" << std::endl;
     }
 
@@ -223,7 +223,7 @@ int main()
 	}
 
 	//开启打印线程，打印glove_sdk的数据
-	thread print_th(print_control_thread, &glove_sdk);
+	//thread print_th(print_control_thread, &glove_sdk);
 
 	//调用后只打印帧数
 
@@ -237,7 +237,7 @@ int main()
 		{
 
 		case 1:
-			OnlyPrintFrame();
+			//OnlyPrintFrame();
 			//print_control_thread(&glove_sdk);
 			break;
 
