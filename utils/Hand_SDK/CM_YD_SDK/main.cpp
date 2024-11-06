@@ -223,7 +223,7 @@ int main()
 	}
 
 	//开启打印线程，打印glove_sdk的数据
-	thread print_th(print_control_thread, &glove_sdk);
+	//thread print_th(print_control_thread, &glove_sdk);
 
 	//调用后只打印帧数
 
@@ -237,7 +237,7 @@ int main()
 		{
 
 		case 1:
-			OnlyPrintFrame();
+			//OnlyPrintFrame();
 			//print_control_thread(&glove_sdk);
 			break;
 

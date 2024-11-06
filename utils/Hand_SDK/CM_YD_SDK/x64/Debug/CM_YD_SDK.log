@@ -16,4 +16,5 @@ C:\Users\50129\Documents\GitHub\human-retargeting\utils\Hand_SDK\CM_YD_SDK\Lib\C
   
 C:\Users\50129\Documents\GitHub\human-retargeting\utils\Hand_SDK\CM_YD_SDK\main.cpp(201,43): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
 CM_YD_SDK.lib(CM_YD_SDK.obj) : warning LNK4099: 未找到 PDB“”(使用“CM_YD_SDK.lib(CM_YD_SDK.obj)”或在“”中寻找)；正在链接对象，如同没有调试信息一样
+    正在创建库 C:\Users\50129\Documents\GitHub\human-retargeting\utils\Hand_SDK\x64\Debug\CM_YD_SDK.lib 和对象 C:\Users\50129\Documents\GitHub\human-retargeting\utils\Hand_SDK\x64\Debug\CM_YD_SDK.exp
   CM_YD_SDK.vcxproj -> C:\Users\50129\Documents\GitHub\human-retargeting\utils\Hand_SDK\x64\Debug\CM_YD_SDK.exe
