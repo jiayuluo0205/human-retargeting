@@ -32,7 +32,7 @@ bool InitializeSocket()
 
 	sockaddr_in serverAddr;
 	serverAddr.sin_family = AF_INET;
-	serverAddr.sin_port = htons(5555);
+	serverAddr.sin_port = htons(5556);
 	if (inet_pton(AF_INET, "172.25.105.244", &serverAddr.sin_addr) <= 0) {
 		std::cerr << "Invalid address/ Address not supported" << std::endl;
 		closesocket(sock);
@@ -118,7 +118,7 @@ void SendGloveData(GloveSDK* glovePtr) {
 		std::cerr << "Send failed!" << std::endl;
 	}
 	else {
-		std::cout << "Data sent successfully! Bytes sent: " << bytesSent << std::endl;
+		//std::cout << "Data sent successfully! Bytes sent: " << bytesSent << std::endl;
 	}
 }
 
@@ -132,10 +132,10 @@ void OnNewGloveData(GloveSDK* glovePtr)
 	* 打印手数据
 	* Print gloveData
 	*/
-	PrintGloveData(glovePtr);
+	//PrintGloveData(glovePtr);
 
 	//Print all data 
-	glovePtr->PrintAllGloveData(glovePtr->gloveDataList[0]);
+	//glovePtr->PrintAllGloveData(glovePtr->gloveDataList[0]);
 
 	// 获取设备的角色名
 	//std::string name = glovePtr->gloveDataList[0].deviceName;
