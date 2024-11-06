@@ -57,30 +57,30 @@ def start_server(host='0.0.0.0', port=5556):
 
 
     joint_mapping = {
-        "R0": {"glove_index": 1, "joint_name": "j_thumb3", "scale": 0.5236, "reverse": True, "bias": 0.0},  # 右手拇指第三关节俯仰角
-        "R1": {"glove_index": 2, "joint_name": "j_thumb2", "scale": 0.4363, "reverse": True, "bias": 0.0},  # 右手拇指第二关节俯仰角
-        "R2": {"glove_index": 3, "joint_name": "j_thumb1y", "scale": 0.5236, "reverse": True, "bias": 0.0},  # 右手拇指第一关节俯仰角
-        "R3": {"glove_index": 4, "joint_name": "j_thumb1z", "scale": 0.3491, "reverse": False, "bias": 0.0},  # 右手拇指第一关节偏航角
+        "R0": {"glove_index": 0, "joint_name": "j_thumb3", "scale": 35.0, "reverse": True, "bias": 0.0},  # 右手拇指第三关节俯仰角
+        "R1": {"glove_index": 1, "joint_name": "j_thumb2", "scale": 35.0, "reverse": True, "bias": 0.0},  # 右手拇指第二关节俯仰角
+        "R2": {"glove_index": 2, "joint_name": "j_thumb1y", "scale": 43.0, "reverse": True, "bias": 0.0},  # 右手拇指第一关节俯仰角
+        "R3": {"glove_index": 3, "joint_name": "j_thumb1z", "scale": 20.0, "reverse": True, "bias": 30.0},  # 右手拇指第一关节偏航角
 
-        "R4": {"glove_index": 4, "joint_name": "j_index3", "scale": 80.0, "reverse": True, "bias": 0.0}, # 右手食指第三关节俯仰角
-        "R5": {"glove_index": 5, "joint_name": "j_index2", "scale": 80.0, "reverse": True, "bias": 0.0}, # 右手食指第二关节俯仰角
-        "R6": {"glove_index": 6, "joint_name": "j_index1x", "scale": 80.0, "reverse": True, "bias": 0.0}, # 右手食指第一关节俯仰角
-        "R7": {"glove_index": 7, "joint_name": "j_index1y", "scale": 80.0, "reverse": True, "bias": 0.0}, # 右手食指第一关节偏航角
+        "R4": {"glove_index": 4, "joint_name": "j_index3", "scale": 45.0, "reverse": True, "bias": 0.0}, # 右手食指第三关节俯仰角
+        "R5": {"glove_index": 5, "joint_name": "j_index2", "scale": 60.0, "reverse": True, "bias": 0.0}, # 右手食指第二关节俯仰角
+        "R6": {"glove_index": 6, "joint_name": "j_index1x", "scale": 50.0, "reverse": True, "bias": 0.0}, # 右手食指第一关节俯仰角
+        "R7": {"glove_index": 7, "joint_name": "j_index1y", "scale": 70.0, "reverse": True, "bias": 0.0}, # 右手食指第一关节偏航角
 
-        "R8": {"glove_index": 9, "joint_name": "j_middle3", "scale": 1.75, "reverse": True, "bias": 0.0},  # 右手中指第三关节俯仰角
-        "R9": {"glove_index": 10, "joint_name": "j_middle2", "scale": 1.75, "reverse": True, "bias": 0.0},  # 右手中指第二关节俯仰角
-        "R10": {"glove_index": 11, "joint_name": "j_middle1x", "scale": 1.57, "reverse": True, "bias": 0.0},  # 右手中指第一关节俯仰角
-        "R11": {"glove_index": 12, "joint_name": "j_middle1y", "scale": 0.35, "reverse": True, "bias": 0.0},  # 右手中指第一关节偏航角
+        "R8": {"glove_index": 8, "joint_name": "j_middle3", "scale": 45.0, "reverse": True, "bias": 0.0},  # 右手中指第三关节俯仰角
+        "R9": {"glove_index": 9, "joint_name": "j_middle2", "scale": 60.0, "reverse": True, "bias": 0.0},  # 右手中指第二关节俯仰角
+        "R10": {"glove_index": 10, "joint_name": "j_middle1x", "scale": 50.0, "reverse": True, "bias": 0.0},  # 右手中指第一关节俯仰角
+        "R11": {"glove_index": 11, "joint_name": "j_middle1y", "scale": 500.0, "reverse": True, "bias": 0.0},  # 右手中指第一关节偏航角
 
-        "R12": {"glove_index": 13, "joint_name": "j_ring3", "scale": 0.4363, "reverse": True, "bias": 0.0},  # 右手无名指第三关节俯仰角
-        "R13": {"glove_index": 14, "joint_name": "j_ring2", "scale": 0.4363, "reverse": True, "bias": 0.0},  # 右手无名指第二关节俯仰角
-        "R14": {"glove_index": 15, "joint_name": "j_ring1x", "scale": 0.2618, "reverse": True, "bias": 0.0},  # 右手无名指第一关节俯仰角
-        "R15": {"glove_index": 16, "joint_name": "j_ring1y", "scale": 0.3054, "reverse": True, "bias": 0.0},  # 右手无名指第一关节偏航角
+        "R12": {"glove_index": 12, "joint_name": "j_ring3", "scale": 45.0, "reverse": True, "bias": 0.0},  # 右手无名指第三关节俯仰角
+        "R13": {"glove_index": 13, "joint_name": "j_ring2", "scale": 60.0, "reverse": True, "bias": 0.0},  # 右手无名指第二关节俯仰角
+        "R14": {"glove_index": 14, "joint_name": "j_ring1x", "scale": 50.0, "reverse": True, "bias": 0.0},  # 右手无名指第一关节俯仰角
+        "R15": {"glove_index": 15, "joint_name": "j_ring1y", "scale": 45.0, "reverse": False, "bias": 0.0},  # 右手无名指第一关节偏航角
 
-        "R16": {"glove_index": 17, "joint_name": "j_pinky3", "scale": 0.4363, "reverse": True, "bias": 0.0},  # 右手小指第三关节俯仰角
-        "R17": {"glove_index": 18, "joint_name": "j_pinky2", "scale": 0.4363, "reverse": True, "bias": 0.0},  # 右手小指第二关节俯仰角
-        "R18": {"glove_index": 19, "joint_name": "j_pinky1x", "scale": 0.2618, "reverse": True, "bias": 0.0},  # 右手小指第一关节俯仰角
-        "R19": {"glove_index": 20, "joint_name": "j_pinky1y", "scale": 0.4363, "reverse": True, "bias": 0.0},  # 右手小指第一关节偏航角
+        "R16": {"glove_index": 16, "joint_name": "j_pinky3", "scale": 45.0, "reverse": True, "bias": 0.0},  # 右手小指第三关节俯仰角
+        "R17": {"glove_index": 17, "joint_name": "j_pinky2", "scale": 60.0, "reverse": True, "bias": 0.0},  # 右手小指第二关节俯仰角
+        "R18": {"glove_index": 18, "joint_name": "j_pinky1x", "scale": 50.0, "reverse": True, "bias": 0.0},  # 右手小指第一关节俯仰角
+        "R19": {"glove_index": 19, "joint_name": "j_pinky1y", "scale": 100.0, "reverse": False, "bias": 0.0},  # 右手小指第一关节偏航角
     }
 
 

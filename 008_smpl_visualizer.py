@@ -100,7 +100,7 @@ def main(model_path: Path) -> None:
     x = 0.0
     while True:
         # Do nothing if no change.
-        time.sleep(0.02)
+        # time.sleep(0.02)
         if not gui_elements.changed:
             continue
 
