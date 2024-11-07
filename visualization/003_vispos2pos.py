@@ -13,7 +13,10 @@ import argparse
 
 import viser 
 import sys
-sys.path.append('3rdparty\differentiable_robot_hand')
+sys.path.append('../3rdparty/differentiable_robot_hand')
+import sys
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(ROOT_DIR)
 from config.config import *
 from config.leaphand_config import Leaphand_Config
 from config.shadowhand_config import Shadowhand_Config
@@ -24,7 +27,7 @@ from diff_robot_hand.hand_model import *
 
 from diff_robot_hand.neural.colnet import LinkPosToLinkColSiren
 from scripts.pos2pos.mlp import FingerMLP
-from utils.utils import *
+from utils import *
 from diff_robot_hand import POS2POS_TRANSLATER_DIR
 import glob
 
@@ -69,7 +72,7 @@ if __name__ == "__main__":
     
     parser = argparse.ArgumentParser(description='选择生成关节值的方法。')
     parser.add_argument('--hand', type=str, choices=['leaphand', 'shadowhand','allegrohand'], default='leaphand', help='选择 hand')
-    parser.add_argument('--epoch', type=int, required=True, help='Number of epochs to select uniformly if --id is set to "all"')
+    parser.add_argument('--epoch', type=int, default=200, help='Number of epochs to select uniformly if --id is set to "all"')
     
     args = parser.parse_args()
 
