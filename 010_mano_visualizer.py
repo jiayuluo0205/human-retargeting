@@ -18,6 +18,7 @@ import tyro
 import viser
 import viser.transforms as tf
 import zmq
+from scipy.spatial.transform import Rotation as R
 
 import socket
 import time
@@ -116,7 +117,9 @@ def main(model_path: Path) -> None:
         wireframe=gui_elements.gui_wireframe.value,
         color=gui_elements.gui_rgb.value,
     )
-    x = 0.0
+    
+    print('Connection from', client_address)
+    
     while True:
         # Do nothing if no change.
         # time.sleep(0.02)
@@ -126,12 +129,17 @@ def main(model_path: Path) -> None:
         gui_elements.changed = False
 
         # ljy
-        socket.send(b"request")
-        Euler_Joint_combo = socket.recv()
-        Euler_Joint_combo = np.frombuffer(Euler_Joint_combo, dtype=np.float64).reshape((24, 3))
-        print(Euler_Joint_combo)
-        for idx, Euler_Joint_i in enumerate(Euler_Joint_combo):
-            gui_elements.gui_joints[idx].value = tuple(Euler_Joint_i)
+        data = ""
+        data = connection.recv(65536)
+        if data:
+            # 解码并打印收到的数据
+            data_str = data.decode('utf-8')
+            quat_joint_combo = np.array([float(num) for num in data_str.replace(",", " ").split()])
+            quat_joint_combo = quat_joint_combo.reshape(-1, 4)
+        
+        for idx, quat_joint_i in enumerate(quat_joint_combo):
+            rotvec_joint_i = R.from_quat(quat_joint_i).as_rotvec()
+            gui_elements.gui_joints[idx].value = tuple(rotvec_joint_i)
         # ljy
         # If anything has changed, re-compute SMPL outputs.
         smpl_outputs = model.get_outputs(

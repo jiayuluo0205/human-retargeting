@@ -23,10 +23,12 @@ try:
     # 持续接收数据
     while True:
         data = ""
-        data = connection.recv(65536)
+        data = connection.recv(6553600)
         if data:
             # 解码并打印收到的数据
             print(f"Received: {data.decode('utf-8')}")
+            data = data.decode('utf-8')
+            print(type(data))
             time.sleep(0.1)
 
 finally:
