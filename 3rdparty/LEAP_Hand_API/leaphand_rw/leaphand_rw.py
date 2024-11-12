@@ -99,16 +99,17 @@ def min_jerk_interpolator_with_alpha(waypt_joint_values_np, planner_timestep, cm
 ########################################################
 class LeapNode:
     def __init__(self,
-                # kP=1000,
-                # kD=1500,
-                # curr_lim=200,
-                kP=1000,
-                kD=100,
+                kP=600,
+                kI = 0,
+                kD = 200,
                 curr_lim=150,
+                # kP=1000,
+                # kD=100,
+                # curr_lim=150,
                 cmd_timestep=1.0/50.0,
                 torque_enable = True):
         self.kP = kP
-        self.kI = 0
+        self.kI = kI
         self.kD = kD
         self.curr_lim = curr_lim
         self.cmd_timestep = cmd_timestep
@@ -144,18 +145,18 @@ class LeapNode:
         self.motors = motors = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
         
         try:
-            self.dxl_client = DynamixelClient(motors, '/dev/ttyUSB0', 3000000)
+            self.dxl_client = DynamixelClient(motors, '/dev/ttyUSB0', 4000000)
             self.dxl_client.connect()
         except Exception:
             try:
-                self.dxl_client = DynamixelClient(motors, '/dev/ttyUSB1', 3000000)
+                self.dxl_client = DynamixelClient(motors, '/dev/ttyUSB1', 4000000)
                 self.dxl_client.connect()
             except Exception:
                 try:
-                    self.dxl_client = DynamixelClient(motors, '/dev/ttyUSB2', 3000000)
+                    self.dxl_client = DynamixelClient(motors, '/dev/ttyUSB2', 4000000)
                     self.dxl_client.connect()
                 except Exception:
-                    self.dxl_client = DynamixelClient(motors, '/dev/ttyUSB3', 3000000)
+                    self.dxl_client = DynamixelClient(motors, '/dev/ttyUSB3', 4000000)
                     self.dxl_client.connect()
                 
         
