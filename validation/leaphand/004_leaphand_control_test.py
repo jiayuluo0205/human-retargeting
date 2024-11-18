@@ -22,22 +22,24 @@ def count_break_down_motor(leaphand: LeapNode):
 if __name__ == "__main__":
     
     leaphand = LeapNode()
-    end_joint_positions = leaphand.open_pos
     # test result: if achieve_time is too small (for now, smaller than 5), 
     # the speed is too fast, and the hand will crash.
     # recommend to set achieve_time to 10.
-    achieve_time = 5
-    open_pos = np.array([3.4131072, 3.1017091, 1.1013982, 1.4327381, 3.4437869, 6.2555737,
-                           2.7074761, 2.9345052, 3.267379, 0.00920388, 2.6890683, 1.2317866,
-                           4.4424086, 6.1988163, 3.2366996, 3.0894372])
+    # achieve_time = 5
+    # open_pos = np.array([3.2934568, 3.2888548, 2.808719, 3.34868, 3.110913, 3.2919228, 2.888486,
+    #              3.2474372, 2.9789908, 3.282719, 3.126253, 2.876214, 3.4146411, 4.735399,
+    #              2.6185052, 3.5557675])
+    time.sleep(4)
+    open_pos = np.array([3.14159] * 16)
     leaphand.set_leap(open_pos)
+    # leaphand.set_allegro(np.zeros(16))
     # leaphand.go_to_a_pos_with_curr_limit(end_joint_positions, achieve_time)
     time.sleep(4)
     # leaphand.go_to_a_pos_during(end_joint_positions, achieve_time)
     # Close tight
-    close_pos = np.array([3.2075539, 4.1172047, 3.4545248, 2.3393207, 2.8301945, 7.751205,
-                             4.9455543, 3.3762918, 3.0495539, 1.6045439, 4.724661, 2.0325246,
-                             4.3273597, 5.916564, 5.016117, 4.9194765])
+    close_pos = np.array([3.1293209, 4.471554, 3.4790685, 3.8748355, 3.1308548, 4.9210105, 3.2167578,
+                 3.591049, 3.0955732, 5.1342335, 3.3931656, 3.0633597, 5.0851464, 4.3365636,
+                 2.3592625, 3.7398453])
     
     # leaphand.go_to_a_pos_with_curr_limit(close_pos, achieve_time)
     leaphand.set_leap(close_pos)

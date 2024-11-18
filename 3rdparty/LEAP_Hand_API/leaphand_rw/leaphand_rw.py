@@ -102,7 +102,7 @@ class LeapNode:
                 kP=600,
                 kI = 0,
                 kD = 200,
-                curr_lim=150,
+                curr_lim=350,
                 # kP=1000,
                 # kD=100,
                 # curr_lim=150,
@@ -115,31 +115,6 @@ class LeapNode:
         self.cmd_timestep = cmd_timestep
         self.pos_lim = 0.1
         self.torque_enable = torque_enable
-        # right hand
-        # self.open_pos = np.array([1.57079633, 3.14159265, 3.14159265, 3.14159265, 
-        #                           1.57079633, 3.14159265, 3.14159265, 3.14159265, 
-        #                           1.57079633, 3.14159265, 1.57079633, 3.14159265, 
-        #                           3.14159265, 3.14159265, 3.14159265, 3.14159265])
-        self.open_pos = np.array([1.57079633, 3.14159265, 3.14159265, 3.14159265, 
-                                  1.57079633, 3.14159265, 3.14159265, 3.14159265, 
-                                  0.0, 3.14159265, 1.57079633, 3.14159265, 
-                                  3.14159265, 3.14159265, 3.14159265, 3.14159265])
-        
-        # reset the thumb pose
-        self.open_pos = np.array(
-                                [1.6827769, 2.888486, 3.04035, 3.044952, 
-                                1.6843109, 2.8209906, 3.0510879, 2.9759228,
-                                0.10584468, 2.9145634, 1.4971652, 3.2520392,
-                                4.6418257, 3.103243, 3.268913, 2.7841752]
-                            )
-        
-        # # left hand
-        # self.open_pos = np.array(
-        #     [3.1646023, 1.6367575, 3.0618258, 3.0740974,
-        #     3.181476, 1.6352235, 3.0863693, 3.044952,
-        #     3.1308548, 1.6060779, 3.0940392, 3.04802,
-        #     6.2785835, 4.735399, 3.2581751, 3.0081363]
-        # )
         
         # You can put the correct port here or have the node auto-search for a hand at the first 3 ports.
         self.motors = motors = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
@@ -166,10 +141,12 @@ class LeapNode:
         self.dxl_client.sync_write(motors, np.ones(len(motors))*5, 11, 1)
         self.dxl_client.set_torque_enabled(motors, self.torque_enable)
         self.dxl_client.sync_write(motors, np.ones(len(motors)) * self.kP, 84, 2) # Pgain stiffness     
-        self.dxl_client.sync_write([3, 7, 14], np.ones(3) * (self.kP * 0.75), 84, 2) # Pgain stiffness for side to side should be a bit less
+        # self.dxl_client.sync_write([3, 7, 14], np.ones(3) * (self.kP * 0.75), 84, 2) # Pgain stiffness for side to side should be a bit less
+        self.dxl_client.sync_write([0,4,8], np.ones(3) * (self.kP * 0.75), 84, 2) # Pgain stiffness for side to side should be a bit less
         self.dxl_client.sync_write(motors, np.ones(len(motors)) * self.kI, 82, 2) # Igain
         self.dxl_client.sync_write(motors, np.ones(len(motors)) * self.kD, 80, 2) # Dgain damping
-        self.dxl_client.sync_write([3, 7, 14], np.ones(3) * (self.kD * 0.75), 80, 2) # Dgain damping for side to side should be a bit less
+        # self.dxl_client.sync_write([3, 7, 14], np.ones(3) * (self.kD * 0.75), 80, 2) # Dgain damping for side to side should be a bit less
+        self.dxl_client.sync_write([0,4,8], np.ones(3) * (self.kD * 0.75), 80, 2) # Dgain damping for side to side should be a bit less
         #Max at current (in unit 1ma) so don't overheat and grip too hard #500 normal or #350 for lite
         self.dxl_client.sync_write(motors, np.ones(len(motors)) * self.curr_lim, 102, 2)
         self.dxl_client.write_desired_pos(self.motors, self.curr_pos)
