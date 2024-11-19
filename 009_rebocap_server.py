@@ -296,7 +296,7 @@ def main():
     sv = viser.ViserServer(port=8085)
     
     '''008_smpl_visualizer.py'''
-    model_path = Path("D:\Projects\human-retargeting\smplh\male\model.npz")
+    model_path = Path("D:\Projects\human-retargeting/assets\Model\smplh\male\model.npz")
     server = viser.ViserServer()
     server.scene.set_up_direction("+y")
     server.gui.configure_theme(control_layout="collapsible")
@@ -322,7 +322,7 @@ def main():
     while True:
         global X_WorldLink20
 
-        message_recv = socket.recv()
+        # message_recv = socket.recv()
         tran, pose24, static_index, tp = sdk.get_last_msg()
 
         # X_WorldLink9, X_WorldLink16, X_WorldLink17, X_WorldLink18, X_WorldLink19, X_WorldLink20, X_WorldLink21, X_WorldLink22, X_WorldLink23 = get_link(pose24)
@@ -369,7 +369,7 @@ def main():
         X_WorldLink22and23 = np.stack([X_WorldLink22, X_WorldLink23], axis=0)
         message_send = X_WorldLink22and23.tobytes()
         '''
-        socket.send(message_send)
+        # socket.send(message_send)
 
 if __name__ == "__main__":
     main()
