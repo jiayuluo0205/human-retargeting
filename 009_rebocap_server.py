@@ -258,7 +258,6 @@ def main():
         # socket.send(X_RecocapLink20.tobytes())
         pass
 
-
     # 异常断开，这里处理重连或报错
     def exception_close_callback(self: rebocap_ws_sdk.RebocapWsSdk):
         print("exception_close_callback")

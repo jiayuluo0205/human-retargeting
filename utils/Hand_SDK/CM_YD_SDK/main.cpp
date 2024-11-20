@@ -135,7 +135,7 @@ double roll, pitch, yaw;
 
 int flag = 0;
 SOCKET clientSocket = INVALID_SOCKET;
-
+int count_flag = 0;
 void OnNewGloveData(GloveSDK* glovePtr)
 {	
 	if (flag == 0) {
@@ -157,16 +157,26 @@ void OnNewGloveData(GloveSDK* glovePtr)
 		connect(clientSocket, (sockaddr*)&serverAddress, sizeof(serverAddress));
 		flag = 1;
 	}
-	float quaternionData[15][4];
+	float quaternionData[30][4];
     // 遍历每个关节的数据并发送
-    for (int joint = 0; joint < 15; ++joint)
-    {
-        // 获取每个关节的四元数数据
-        auto& quaternion = glovePtr->GloveData[0].HandData_L.JointDatas[joint];
+	for (int joint = 0; joint < 15; ++joint)
+	{
+		// 获取每个关节的四元数数据
+		auto& quaternion = glovePtr->GloveData[0].HandData_L.JointDatas[joint];
 		quaternionData[joint][0] = quaternion[0];
 		quaternionData[joint][1] = quaternion[1];
 		quaternionData[joint][2] = quaternion[2];
 		quaternionData[joint][3] = quaternion[3];
+	}
+	for (int joint = 0; joint < 15; ++joint)
+	{
+		// 获取每个关节的四元数数据
+		auto& quaternion = glovePtr->GloveData[0].HandData_R.JointDatas[joint];
+		quaternionData[joint+15][0] = quaternion[0];
+		quaternionData[joint+15][1] = quaternion[1];
+		quaternionData[joint+15][2] = quaternion[2];
+		quaternionData[joint+15][3] = quaternion[3];
+	}
         // 根据 joint 的值决定关节的名称
         /*std::string jointName;
         switch (joint) {
@@ -187,22 +197,24 @@ void OnNewGloveData(GloveSDK* glovePtr)
         case 14: jointName = "LeftThumbDistal"; break;
         }*/
 
-        // 拼接四元数数据成字符串
-        std::ostringstream dataStream;
-		for (int i = 0; i < 15; ++i) {
-			for (int j = 0; j < 4; ++j) {
-				dataStream << quaternionData[i][j];
-				dataStream << ",";
-			}
+    // 拼接四元数数据成字符串
+    std::ostringstream dataStream;
+	for (int i = 0; i < 30; ++i) {
+		for (int j = 0; j < 4; ++j) {
+			dataStream << quaternionData[i][j];
+			dataStream << ",";
 		}
-        //dataStream << jointName << ": [" << quaternion[0] << ", " << quaternion[1] << ", " << quaternion[2] << ", " << quaternion[3] << "]";
-        std::string data = dataStream.str();
+	}
+    //dataStream << jointName << ": [" << quaternion[0] << ", " << quaternion[1] << ", " << quaternion[2] << ", " << quaternion[3] << "]";
+    std::string data = dataStream.str();
 
-        // 打印要发送的数据
-		//if (flag == 1) { std::cout << "Data to send: " << data << std::endl; flag = 2; }
+    // 打印要发送的数据
+	//if (flag == 1) { std::cout << "Data to send: " << data << std::endl; flag = 2; }
+	//if (count_flag < 100) {
 		std::cout << "Data to send: " << data << std::endl;
 		send(clientSocket, data.c_str(), data.size(), 0);
-    }
+		count_flag++;
+	//}
 }
 
 
