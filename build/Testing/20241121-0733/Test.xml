@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Site BuildName="(empty)"
-	BuildStamp="20241120-0744-Experimental"
+	BuildStamp="20241121-0733-Experimental"
 	Name="boris-PC"
 	Generator="ctest-3.16.3"
 	CompilerName="/usr/bin/g++"
@@ -21,14 +21,14 @@
 	TotalVirtualMemory="9765"
 	TotalPhysicalMemory="64150"
 	LogicalProcessorsPerPhysical="2"
-	ProcessorClockFrequency="1300"
+	ProcessorClockFrequency="3200"
 	>
 	<Testing>
-		<StartDateTime>Nov 20 15:46 CST</StartDateTime>
-		<StartTestTime>1732088803</StartTestTime>
+		<StartDateTime>Nov 21 15:33 CST</StartDateTime>
+		<StartTestTime>1732174387</StartTestTime>
 		<TestList/>
-		<EndDateTime>Nov 20 15:46 CST</EndDateTime>
-		<EndTestTime>1732088803</EndTestTime>
+		<EndDateTime>Nov 21 15:33 CST</EndDateTime>
+		<EndTestTime>1732174387</EndTestTime>
 		<ElapsedMinutes>0</ElapsedMinutes>
 	</Testing>
 </Site>
