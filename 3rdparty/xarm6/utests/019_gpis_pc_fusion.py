@@ -6,7 +6,7 @@ from scipy.spatial.transform import Rotation as R
 import open3d as o3d
 
 from xarm6_interface import SAM_TYPE, SAM_PATH
-from xarm6_interface.utils.sam_prompt_drawer import SAMPromptDrawer
+from xarm6_interface.utils.sam_prompt_drawer_old import SAMPromptDrawer
 from xarm6_interface.utils.gpis import gpis_fit
 import cv2
 import numpy as np

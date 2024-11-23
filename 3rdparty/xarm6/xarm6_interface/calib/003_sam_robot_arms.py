@@ -2,14 +2,15 @@ import cv2
 import numpy as np
 from pathlib import Path
 from xarm6_interface import SAM_TYPE, SAM_PATH
-from xarm6_interface.utils.sam_prompt_drawer import SAMPromptDrawer
+from xarm6_interface.utils.sam_prompt_drawer_old import SAMPromptDrawer
 
 import os
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
 
 if __name__ == "__main__":
-    exp_name = "1025_excalib_capture00"
-    save_data_rel_dir_path = (Path(os.path.join(ROOT_DIR, "third_party/xarm6/data/camera/mounted_white")) / exp_name).resolve()
+    serial_number="241122074374"
+    exp_name = "1113_excalib_capture02"
+    save_data_rel_dir_path = (Path(os.path.join(ROOT_DIR, f"3rdparty/xarm6/data/camera/{serial_number}")) / exp_name).resolve()
     sample_id_paths = list(save_data_rel_dir_path.glob("*"))
     sample_id_paths = sorted(sample_id_paths)
     sample_id_paths = [p for p in sample_id_paths if p.is_dir()]
