@@ -251,7 +251,7 @@ def main():
 
     # 姿态数据回调
     def pose_msg_callback(self: rebocap_ws_sdk.RebocapWsSdk, tran: list, pose24: list, static_index: int, ts: float):
-        print(f'X_RecocapLink20: \n{X_RecocapLink20}\n')
+        # print(f'X_RecocapLink20: \n{X_RecocapLink20}\n')
         print_debug_msg(self, tran, pose24, static_index, ts)
         # message = socket.recv()
         # 将 X_RecocapLink20 通过 zmq 发送
