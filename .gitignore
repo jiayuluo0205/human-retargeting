@@ -6,3 +6,4 @@
 /utils/Hand_SDK_Unicast/.vs
 /utils/Hand_SDK/.vs
 /utils/CM_YD_SDK_Lib_2022/.vs
+*.pem
