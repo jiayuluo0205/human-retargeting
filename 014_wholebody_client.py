@@ -1,4 +1,5 @@
 '''running on Linux machine for visualization and control of robot'''
+# update 11.29
 import sys
 sys.path.append('utils')
 import rebocap_ws_sdk
