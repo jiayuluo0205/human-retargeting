@@ -1,0 +1,14 @@
+{
+  "name": "my-ar-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "dev": "http-server . -p 8081"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "http-server": "^14.0.0"
+  }
+}
