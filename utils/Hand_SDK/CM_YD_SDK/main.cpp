@@ -150,7 +150,7 @@ void OnNewGloveData(GloveSDK* glovePtr)
 		// 设置服务端地址信息
 		sockaddr_in serverAddress;
 		serverAddress.sin_family = AF_INET;
-		serverAddress.sin_port = htons(5555); // 服务端端口号
+		serverAddress.sin_port = htons(6666); // 服务端端口号 5555 / 6666
 		inet_pton(AF_INET, "127.0.0.1", &serverAddress.sin_addr); // 服务端 IP 地址
 
 		// 连接到服务端
