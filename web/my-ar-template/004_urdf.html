@@ -36,10 +36,12 @@
     // 使用URDF.js加载模型
     const loader = new URDFLoader();
     loader.load('file:///Users/boris/Documents/human-retargeting/web/my-ar-template/assets/xarm6/xarm6_wo_ee.urdf', (robot) => {
-        // 将加载的模型添加到场景中
+        console.log("URDF Model Loaded:", robot);
         scene.add(robot);
         animate();
-    });
+    }, undefined, (error) => {
+        alert("Error loading URDF:", error);
+    });    
 
     // 动画循环
     function animate() {
