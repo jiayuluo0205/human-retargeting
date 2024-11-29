@@ -51,8 +51,9 @@ def update_viser_current_arm(sv:viser.ViserServer, arm_pk, current_joint_values,
 if __name__ == '__main__':
 
     ''' params '''
-    exp_name = "1025_excalib_capture00"
-    camera_data_path = Path(os.path.join(ROOT_DIR, "third_party/xarm6/data/camera/mounted_white"))
+    serial_number="241122074374"
+    exp_name = "1113_excalib_capture02"
+    camera_data_path = Path(os.path.join(ROOT_DIR, f"3rdparty/xarm6/data/camera/{serial_number}"))
     save_data_rel_dir_path = (camera_data_path / exp_name).resolve()
     init_X_BaseCamera_path = (camera_data_path / "init_X_BaseCamera.npy").resolve() # init_X_BaseleftCamera.npy
     K_path = camera_data_path / "K.npy"
@@ -61,7 +62,7 @@ if __name__ == '__main__':
     # setup the real world xarm6
     xarm6_rw = XArm6RealWorld(ip=XARM6_IP)
     # setup camera 
-    camera = Realsense()
+    camera = Realsense(serial_number)
     K = np.load(K_path)
     camera.set_intrinsics(K[0, 0], K[1, 1], K[0, 2], K[1, 2])
     H, W = camera.h, camera.w

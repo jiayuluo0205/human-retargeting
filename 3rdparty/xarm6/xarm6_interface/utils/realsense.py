@@ -58,9 +58,10 @@ def get_profiles(verbose=False):
 
 
 class Realsense:
-    def __init__(self):
+    def __init__(self, serial_number="241122074374"): # '241122074374', '233622079809'
         self.pipeline = rs.pipeline()
         self.config = rs.config()
+        self.config.enable_device(serial_number)
         color_profiles, depth_profiles = get_profiles()
         w, h, fps, fmt = depth_profiles[1]
         self.config.enable_stream(rs.stream.depth, w, h, fmt, fps)

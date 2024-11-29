@@ -8,13 +8,8 @@ import subprocess
 import numpy as np
 from enum import Enum
 from xarm6_interface.utils.misc import to_array, findContours
-from segment_anything import sam_model_registry, SamPredictor
-# from sam2.build_sam import build_sam2_camera_predictor
-from PIL import Image
-from torchvision.transforms import transforms as T
-from xarm6_interface import GROUNDING_DINO_CONFIG, GROUNDING_DINO_CHECKPOINT, BOX_THRESHOLD, TEXT_THRESHOLD
-# from groundingdino.util.inference import load_model, load_image, predict
-from torchvision.ops import box_convert
+# from segment_anything import sam_model_registry, SamPredictor
+from sam2.build_sam import build_sam2_camera_predictor
 
 
 class DrawingMode(Enum):
@@ -57,37 +52,6 @@ def vis_mask(img,
                              cv2.LINE_AA)
     return img.astype(np.uint8)
 
-
-def grounding_dino_get_bbox(rgb_np, text):
-    
-    grounding_model = load_model(
-        model_config_path=GROUNDING_DINO_CONFIG, 
-        model_checkpoint_path=GROUNDING_DINO_CHECKPOINT,
-    )
-    
-    transform = T.Compose(
-        [
-            T.Resize([800], max_size=1333),
-            T.ToTensor(),
-            T.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
-        ]
-    )
-    rgb_image = Image.fromarray(rgb_np)
-    
-    image = transform(rgb_image)
-    boxes, confidences, labels = predict(
-        model=grounding_model,
-        image=image,
-        caption=text,
-        box_threshold=BOX_THRESHOLD,
-        text_threshold=TEXT_THRESHOLD,
-    )
-    # process the box prompt for SAM 2
-    h, w, _ = rgb_np.shape
-    boxes = boxes * torch.Tensor([w, h, w, h])
-    input_boxes = box_convert(boxes=boxes, in_fmt="cxcywh", out_fmt="xyxy").numpy()
-
-    return input_boxes
 
 class SAMPromptDrawer(object):
     def __init__(self, window_name="Prompt Drawer", screen_scale=1.0, sam_checkpoint="",
@@ -289,8 +253,8 @@ class SAM2PromptDrawer(object):
         # sam2_checkpoint = f"{sam2_root_dir}/checkpoints/sam2_hiera_small.pt"
         # model_cfg = "sam2/sam2_hiera_s.yaml"
 
-        sam2_checkpoint = f"{sam2_root_dir}/checkpoints/sam2.1_hiera_small.pt"
-        model_cfg = "sam2/sam2_hiera_s.yaml"
+        sam2_checkpoint = f"{sam2_root_dir}/checkpoints/sam2_hiera_small.pt"
+        model_cfg = "sam2_hiera_s.yaml"
 
         self.predictor = build_sam2_camera_predictor(model_cfg, sam2_checkpoint)
         # self.predictor = build_sam2_camera_predictor(ckpt_path=sam2_checkpoint)
@@ -370,6 +334,7 @@ class SAM2PromptDrawer(object):
             # Iterate through all boxes and calculate masks
             for i in range(len(self.boxes)):
                 box = self.boxes[i]
+                box = box.reshape(2, 2)
                 box_label = self.box_labels[i]
 
                 if np.all(box == 0):
@@ -378,14 +343,16 @@ class SAM2PromptDrawer(object):
                     box = box / self.ratio
 
                 # Generate masks for each box
-                masks, scores, logits = self.predictor.predict(
-                    point_coords=input_point,
-                    point_labels=input_label,
-                    box=box,
-                    multimask_output=True,
+                _, out_obj_ids, out_mask_logits = self.predictor.add_new_prompt(
+                    frame_idx=0,
+                    # point_coords=input_point,
+                    obj_id=input_label,
+                    bbox=box,
+                    # multimask_output=True,
                 )
-                maxidx = np.argmax(scores)
-                mask = masks[maxidx]
+
+                mask = (out_mask_logits[0] > 0.0).cpu().numpy()[0]
+                
 
                 # Combine masks logically based on the labels
                 if final_mask is None:
@@ -404,8 +371,7 @@ class SAM2PromptDrawer(object):
 
     def run(self, rgb):
         self.rgb = rgb
-        # self.predictor.set_image(rgb)
-        self.predictor.load_first_frame(frame)
+        self.predictor.load_first_frame(rgb)
         image_to_show = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
         image_h, image_w = image_to_show.shape[:2]
 
@@ -465,12 +431,16 @@ class SAM2PromptDrawer(object):
                     self.detect()
         cv2.destroyWindow(self.window_name)
         return self.mask
-
+    
     def track(self, rgb):
         self.rgb = rgb
-        _, self.mask = self.predictor.track(self.rgb)
+        out_obj_ids, out_mask_logits = self.predictor.track(self.rgb)
+        self.mask = (out_mask_logits[0] > 0.0).cpu().numpy()[0]
+        # print(self.mask.shape)
+        # exit()
+        # _, self.mask = self.predictor.track(self.rgb)
         return self.mask
-        
+
     def close(self):
         del self.predictor
         torch.cuda.empty_cache()

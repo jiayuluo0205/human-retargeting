@@ -12,7 +12,7 @@ from hydra.utils import instantiate
 from torchvision.ops import box_convert
 from sam2.build_sam import _load_checkpoint
 import groundingdino.datasets.transforms as T
-from xarm6_interface.utils.sam_prompt_drawer import DrawingMode, vis_mask
+from xarm6_interface.utils.sam_prompt_drawer_old import DrawingMode, vis_mask
 from sam2.modeling.sam2_base import NO_OBJ_SCORE, SAM2Base
 from groundingdino.util.inference import load_model, load_image, predict
 from sam2.utils.misc import concat_points, fill_holes_in_mask_scores, load_video_frames

@@ -4,7 +4,7 @@ from glob import glob
 import matplotlib.pyplot as plt
 from loguru import logger as lgr
 from scipy.spatial.transform import Rotation as R
-from xarm6_interface.utils.sam_prompt_drawer import SAMPromptDrawer
+from xarm6_interface.utils.sam_prompt_drawer_old import SAMPromptDrawer
 from xarm6_interface import SAM_TYPE, SAM_PATH
 from pathlib import Path
 
