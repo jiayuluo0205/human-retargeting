@@ -277,11 +277,6 @@ def main():
         print("exception_close_callback")
 
     # server initialize
-    # to linux
-    context = zmq.Context()
-    # talk to client linux machine
-    socket_zmq = context.socket(zmq.REP)
-    socket_zmq.bind("tcp://*:5555")
 
     # mano
     # 创建 TCP/IP 套接字
@@ -296,6 +291,12 @@ def main():
     # 接受连接
     connection, client_address = sock.accept()
     print('Connection from', client_address)
+
+    # to linux
+    context = zmq.Context()
+    # talk to client linux machine
+    socket_zmq = context.socket(zmq.REP)
+    socket_zmq.bind("tcp://*:5555")
 
     # rebocap initialize
     # 初始化sdk  这里可以选择控件坐标系， 控件坐标系目前已经测试过的有： 1. UE  2. Unity  3. Blender
@@ -350,16 +351,18 @@ def main():
         data_float = [to_valid_float(x) for x in data_list]
         # print(len(data_float))
         if len(data_float) != 120:
+            socket_zmq.send(b"Fail")
             continue
         data_array = np.array(data_float).reshape(-1, 4)
-        # print(data_array.shape)
-        print(f"Received: \n data array:{data_array} \n data string: {data_str}")
+        # print(data_array.shape) # 30*4
+        # print(f"Received: \n data array:{data_array} \n data string: {data_str}")
 
         Rotvec_mano_combo = compute_mano_angles(data_array)
 
         Rotvec_combo = Rotvec_Joint_combo + Rotvec_mano_combo
         Rotvec_combo = np.stack(Rotvec_combo, axis=0) # 54*3
-        Rotvec_combo = Rotvec_combo.reshape((162,))
+        Rotvec_combo = Rotvec_combo.reshape(-1)
+        # print(Rotvec_combo.shape) # 162
 
         message_combo = np.concatenate([X_combo, Rotvec_combo])
         print(message_combo.shape) # 32 + 162 = 194
@@ -367,6 +370,8 @@ def main():
         # Rotvec_mano_combo = np.stack(Rotvec_mano_combo, axis=0)
 
         message_send = message_combo.astype(np.float64).tobytes()
+        # message_send = X_combo.astype(np.float64).tobytes()
+
         socket_zmq.send(message_send)
 
 
