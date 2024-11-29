@@ -79,7 +79,7 @@ def main(model_path: Path) -> None:
     # ljy
     context = zmq.Context()
     socket = context.socket(zmq.REQ)
-    socket.connect("tcp://172.25.108.174:5555")
+    socket.connect("tcp://172.25.97.8:5555")
     
     # Main loop. We'll read pose/shape from the GUI elements, compute the mesh,
     # and then send the updated mesh in a loop.
@@ -137,7 +137,6 @@ def main(model_path: Path) -> None:
 @dataclass
 class GuiElements:
     """Structure containing handles for reading from GUI elements."""
-
     gui_rgb: viser.GuiInputHandle[tuple[int, int, int]]
     gui_wireframe: viser.GuiInputHandle[bool]
     gui_betas: list[viser.GuiInputHandle[float]]
