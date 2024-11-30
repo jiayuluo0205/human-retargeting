@@ -4,7 +4,7 @@ import numpy as np
 from human_body_prior.tools.omni_tools import copy2cpu as c2c
 from os import path as osp
 
-support_dir = '/home/shaol/gjx/human-retargeting/3rdparty/wholebody/amass/support_data'
+support_dir = '3rdparty/wholebody/amass/support_data'
 
 # Choose the device to run the body model on.
 comp_device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -21,8 +21,8 @@ subject_gender = bdata['gender']
 
 from human_body_prior.body_model.body_model import BodyModel
 
-bm_fname = '/home/shaol/gjx/human-retargeting/3rdparty/wholebody/amass/support_data/body_models/smplh/female/model.npz'
-dmpl_fname = '/home/shaol/gjx/human-retargeting/3rdparty/wholebody/amass/support_data/body_models/dmpls/female/model.npz'
+bm_fname = '3rdparty/wholebody/amass/support_data/body_models/smplh/female/model.npz'
+dmpl_fname = '3rdparty/wholebody/amass/support_data/body_models/dmpls/female/model.npz'
 
 num_betas = 16 # number of body parameters
 num_dmpls = 8 # number of DMPL parameters

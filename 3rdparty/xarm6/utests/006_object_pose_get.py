@@ -14,9 +14,9 @@ def rvec_to_rmatrix(rvec):
     
     return rotation_matrix
 if __name__ == "__main__":
-    K_path = '/home/aris/projects/xarm6/xarm6_interface/calib/K.npy'
-    d_path = '/home/aris/projects/xarm6/xarm6_interface/calib/d.npy'
-    save_dir = '/home/aris/projects/xarm6/xarm6_interface/utils/box_data'
+    K_path = 'xarm6_interface/calib/K.npy'
+    d_path = 'xarm6_interface/calib/d.npy'
+    save_dir = 'xarm6_interface/utils/box_data'
 
     # Chessboard configuration
     aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_250)
