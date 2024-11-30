@@ -14,7 +14,8 @@ I recommend you only query when necessary and below 90 samples a second.  Each o
 #http://wiki.wonikrobotics.com/AllegroHandWiki/index.php/Joint_Zeros_and_Directions_Setup_Guide I belive the black and white figure (not blue motors) is the zero position, and the + is the correct way around.  LEAP Hand in my videos start at zero position and that looks like that figure.
 
 #LEAP hand conventions:
-#180 is flat out for the index, middle, ring, fingers, and positive is closing more and more.
+#180 is flat out for the index, middle, ring, finger MCPs.
+#Applying a positive angle closes the other joints more and more.
 
 """
 ########################################################
@@ -25,7 +26,11 @@ class LeapNode:
         self.kP = 600
         self.kI = 0
         self.kD = 200
-        self.curr_lim = 350
+<<<<<<< Updated upstream:leaphand_rw/main.py
+        self.curr_lim = 500
+=======
+        self.curr_lim = 207
+>>>>>>> Stashed changes:python/main.py
         self.prev_pos = self.pos = self.curr_pos = lhu.allegro_to_LEAPhand(np.zeros(16))
            
         # You can put the correct port here or have the node auto-search for a hand at the first 3 ports.
@@ -40,7 +45,11 @@ class LeapNode:
                 self.dxl_client = DynamixelClient(motors, '/dev/ttyUSB1', 3000000)
                 self.dxl_client.connect()
             except Exception:
+<<<<<<< Updated upstream:leaphand_rw/main.py
                 self.dxl_client = DynamixelClient(motors, '/dev/ttyUSB2', 3000000)
+=======
+                self.dxl_client = DynamixelClient(motors, 'COM13', 3000000)
+>>>>>>> Stashed changes:python/main.py
                 self.dxl_client.connect()
         #Enables position-current control mode and the default parameters, it commands a position and then caps the current so the motors don't overload
         self.dxl_client.sync_write(motors, np.ones(len(motors))*5, 11, 1)
@@ -52,7 +61,7 @@ class LeapNode:
         self.dxl_client.sync_write([0,4,8], np.ones(3) * (self.kD * 0.75), 80, 2) # Dgain damping for side to side should be a bit less
         #Max at current (in unit 1ma) so don't overheat and grip too hard #500 normal or #350 for lite
         self.dxl_client.sync_write(motors, np.ones(len(motors)) * self.curr_lim, 102, 2)
-        self.dxl_client.write_desired_pos(self.motors, self.curr_pos)
+        # self.dxl_client.write_desired_pos(self.motors, self.curr_pos)
 
     #Receive LEAP pose and directly control the robot
     def set_leap(self, pose):
@@ -80,14 +89,38 @@ class LeapNode:
     #read current
     def read_cur(self):
         return self.dxl_client.read_cur()
+    
+# [3.3348742 1.5769322 3.026544  3.1001751 3.18301   1.6413594 3.0004663
+#  3.107845  3.1553984 1.673573  3.0020003 3.0127382 6.1067777 4.6172824
+#  2.948311  3.1339228]
+
+# [3.581845  3.0112042 4.293612  4.230719  3.275049  3.028078  4.549787
+#  3.7735927 3.2060199 3.2995927 4.463884  3.201418  6.077632  4.244525
+#  4.729263  4.5191073]
+
+
 #init the node
 def main(**kwargs):
     leap_hand = LeapNode()
+
+
+    array1 = np.array([3.3348742, 1.5769322, 3.026544, 3.1001751, 3.18301, 1.6413594, 3.0004663,
+                    3.107845, 3.1553984, 1.673573, 3.0020003, 3.0127382, 6.1067777, 4.6172824,
+                    2.948311, 3.1339228])
+
+    array2 = np.array([3.581845, 3.0112042, 4.293612, 4.230719, 3.275049, 3.028078, 4.549787,
+                    3.7735927, 3.2060199, 3.2995927, 4.463884, 3.201418, 6.077632, 4.244525,
+                    4.729263, 4.5191073])
+    
     while True:
         # leap_hand.set_allegro(np.zeros(16))
+<<<<<<< Updated upstream:leaphand_rw/main.py
         print("Position: " + str(leap_hand.read_pos()))
+=======
+        leap_hand.set_leap(array2)
+        # print(str(leap_hand.read_pos()))
+>>>>>>> Stashed changes:python/main.py
         time.sleep(0.03)
-
-
+    
 if __name__ == "__main__":
     main()

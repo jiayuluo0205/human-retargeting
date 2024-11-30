@@ -1,7 +1,7 @@
 ## Welcome to the LEAP Hand SDK
 - Please visit [our website](http://leaphand.com/) for more information about LEAP hand.
 #### Software Setup
-- Please see the [Python API](https://github.com/leap-hand/LEAP_Hand_API/tree/main/python), [ROS API](https://github.com/leap-hand/LEAP_Hand_API/tree/main/ros_module), [Useful Tools](https://github.com/leap-hand/LEAP_Hand_API/tree/main/useful_tools) folders for software specific details.
+- Please see the [Python API](https://github.com/leap-hand/LEAP_Hand_API/tree/main/python), [ROS API](https://github.com/leap-hand/LEAP_Hand_API/tree/main/ros_module), [ROS2 API](https://github.com/leap-hand/LEAP_Hand_API/tree/main/ros2_module), [Useful Tools](https://github.com/leap-hand/LEAP_Hand_API/tree/main/useful_tools) folders for software specific details.
 
 #### Hardware Setup
 - Connect 5v power to the hand (the dynamixels should light up during boot up.)
@@ -33,6 +33,7 @@
 #### Useful Tools:
 - MANO to LEAP joint angle mapping.
 - If you have useful tools you feel the community can benefit from, please make a pull request.
+- Please see the code from [Bimanual Dexterity for Complex Tasks](https://bidex-teleop.github.io/) to use Manus gloves with LEAP Hand.
 - I can also add tools to this upon request.  :)
 
 #### Support:

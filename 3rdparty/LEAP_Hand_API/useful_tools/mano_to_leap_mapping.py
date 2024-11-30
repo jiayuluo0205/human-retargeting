@@ -30,10 +30,10 @@ class ManoRetargeter:
             use_pca=False,
             side="right",
             center_idx=None,
-            mano_assets_root="/home/kshaw/manotorch/assets/mano",  #change this to your user
+            mano_assets_root="manotorch/assets/mano",  #change this to your user
             flat_hand_mean=False,
         )
-        self.axis_layer = AxisLayerFK(mano_assets_root="/home/kshaw/manotorch/assets/mano") #change this to your user         
+        self.axis_layer = AxisLayerFK(mano_assets_root="manotorch/assets/mano") #change this to your user         
     def mano_retarget(self, joint_pose, shape_params):
         mano_results: MANOOutput = self.mano_layer(joint_pose, shape_params)
         T_g_p = mano_results.transforms_abs  # (B, 16, 4, 4)
