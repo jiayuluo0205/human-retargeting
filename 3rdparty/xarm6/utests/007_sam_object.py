@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 if __name__ == "__main__":
-    save_dir = Path('/home/aris/projects/xarm6/xarm6_interface/utils/box_data')
+    save_dir = Path('xarm6_interface/utils/box_data')
     saved_images_paths = list(save_dir.glob('color_*.png'))
     prompt_drawer = SAMPromptDrawer(window_name="Prompt Drawer", screen_scale=2.0, sam_checkpoint=SAM_PATH, device="cuda", model_type=SAM_TYPE)
 

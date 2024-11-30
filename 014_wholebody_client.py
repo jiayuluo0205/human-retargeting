@@ -18,7 +18,7 @@ import zmq
 
 def main():
     '''smpl_visualizer.py'''
-    model_path = Path("/home/shaol/gjx/human-retargeting/assets/Model/smplh/male/model.npz")
+    model_path = Path("assets/Model/smplh/male/model.npz")
     server = viser.ViserServer(port=8880)
     server.scene.set_up_direction("+y")
     server.gui.configure_theme(control_layout="collapsible")

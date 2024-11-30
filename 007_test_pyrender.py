@@ -8,9 +8,9 @@ import torch
 
 comp_device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-bdata = np.load('/home/shaol/gjx/human-retargeting/3rdparty/wholebody/amass/support_data/github_data/dmpl_sample.npz')
-bm_fname = '/home/shaol/gjx/human-retargeting/3rdparty/wholebody/amass/support_data/body_models/smplh/female/model.npz'
-dmpl_fname = '/home/shaol/gjx/human-retargeting/3rdparty/wholebody/amass/support_data/body_models/dmpls/female/model.npz'
+bdata = np.load('3rdparty/wholebody/amass/support_data/github_data/dmpl_sample.npz')
+bm_fname = '3rdparty/wholebody/amass/support_data/body_models/smplh/female/model.npz'
+dmpl_fname = '3rdparty/wholebody/amass/support_data/body_models/dmpls/female/model.npz'
 
 num_betas=16
 num_dmpls=8

@@ -1191,7 +1191,7 @@ def grounding_dino_get_bbox(rgb_np, text):
                 
 if __name__ == "__main__":
     
-    cap = cv2.VideoCapture("/home/shaol/xzhixuan/Grounded-SAM-2/sav_dataset/example/sav_000001.mp4")
+    cap = cv2.VideoCapture("3rdparty/Grounded-SAM-2/sav_dataset/example/sav_000001.mp4")
     ret, frame = cap.read()
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     

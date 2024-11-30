@@ -58,8 +58,8 @@ if __name__ == '__main__':
     ''' the test '''
     # setup camera 
     camera = Realsense()
-    K_path = Path("/home/aris/projects/xarm6/xarm6_interface/calib/K_2.npy")
-    opt_X_BaseCamera_path = Path("/home/aris/projects/xarm6/xarm6_interface/calib/data/002_0909test2/optimized_X_BaseCamera.npy")
+    K_path = Path("xarm6_interface/calib/K_2.npy")
+    opt_X_BaseCamera_path = Path("xarm6_interface/calib/data/002_0909test2/optimized_X_BaseCamera.npy")
     K = np.load(K_path)
     opt_X_BaseCamera = np.load(opt_X_BaseCamera_path)
     camera.set_intrinsics(K[0, 0], K[1, 1], K[0, 2], K[1, 2])
