@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "http-server": "^14.0.0",
+    "three": "^0.171.0",
     "urdf-loader": "^0.12.3"
   }
 }
