@@ -14,3 +14,4 @@ smplx
 chumpy
 human_body_prior
 tables
+robotpy_apriltag
