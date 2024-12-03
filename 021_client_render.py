@@ -98,7 +98,7 @@ def main():
 
         detector = AprilTagDetector()
         detector.addFamily(fam="tag36h11")
-        estimator = AprilTagPoseEstimator(AprilTagPoseEstimator.Config(fx=fx, fy=fy, cx=cx, cy=cy, tagSize=0.17))
+        estimator = AprilTagPoseEstimator(AprilTagPoseEstimator.Config(fx=fx, fy=fy, cx=cx, cy=cy, tagSize=0.0635))
 
         # Create sliders in GUI that help us move the robot joints.
         with server.gui.add_folder("Joint position control"):
@@ -118,6 +118,7 @@ def main():
                 s.value = init_q
 
         while True:
+            flag_robot_lose = 0
             # Wait for a coherent pair of frames: depth and color
             frames = pipeline.wait_for_frames()
             color_frame = frames.get_color_frame()
@@ -126,48 +127,52 @@ def main():
             color_image = cv2.cvtColor(color_image, cv2.COLOR_BGR2RGB)
 
             tags = detector.detect(gray)
-            for tag in tags:
-                camera_tf3d = estimator.estimate(tag).inverse()
-                tag_tf3d = estimator.estimate(tag)
-                camera_wxyz = (
-                    camera_tf3d.rotation().getQuaternion().W(), 
-                    camera_tf3d.rotation().getQuaternion().X(), 
-                    camera_tf3d.rotation().getQuaternion().Y(), 
-                    camera_tf3d.rotation().getQuaternion().Z()
-                )
-                camera_position = (
-                    camera_tf3d.translation().X(),
-                    camera_tf3d.translation().Y(),
-                    camera_tf3d.translation().Z()
-                )
-                # print(camera_position)
-                server.scene.add_frame("/tag/camera", wxyz=camera_wxyz, position=camera_position)
+            if tags:
+                for tag in tags:
+                    camera_tf3d = estimator.estimate(tag).inverse()
+                    tag_tf3d = estimator.estimate(tag)
+                    camera_wxyz = (
+                        camera_tf3d.rotation().getQuaternion().W(), 
+                        camera_tf3d.rotation().getQuaternion().X(), 
+                        camera_tf3d.rotation().getQuaternion().Y(), 
+                        camera_tf3d.rotation().getQuaternion().Z()
+                    )
+                    camera_position = (
+                        camera_tf3d.translation().X(),
+                        camera_tf3d.translation().Y(),
+                        camera_tf3d.translation().Z()
+                    )
+                    # print(camera_position)
+                    server.scene.add_frame("/tag/camera", wxyz=camera_wxyz, position=camera_position)
 
-                
-                X_WorldTag = np.eye(4)
-                tag_xyzw = (tag_wxyz[1], tag_wxyz[2], tag_wxyz[3], tag_wxyz[0])
-                X_WorldTag[:3, :3] = R.from_quat(tag_xyzw).as_matrix()
-                
-                camera_xyzw = (camera_wxyz[1], camera_wxyz[2], camera_wxyz[3], camera_wxyz[0])
-                camera_rotmat = R.from_quat(camera_xyzw).as_matrix()
-                X_TagCamera = np.eye(4)
-                X_TagCamera[:3, :3] = camera_rotmat
-                X_TagCamera[:3, 3] = np.array(camera_position)
+                    
+                    X_WorldTag = np.eye(4)
+                    tag_xyzw = (tag_wxyz[1], tag_wxyz[2], tag_wxyz[3], tag_wxyz[0])
+                    X_WorldTag[:3, :3] = R.from_quat(tag_xyzw).as_matrix()
+                    
+                    camera_xyzw = (camera_wxyz[1], camera_wxyz[2], camera_wxyz[3], camera_wxyz[0])
+                    camera_rotmat = R.from_quat(camera_xyzw).as_matrix()
+                    X_TagCamera = np.eye(4)
+                    X_TagCamera[:3, :3] = camera_rotmat
+                    X_TagCamera[:3, 3] = np.array(camera_position)
 
-                X_WorldCamera = X_WorldTag @ X_TagCamera
-                
-                clients = server.get_clients()
-                for id, client in clients.items():
-                    client.camera.wxyz = R.from_matrix(X_WorldCamera[:3, :3]).as_quat()[[3, 0, 1, 2]]
-                    client.camera.position = X_WorldCamera[:3, 3]
-                    client.camera.fov = fov_y
-                    new_image = client.camera.get_render(height=480, width=640, transport_format="png")
-                    # cv2.imshow("image", new_image)
-                    mask = new_image[:, :, 3] != 0
-                    color_image[mask] = new_image[:, :, :3][mask]
-                    cv2.imshow('new_image', color_image)
-
-            # cv2.imshow('capture', color_image)
+                    X_WorldCamera = X_WorldTag @ X_TagCamera
+                    
+                    clients = server.get_clients()
+                    for id, client in clients.items():
+                        client.camera.wxyz = R.from_matrix(X_WorldCamera[:3, :3]).as_quat()[[3, 0, 1, 2]]
+                        client.camera.position = X_WorldCamera[:3, 3]
+                        client.camera.fov = fov_y
+                        new_image = client.camera.get_render(height=480, width=640, transport_format="png")
+                        mask = new_image[:, :, 3] != 0
+                        color_image[mask] = new_image[:, :, :3][mask]
+                        cv2.imshow('2CFuture', color_image)
+            else:
+                color_image[:10, :] = [0, 0, 255]  # 红色 (BGR 格式)
+                color_image[-10:, :] = [0, 0, 255]
+                color_image[:, :10] = [0, 0, 255]
+                color_image[:, -10:] = [0, 0, 255]
+                cv2.imshow('2CFuture', color_image)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
