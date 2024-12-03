@@ -70,7 +70,7 @@ def realsense_pipeline(fps: int = 30):
 def main():
     # Start viser server.
     server = viser.ViserServer()
-    urdf_path = Path("D:/Projects/human-retargeting/3rdparty/xarm6/assets/xarm6/xarm6_wo_ee_ori_jl.urdf")
+    urdf_path = Path("assets/robots/xarm6/xarm6_wo_ee_ori_jl.urdf")
     # Load URDF.
     #
     # This takes either a yourdfpy.URDF object or a path to a .urdf file.
