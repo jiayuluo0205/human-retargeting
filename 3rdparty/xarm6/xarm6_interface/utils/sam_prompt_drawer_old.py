@@ -291,7 +291,17 @@ class SAM2PromptDrawer(object):
 
         # sam2_checkpoint = f"{sam2_root_dir}/checkpoints/sam2.1_hiera_small.pt"
         model_cfg = f"sam2_hiera_s.yaml"
-        # model_cfg = f"/home/shaol/gjx/Cloth-Flod-in-isaac-sim/3rdparty/segment-anything-2/sam2/sam2_hiera_s.yaml"
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+        # model_cfg = f"~/gjx/Cloth-Flod-in-isaac-sim/3rdparty/segment-anything-2/sam2/sam2_hiera_s.yaml"
+=======
+<<<<<<< HEAD
+=======
+        # model_cfg = f"~/gjx/Cloth-Flod-in-isaac-sim/3rdparty/segment-anything-2/sam2/sam2_hiera_s.yaml"
+>>>>>>> b38cb60ae4ce008ac68c65a43b77bda796c41b3d
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
         
         # import os
         # file_path = model_cfg
@@ -308,7 +318,17 @@ class SAM2PromptDrawer(object):
         # else:
         #     print(f"File does not exist: {file_path}")
 
-        # self.predictor = build_sam2_camera_predictor(model_cfg, sam2_checkpoint, hydra_overrides_extra=["+config_path=/home/shaol/gjx/Cloth-Flod-in-isaac-sim/3rdparty/segment-anything-2/sam2"])
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+        # self.predictor = build_sam2_camera_predictor(model_cfg, sam2_checkpoint, hydra_overrides_extra=["+config_path=~/gjx/Cloth-Flod-in-isaac-sim/3rdparty/segment-anything-2/sam2"])
+=======
+<<<<<<< HEAD
+=======
+        # self.predictor = build_sam2_camera_predictor(model_cfg, sam2_checkpoint, hydra_overrides_extra=["+config_path=~/gjx/Cloth-Flod-in-isaac-sim/3rdparty/segment-anything-2/sam2"])
+>>>>>>> b38cb60ae4ce008ac68c65a43b77bda796c41b3d
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
         self.predictor = build_sam2_camera_predictor(model_cfg, sam2_checkpoint)
         # self.predictor = build_sam2_camera_predictor(ckpt_path=sam2_checkpoint)
         

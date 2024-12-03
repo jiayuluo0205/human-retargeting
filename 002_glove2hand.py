@@ -17,7 +17,7 @@ def start_server(host='0.0.0.0', port=5556):
     # Viser setup for visualization
     urdf_path = 'assets/robots/mano/mano.urdf'
     robot_name = 'mano'
-    meshes_path = '/home/shaol/gjx/human-retargeting/assets/robots/mano/meshes'
+    meshes_path = 'assets/robots/mano/meshes'
     hand = HandModel(robot_name, urdf_path, meshes_path)
     pk_chain = hand.pk_chain
     lower, upper = pk_chain.get_joint_limits()

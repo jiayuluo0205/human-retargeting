@@ -59,13 +59,13 @@ def draw_registration_result_original_color(source, target, transformation):
     
 
 if __name__ == "__main__":
-    save_dir = Path('/home/aris/projects/xarm6/xarm6_interface/utils/box_data')
+    save_dir = Path('xarm6_interface/utils/box_data')
     saved_masks_paths = sorted(list(save_dir.glob('mask_*.npy')))
     saved_images_paths = sorted(list(save_dir.glob('color_*.png')))
     saved_depths_paths = sorted(list(save_dir.glob('depth_*.npy')))
 
-    camera_K = np.load('/home/aris/projects/xarm6/xarm6_interface/calib/K.npy')
-    camera_d = np.load('/home/aris/projects/xarm6/xarm6_interface/calib/d.npy')
+    camera_K = np.load('xarm6_interface/calib/K.npy')
+    camera_d = np.load('xarm6_interface/calib/d.npy')
     camera_d = camera_d[:, :8]
 
     valid_object_poses_path = save_dir / 'valid_frame_object_X.npy'

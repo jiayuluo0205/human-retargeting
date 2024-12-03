@@ -1,7 +1,7 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
 messages_str = ""
-services_str = "/home/boris/workspace/human-retargeting/3rdparty/LEAP_Hand_API/ros_module/srv/leap_velocity.srv;/home/boris/workspace/human-retargeting/3rdparty/LEAP_Hand_API/ros_module/srv/leap_position.srv;/home/boris/workspace/human-retargeting/3rdparty/LEAP_Hand_API/ros_module/srv/leap_effort.srv"
+services_str = "3rdparty/LEAP_Hand_API/ros_module/srv/leap_velocity.srv;3rdparty/LEAP_Hand_API/ros_module/srv/leap_position.srv;3rdparty/LEAP_Hand_API/ros_module/srv/leap_effort.srv"
 pkg_name = "leap_hand"
 dependencies_str = "std_msgs"
 langs = "gencpp;geneus;genlisp;gennodejs;genpy"

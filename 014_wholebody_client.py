@@ -18,7 +18,7 @@ import zmq
 
 def main():
     '''smpl_visualizer.py'''
-    model_path = Path("D:\Projects\human-retargeting/assets\Model\smplh\male\model.npz")
+    model_path = Path("assets/Model/smplh/male/model.npz")
     server = viser.ViserServer(port=8880)
     server.scene.set_up_direction("+y")
     server.gui.configure_theme(control_layout="collapsible")
@@ -48,16 +48,18 @@ def main():
     print("Connecting to windows server...")
     socket = context.socket(zmq.REQ)
     '''tcp:ip adress of windows machine:5555'''
-    socket.connect("tcp://localhost:5555")
+    socket.connect("tcp://172.25.97.8:5555")
 
-    # 持续接收数据
+    # 持续接收数据import rebocap_ws_sdk
+
     while True:
         socket.send(b"Request")
         message_byte = socket.recv()
         if message_byte == b"Fail":
             continue
         message_np = np.frombuffer(message_byte, dtype=np.float64)
-        # print(message_np.shape)
+        # print(message_np.shape)import rebocap_ws_sdk
+
         if message_np.ndim != 1 or message_np.shape[0] != 194:
             print(f"Invalid shape: {message_np.shape}, expected (194,)")
             continue

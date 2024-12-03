@@ -12,7 +12,6 @@ XARM6_WO_EE_SRDF_PATH = XARM6_ASSETS_DIR_PATH / "xarm6_wo_ee.srdf"
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-# SAM_PATH = Path("/home/aris/projects/sam/sam_vit_l_0b3195.pth")
 os.path.join(ROOT_DIR, "third_party/xarm6/data/camera/mounted_white")
 SAM_PATH = Path(os.path.join(ROOT_DIR, "third_party/segment-anything/ckpt/sam_vit_h_4b8939.pth"))
 # SAM_TYPE = "vit_l"

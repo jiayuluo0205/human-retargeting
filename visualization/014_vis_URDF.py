@@ -13,7 +13,7 @@ from utils.hand_model import HandModel
 
 urdf_path = 'assets/robots/mano/mano.urdf'
 robot_name = 'mano'
-meshes_path = '/home/shaol/gjx/human-retargeting/assets/robots/mano/meshes'
+meshes_path = 'assets/robots/mano/meshes'
 
 hand = HandModel(robot_name, urdf_path, meshes_path)
 

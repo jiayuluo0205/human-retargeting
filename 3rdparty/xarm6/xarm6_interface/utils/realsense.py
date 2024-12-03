@@ -532,7 +532,7 @@ def remove_outliers(point_cloud, nb_neighbors=20, std_ratio=2.0, nb_points=50, r
 if __name__ == "__main__":
 
     camera = Realsense()
-    K_path = Path("/home/aris/projects/xarm6/xarm6_interface/calib/K.npy")
+    K_path = Path("xarm6_interface/calib/K.npy")
     K = np.load(K_path)
     camera.set_intrinsics(K[0, 0], K[1, 1], K[0, 2], K[1, 2])
     camera.create_window_and_capture_data(
