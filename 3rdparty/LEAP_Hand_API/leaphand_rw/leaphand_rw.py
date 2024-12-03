@@ -98,27 +98,17 @@ def min_jerk_interpolator_with_alpha(waypt_joint_values_np, planner_timestep, cm
 
 ########################################################
 class LeapNode:
-    def __init__(self,
-                kP=600,
-                kI = 0,
-                kD = 200,
-                curr_lim=350,
-                # kP=1000,
-                # kD=100,
-                # curr_lim=150,
-                cmd_timestep=1.0/50.0,
-                torque_enable = True):
-        self.kP = kP
-        self.kI = kI
-        self.kD = kD
-        self.curr_lim = curr_lim
-        self.cmd_timestep = cmd_timestep
-        self.pos_lim = 0.1
-        self.torque_enable = torque_enable
-        
-        # You can put the correct port here or have the node auto-search for a hand at the first 3 ports.
+    def __init__(self):
+        ####Some parameters
+        # self.ema_amount = float(rospy.get_param('/leaphand_node/ema', '1.0')) #take only current
+        self.kP = 600
+        self.kI = 0
+        self.kD = 200
+        self.curr_lim = 350
+        self.prev_pos = self.pos = self.curr_pos = lhu.allegro_to_LEAPhand(np.zeros(16))
+           
+        #You can put the correct port here or have the node auto-search for a hand at the first 3 ports.
         self.motors = motors = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
-        
         try:
             self.dxl_client = DynamixelClient(motors, '/dev/ttyUSB0', 4000000)
             self.dxl_client.connect()
@@ -127,25 +117,15 @@ class LeapNode:
                 self.dxl_client = DynamixelClient(motors, '/dev/ttyUSB1', 4000000)
                 self.dxl_client.connect()
             except Exception:
-                try:
-                    self.dxl_client = DynamixelClient(motors, '/dev/ttyUSB2', 4000000)
-                    self.dxl_client.connect()
-                except Exception:
-                    self.dxl_client = DynamixelClient(motors, '/dev/ttyUSB3', 4000000)
-                    self.dxl_client.connect()
-                
-        
-        self.prev_pos = self.pos = self.curr_pos = self.dxl_client.read_pos() # let LEAP init to current position
-        
+                self.dxl_client = DynamixelClient(motors, 'COM13', 4000000)
+                self.dxl_client.connect()
         #Enables position-current control mode and the default parameters, it commands a position and then caps the current so the motors don't overload
         self.dxl_client.sync_write(motors, np.ones(len(motors))*5, 11, 1)
-        self.dxl_client.set_torque_enabled(motors, self.torque_enable)
+        self.dxl_client.set_torque_enabled(motors, True)
         self.dxl_client.sync_write(motors, np.ones(len(motors)) * self.kP, 84, 2) # Pgain stiffness     
-        # self.dxl_client.sync_write([3, 7, 14], np.ones(3) * (self.kP * 0.75), 84, 2) # Pgain stiffness for side to side should be a bit less
         self.dxl_client.sync_write([0,4,8], np.ones(3) * (self.kP * 0.75), 84, 2) # Pgain stiffness for side to side should be a bit less
         self.dxl_client.sync_write(motors, np.ones(len(motors)) * self.kI, 82, 2) # Igain
         self.dxl_client.sync_write(motors, np.ones(len(motors)) * self.kD, 80, 2) # Dgain damping
-        # self.dxl_client.sync_write([3, 7, 14], np.ones(3) * (self.kD * 0.75), 80, 2) # Dgain damping for side to side should be a bit less
         self.dxl_client.sync_write([0,4,8], np.ones(3) * (self.kD * 0.75), 80, 2) # Dgain damping for side to side should be a bit less
         #Max at current (in unit 1ma) so don't overheat and grip too hard #500 normal or #350 for lite
         self.dxl_client.sync_write(motors, np.ones(len(motors)) * self.curr_lim, 102, 2)
@@ -174,6 +154,12 @@ class LeapNode:
     #read velocity
     def read_vel(self):
         return self.dxl_client.read_vel()
+    #Read pos and vel.  NOTE: if you want both pos and vel, this is a faster way to read from the motors than individually!
+    def read_pos_vel(self):
+        return self.dxl_client.read_pos_vel()
+    #Read pos and vel.  NOTE: if you want both pos and vel and cur, this is a faster way to read from the motors than individually!
+    def read_pos_vel_cur(self):
+        return self.dxl_client.read_pos_vel_cur()
     #read current
     def read_cur(self):
         return self.dxl_client.read_cur()
