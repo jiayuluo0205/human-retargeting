@@ -262,6 +262,7 @@ def main():
     def exception_close_callback(self: rebocap_ws_sdk.RebocapWsSdk):
         print("exception_close_callback")
     # server initialize
+    
     context = zmq.Context()
     # # talk to client linux machine
     socket = context.socket(zmq.REP)

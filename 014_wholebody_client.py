@@ -2,7 +2,6 @@
 # update 11.29
 import sys
 sys.path.append('utils')
-import rebocap_ws_sdk
 import numpy as np
 from scipy.spatial.transform import Rotation as R
 from time import sleep

@@ -31,28 +31,27 @@ def realsense_pipeline(fps: int = 30):
     yield pipeline
 
     # Close pipeline when done.
-    pipeline.close()
+    pipeline.stop()
 
 
 def main():
     # Start visualization server.
     server = viser.ViserServer(port=8080)
+    wxyz = R.from_euler("YZX", [180.0, 45.0, 54.45], degrees=True).as_quat()[[3, 0, 1, 2]]
+    position = (2.6, 2.6, 2.6)
+
     with realsense_pipeline() as pipeline:
-        for i in tqdm(range(10000000)):
+        while True:
             # Wait for a coherent pair of frames: depth and color
             frames = pipeline.wait_for_frames()
             color_frame = frames.get_color_frame()
             color_image = np.asanyarray(color_frame.get_data())
-
-            T_WorldCamera = viser.extras.Record3dFrame.T_world_camera
-            print(T_WorldCamera)
-
-            wxyz = R.from_euler("zxy", [45.0, 0.0, 0.0], degrees=True).as_quat()[[3, 0, 1, 2]]
             
-            server.scene.add_frame(
-                "color", wxyz=wxyz, position=(0,0,0)
-            )
-            server.scene.add_image(image=color_image, render_width=1, render_height=1, name="color", position=(0,0,0), wxyz=wxyz)
+            server.scene.add_frame("/world/color_frame", wxyz=wxyz, position=position)
+
+            server.scene.add_image(image=color_image, render_width=1, render_height=1, name="original", position=(0,0,0))
+
+            server.scene.add_image(image=color_image, render_width=1, render_height=1, name="color", position=position, wxyz=wxyz)
 
 
 if __name__ == "__main__":

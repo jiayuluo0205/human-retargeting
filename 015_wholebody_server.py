@@ -1,4 +1,5 @@
 '''running on Windows machine for reading Rebocap SDK and Udexreal gloves SDK, forwarding rotvecs of body joints and hand joints to Linux machine'''
+# IMPORTANT HINT: IF IT OUTPUT SUCKS, MAKING THE VISER VISUALIZATION SLOW, RERUN THE HAND.exe
 import sys
 sys.path.append('utils')
 import rebocap_ws_sdk
