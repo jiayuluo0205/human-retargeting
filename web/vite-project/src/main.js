@@ -13,8 +13,9 @@ import { Ray } from '../js/render/math/ray.js';
 import { fetchProfile } from 'https://cdn.jsdelivr.net/npm/@webxr-input-profiles/motion-controllers@1.0/dist/motion-controllers.module.js';
 const DEFAULT_PROFILES_PATH = 'https://cdn.jsdelivr.net/npm/@webxr-input-profiles/assets@1.0/dist/profiles';
 import WebXRPolyfill from '../js/third-party/webxr-polyfill/build/webxr-polyfill.module.js';
-import * as THREE from 'three';
-import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js';
+import { LoaderUtils } from 'three';
+import { XacroLoader } from 'xacro-parser';
+import URDFLoader from 'urdf-loader';
 
 // 初始化全局变量
 let xrButton = null;
@@ -44,9 +45,20 @@ let scene = new Scene();
 let usePolyfill = true;
 
 let solarSystem = new Gltf2Node({url: '../media/gltf/space/space.gltf'});
-// let solarSystem = new Gltf2Node({url: '../media/stl/xarm6/base.gltf'});
 solarSystem.scale = [0.1, 0.1, 0.1];
 scene.addNode(solarSystem);
+
+// const url = '../assets/xarm_description/urdf/xarm_device.urdf.xacro;
+// const xacroLoader = new XacroLoader();
+// xacroLoader.load( url, xml => {
+
+//     const urdfLoader = new URDFLoader();
+//     urdfLoader.workingPath = LoaderUtils.extractUrlBase( url );
+
+//     const robot = urdfLoader.parse( xml );
+//     scene.add( robot );
+
+// } );
 
 if (QueryArgs.getBool('usePolyfill', true)) {
   new WebXRPolyfill({ debug: false });
@@ -156,7 +168,7 @@ function onSessionStarted(session) {
   initHands();
 
   scene.setRenderer(renderer);
-
+  
   session.updateRenderState({ baseLayer: new XRWebGLLayer(session, gl) });
 
   session.requestReferenceSpace('local').then((refSpace) => {
