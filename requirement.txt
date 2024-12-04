@@ -2,6 +2,7 @@ pybullet
 loguru
 open3d
 robot_descriptions
+<<<<<<< Updated upstream
 pytorch_kinematics
 transform3d
 urdfpy
@@ -15,3 +16,6 @@ chumpy
 human_body_prior
 tables
 robotpy_apriltag
+=======
+pytorch_kinematics
+>>>>>>> Stashed changes

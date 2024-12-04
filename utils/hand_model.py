@@ -22,13 +22,19 @@ class HandModel:
         robot_name,
         urdf_path,
         meshes_path,
+<<<<<<< Updated upstream
         device=torch.device('cuda' if torch.cuda.is_available() else 'cpu'),
+=======
+        links_pc_path,
+        device,
+>>>>>>> Stashed changes
         link_num_points=512
     ):
         self.robot_name = robot_name
         self.urdf_path = urdf_path
         self.meshes_path = meshes_path
         self.device = device
+<<<<<<< Updated upstream
         with open(urdf_path, 'rb') as f:  
             urdf_data = f.read()
         self.pk_chain = pk.build_chain_from_urdf(urdf_data).to(dtype=torch.float32, device=device)
@@ -36,14 +42,33 @@ class HandModel:
         
         self.links_pc = None
         self.links_pc_original = None
+=======
+
+        self.pk_chain = pk.build_chain_from_urdf(open(urdf_path).read()).to(dtype=torch.float32, device=device)
+        self.dof = len(self.pk_chain.get_joint_parameter_names())
+        if os.path.exists(links_pc_path):  # In case of generating robot links pc, the file doesn't exist.
+            links_pc_data = torch.load(links_pc_path, map_location=device)
+            self.links_pc = links_pc_data['filtered']
+            self.links_pc_original = links_pc_data['original']
+        else:
+            self.links_pc = None
+            self.links_pc_original = None
+>>>>>>> Stashed changes
 
         self.meshes = load_link_geometries(robot_name, self.urdf_path, self.pk_chain.get_link_names())
 
         self.vertices = {}
+<<<<<<< Updated upstream
         # removed_links = json.load(open(os.path.join(ROOT_DIR, 'assets/robots/removed_links.json')))[robot_name]
         for link_name, link_mesh in self.meshes.items():
             # if link_name in removed_links:  # remove links unrelated to contact
             #     continue
+=======
+        removed_links = json.load(open(os.path.join(ROOT_DIR, 'assets/robots/removed_links.json')))[robot_name]
+        for link_name, link_mesh in self.meshes.items():
+            if link_name in removed_links:  # remove links unrelated to contact
+                continue
+>>>>>>> Stashed changes
             v = link_mesh.sample(link_num_points)
             self.vertices[link_name] = v
 
@@ -215,6 +240,11 @@ def create_hand_model(
     urdf_assets_meta = json.load(open(json_path))
     urdf_path = os.path.join(ROOT_DIR, urdf_assets_meta['urdf_path'][robot_name])
     meshes_path = os.path.join(ROOT_DIR, urdf_assets_meta['meshes_path'][robot_name])
+<<<<<<< Updated upstream
     # links_pc_path = os.path.join(ROOT_DIR, f'data/PointCloud/robot/{robot_name}.pt')
     hand_model = HandModel(robot_name, urdf_path, meshes_path, device, num_points)
+=======
+    links_pc_path = os.path.join(ROOT_DIR, f'data/PointCloud/robot/{robot_name}.pt')
+    hand_model = HandModel(robot_name, urdf_path, meshes_path, links_pc_path, device, num_points)
+>>>>>>> Stashed changes
     return hand_model

@@ -25,7 +25,11 @@ Modules included:
 
 '''
 import sys
+<<<<<<< Updated upstream
 sys.path.append('assets/Model/mano_v1_2/webuser')
+=======
+sys.path.append('/home/shaol/gjx/human-retargeting/assets/Model/mano_v1_2/webuser')
+>>>>>>> Stashed changes
 import chumpy
 import lbs
 from posemapper import posemap

@@ -1,9 +1,16 @@
 {
   "Version": 1,
+<<<<<<< Updated upstream
   "WorkspaceRootPath": "D:\\Projects\\human-retargeting\\utils\\Hand_SDK\\",
   "Documents": [
     {
       "AbsoluteMoniker": "D:0:0:{CA600260-A4F1-496C-9C46-2CA2B9A53ABD}|CM_YD_SDK\\CM_YD_SDK.vcxproj|D:\\Projects\\human-retargeting\\utils\\Hand_SDK\\CM_YD_SDK\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+=======
+  "WorkspaceRootPath": "C:\\Users\\50129\\OneDrive\\\u684C\u9762\\CM_YD_SDK_Lib_2022\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CA600260-A4F1-496C-9C46-2CA2B9A53ABD}|CM_YD_SDK\\CM_YD_SDK.vcxproj|C:\\Users\\50129\\OneDrive\\\u684C\u9762\\CM_YD_SDK_Lib_2022\\CM_YD_SDK\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+>>>>>>> Stashed changes
       "RelativeMoniker": "D:0:0:{CA600260-A4F1-496C-9C46-2CA2B9A53ABD}|CM_YD_SDK\\CM_YD_SDK.vcxproj|solutionrelative:CM_YD_SDK\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
@@ -24,11 +31,19 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "main.cpp",
+<<<<<<< Updated upstream
               "DocumentMoniker": "D:\\Projects\\human-retargeting\\utils\\Hand_SDK\\CM_YD_SDK\\main.cpp",
               "RelativeDocumentMoniker": "CM_YD_SDK\\main.cpp",
               "ToolTip": "D:\\Projects\\human-retargeting\\utils\\Hand_SDK\\CM_YD_SDK\\main.cpp",
               "RelativeToolTip": "CM_YD_SDK\\main.cpp",
               "ViewState": "AgIAAJ8AAAAAAAAAAAAAALkAAAA4AAAAAAAAAA==",
+=======
+              "DocumentMoniker": "C:\\Users\\50129\\OneDrive\\\u684C\u9762\\CM_YD_SDK_Lib_2022\\CM_YD_SDK\\main.cpp",
+              "RelativeDocumentMoniker": "CM_YD_SDK\\main.cpp",
+              "ToolTip": "C:\\Users\\50129\\OneDrive\\\u684C\u9762\\CM_YD_SDK_Lib_2022\\CM_YD_SDK\\main.cpp",
+              "RelativeToolTip": "CM_YD_SDK\\main.cpp",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAADoAAAAmAAAAAAAAAA==",
+>>>>>>> Stashed changes
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-02T18:47:47.451Z",
               "EditorCaption": ""
