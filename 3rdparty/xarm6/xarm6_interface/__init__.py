@@ -12,8 +12,8 @@ XARM6_WO_EE_SRDF_PATH = XARM6_ASSETS_DIR_PATH / "xarm6_wo_ee.srdf"
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-os.path.join(ROOT_DIR, "third_party/xarm6/data/camera/mounted_white")
-SAM_PATH = Path(os.path.join(ROOT_DIR, "third_party/segment-anything/ckpt/sam_vit_h_4b8939.pth"))
+os.path.join(ROOT_DIR, "3rdparty/xarm6/data/camera/mounted_white")
+SAM_PATH = Path(os.path.join(ROOT_DIR, "3rdparty/segment-anything/ckpt/sam_vit_h_4b8939.pth"))
 # SAM_TYPE = "vit_l"
 SAM_TYPE = "vit_h"
 

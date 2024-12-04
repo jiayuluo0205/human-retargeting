@@ -20,17 +20,22 @@ from diff_robot_hand.utils.mesh_and_urdf_utils import joint_values_order_mapping
 
 def leap_from_rw_to_sim(rw_joint_values, sim_joint_orders):
     # rw_joint_need_a_bias_of = np.pi * np.array([
-    #     -0.5, -1, -1, -1, -0.5, -1, -1, -1, -0.5, -1, -0.5  , -1, -1, -1, -1, -1
+    #     -0.5, -1, -1, -1, 
+    #     -0.5, -1, -1, -1, 
+    #     0.0, -1, -0.5, -1, 
+    #     -1.0, -1, -1, -1
     # ])
     rw_joint_need_a_bias_of = np.pi * np.array([
-        # -0.5, -1, -1, -1, -0.5, -1, -1, -1, -0.5, -1, -0.5  , -1, -1, -1, -1, -1
-        -0.5, -1, -1, -1, 
-        -0.5, -1, -1, -1, 
-        0.0, -1, -0.5, -1, 
-        -1.0, -1, -1, -1
+        -1, -1, -1, -1, 
+        -1, -1, -1, -1, 
+        -1, -1, -1, -1, 
+        -1, -1, -1, -1
     ])
+    # rw_joint_names = [
+    #     "9", "10", "11", "4", "5", "6", "7", "0", "1", "2", "3", "12", "13", "14", "8", "15"
+    # ]
     rw_joint_names = [
-        "9", "10", "11", "4", "5", "6", "7", "0", "1", "2", "3", "12", "13", "14", "8", "15"
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"
     ]
     rw_joint_values = np.array(rw_joint_values)
     ret_joints = rw_joint_values + rw_joint_need_a_bias_of
@@ -39,36 +44,28 @@ def leap_from_rw_to_sim(rw_joint_values, sim_joint_orders):
 
 def leap_from_sim_to_rw(sim_joint_values, sim_joint_orders):
     # rw_joint_need_a_bias_of = np.pi * np.array([
-    #     -0.5, -1, -1, -1, -0.5, -1, -1, -1, -0.5, -1, -0.5  , -1, -1, -1, -1, -1
+    #     -0.5, -1, -1, -1, 
+    #     -0.5, -1, -1, -1, 
+    #     0.0, -1, -0.5, -1, 
+    #     -1.0, -1, -1, -1
     # ])
     rw_joint_need_a_bias_of = np.pi * np.array([
-        # -0.5, -1, -1, -1, -0.5, -1, -1, -1, -0.5, -1, -0.5  , -1, -1, -1, -1, -1
-        -0.5, -1, -1, -1, 
-        -0.5, -1, -1, -1, 
-        0.0, -1, -0.5, -1, 
-        -1.0, -1, -1, -1
+        -1, -1, -1, -1, 
+        -1, -1, -1, -1, 
+        -1, -1, -1, -1, 
+        -1, -1, -1, -1
     ])
+    # rw_joint_names = [
+    #     "9", "10", "11", "4", "5", "6", "7", "0", "1", "2", "3", "12", "13", "14", "8", "15"
+    # ]
     rw_joint_names = [
-        "9", "10", "11", "4", "5", "6", "7", "0", "1", "2", "3", "12", "13", "14", "8", "15"
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"
     ]
     sim_joint_values = np.array(sim_joint_values)
     ret_joints = joint_values_order_mapping(sim_joint_values, sim_joint_orders, rw_joint_names) 
     return ret_joints - rw_joint_need_a_bias_of
 
 def min_jerk_interpolator_with_alpha(waypt_joint_values_np, planner_timestep, cmd_timestep, alpha=0.2):
-    """
-    Min Jerk Interpolator with alpha to generate smooth trajectory command values.
-    
-    Args:
-    - waypt_joint_values_np: np.ndarray of shape (n_sparse_wp, n_dof), waypoint joint values.
-    - planner_timestep: float, the timestep of the planner, e.g., 1.0/20.0.
-    - cmd_timestep: float, the timestep of the command, e.g., 1.0/500.0.
-    - alpha: float, tuning parameter for the interpolation interval (0 < alpha <= 1), default is 0.33.
-    
-    Returns:
-    - cmd_joint_values_np: np.ndarray, interpolated joint values for each command timestep.
-    """
-    
     n_sparse_wp, n_dof = waypt_joint_values_np.shape
     n_steps = int(planner_timestep / cmd_timestep)  # Number of interpolation steps
 
@@ -98,7 +95,7 @@ def min_jerk_interpolator_with_alpha(waypt_joint_values_np, planner_timestep, cm
 
 ########################################################
 class LeapNode:
-    def __init__(self):
+    def __init__(self, torque_enable = True):
         ####Some parameters
         # self.ema_amount = float(rospy.get_param('/leaphand_node/ema', '1.0')) #take only current
         self.kP = 600
@@ -106,6 +103,7 @@ class LeapNode:
         self.kD = 200
         self.curr_lim = 350
         self.prev_pos = self.pos = self.curr_pos = lhu.allegro_to_LEAPhand(np.zeros(16))
+        self.torque_enable = torque_enable
            
         #You can put the correct port here or have the node auto-search for a hand at the first 3 ports.
         self.motors = motors = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
@@ -121,7 +119,7 @@ class LeapNode:
                 self.dxl_client.connect()
         #Enables position-current control mode and the default parameters, it commands a position and then caps the current so the motors don't overload
         self.dxl_client.sync_write(motors, np.ones(len(motors))*5, 11, 1)
-        self.dxl_client.set_torque_enabled(motors, True)
+        self.dxl_client.set_torque_enabled(motors, self.torque_enable)
         self.dxl_client.sync_write(motors, np.ones(len(motors)) * self.kP, 84, 2) # Pgain stiffness     
         self.dxl_client.sync_write([0,4,8], np.ones(3) * (self.kP * 0.75), 84, 2) # Pgain stiffness for side to side should be a bit less
         self.dxl_client.sync_write(motors, np.ones(len(motors)) * self.kI, 82, 2) # Igain

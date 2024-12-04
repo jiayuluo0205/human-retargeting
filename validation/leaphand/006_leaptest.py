@@ -3,9 +3,7 @@ from diff_robot_hand.hand_model import LeapHandRight
 from diff_robot_hand.utils.mesh_and_urdf_utils import joint_values_order_mapping
 import time 
 import viser 
-
 from leaphand_rw.leaphand_rw import LeapNode, leap_from_rw_to_sim, leap_from_sim_to_rw
-
 from loguru import logger as lgr    
 
 if __name__ == "__main__":
@@ -16,7 +14,7 @@ if __name__ == "__main__":
     
     while True: 
         rw_joint_values = rw_hand.read_pos()
-        lgr.info(f"rw_joint_values: {rw_joint_values}")
+        # lgr.info(f"rw_joint_values: {rw_joint_values}")
         sim_joint_values = leap_from_rw_to_sim(rw_joint_values, sim_hand.actuated_joint_names)
         sim_to_rw_joint_values = leap_from_sim_to_rw(sim_joint_values, sim_hand.actuated_joint_names)
         assert np.allclose(sim_to_rw_joint_values, rw_joint_values)

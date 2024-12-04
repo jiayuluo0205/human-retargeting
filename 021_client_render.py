@@ -6,6 +6,7 @@ from typing import Literal
 import math
 import numpy as np
 import tyro
+import torch
 
 import viser
 from viser.extras import ViserUrdf
@@ -17,35 +18,13 @@ from robotpy_apriltag import AprilTag, AprilTagPoseEstimator, AprilTagDetector
 from scipy.spatial.transform import Rotation as R
 from xarm.wrapper import XArmAPI
 
-def create_robot_control_sliders(
-    server: viser.ViserServer, viser_urdf: ViserUrdf
-) -> tuple[list[viser.GuiInputHandle[float]], list[float]]:
-    """Create slider for each joint of the robot. We also update robot model
-    when slider moves."""
-    slider_handles: list[viser.GuiInputHandle[float]] = []
-    initial_config: list[float] = []
-    for joint_name, (
-        lower,
-        upper,
-    ) in viser_urdf.get_actuated_joint_limits().items():
-        lower = lower if lower is not None else -np.pi
-        upper = upper if upper is not None else np.pi
-        initial_pos = 0.0 if lower < 0 and upper > 0 else (lower + upper) / 2.0
-        slider = server.gui.add_slider(
-            label=joint_name,
-            min=lower,
-            max=upper,
-            step=1e-3,
-            initial_value=initial_pos,
-        )
-        slider.on_update(  # When sliders move, we update the URDF configuration.
-            lambda _: viser_urdf.update_cfg(
-                np.array([slider.value for slider in slider_handles])
-            )
-        )
-        slider_handles.append(slider)
-        initial_config.append(initial_pos)
-    return slider_handles, initial_config
+from diff_robot_hand.hand_model import LeapHandRight
+from diff_robot_hand.utils.mesh_and_urdf_utils import joint_values_order_mapping
+import time  
+from leaphand_rw.leaphand_rw import LeapNode, leap_from_rw_to_sim, leap_from_sim_to_rw
+from loguru import logger as lgr   
+from utils.robot_model import RobotModel
+from utils.rotation import matrix_to_euler
 
 @contextlib.contextmanager
 def realsense_pipeline(fps: int = 60):
@@ -77,16 +56,13 @@ def main():
 
     # Start viser server.
     server = viser.ViserServer()
-    urdf_path = Path("assets/robots/xarm6/xarm6_wo_ee_ori_jl.urdf")
-    # Load URDF.
-    #
-    # This takes either a yourdfpy.URDF object or a path to a .urdf file.
-    viser_urdf = ViserUrdf(
-        server,
-        urdf_or_path = urdf_path,
-        scale=1
-    )
+    XArm_model = RobotModel(robot_name='xarm', urdf_path='assets/robots/xarm6/xarm6_wo_ee_ori_jl.urdf', meshes_path='assets/robots/xarm6/meshes/')
     
+    rw_hand = LeapNode(torque_enable=False)    
+    sim_hand = LeapHandRight(load_visual_mesh=True, load_col_mesh=False, load_balls_urdf=False, load_n_collision_point=0)
+
+    leaphand_model = RobotModel(robot_name='leaphand', urdf_path='assets/robots/leap_hand/leap_hand_right_extended.urdf', meshes_path='assets/robots/leap_hand/meshes/visual')
+
     tag_wxyz = R.from_euler("YXZ", [0.0, 180.0, 270.0], degrees=True).as_quat()[[3, 0, 1, 2]]
     server.scene.add_frame("/tag", wxyz=tag_wxyz)
     
@@ -107,25 +83,9 @@ def main():
         detector.addFamily(fam="tag36h11")
         estimator = AprilTagPoseEstimator(AprilTagPoseEstimator.Config(fx=fx, fy=fy, cx=cx, cy=cy, tagSize=0.095))
 
-        # Create sliders in GUI that help us move the robot joints.
-        # with server.gui.add_folder("Joint position control"):
-        #     (slider_handles, initial_config) = create_robot_control_sliders(
-        #         server, viser_urdf
-        #     )
-
-        # Set initial robot configuration.
-        # viser_urdf.update_cfg(np.array(initial_config))
-
-        # Create joint reset button.
-        reset_button = server.gui.add_button("Reset")
-
-        @reset_button.on_click
-        def _(_):
-            for s, init_q in zip(slider_handles, initial_config):
-                s.value = init_q
 
         while True:
-            flag_robot_lose = 0
+          
             # Wait for a coherent pair of frames: depth and color
             frames = pipeline.wait_for_frames()
             color_frame = frames.get_color_frame()
@@ -180,8 +140,30 @@ def main():
                         color_image[mask] = color_image[mask] * opacity + new_image[:, :, :3][mask] * (1 - opacity)
                         cv2.imshow('2CFuture', color_image)
                     
+                    # viser_urdf.update_cfg(np.array(config))
+                    # hand read pos
+                    rw_joint_values = rw_hand.read_pos()
+                    sim_joint_values = leap_from_rw_to_sim(rw_joint_values, sim_hand.actuated_joint_names)
+                    sim_to_rw_joint_values = leap_from_sim_to_rw(sim_joint_values, sim_hand.actuated_joint_names)
+                    assert np.allclose(sim_to_rw_joint_values, rw_joint_values)
+
                     config = arm.get_servo_angle(is_radian=True)[1][:6]
-                    viser_urdf.update_cfg(np.array(config))
+                    xarm_trimesh = XArm_model.get_trimesh_q(config)['visual']
+                    server.scene.add_mesh_trimesh('xarm_trimesh', xarm_trimesh)
+
+                    root_transform = XArm_model.frame_status['eef_point'].get_matrix()[0].cpu().numpy()
+                    rotation = root_transform[:3, :3]
+                    translation = root_transform[:3, 3]
+                    euler = R.from_matrix(rotation).as_euler('XYZ')
+                    dummy_values = np.concatenate([translation, euler])
+ 
+                    
+                    sim_dummy_joint_values = np.concatenate([dummy_values, sim_joint_values]) #virtual_joint_x/y/z/r/p/y
+
+
+                    leaphand_trimesh = leaphand_model.get_trimesh_q(sim_dummy_joint_values)['visual']
+                    server.scene.add_mesh_trimesh('leaphand_trimesh', leaphand_trimesh)
+
             else:
                 color_image[:10, :] = [0, 0, 255]  # 红色 (BGR 格式)
                 color_image[-10:, :] = [0, 0, 255]
