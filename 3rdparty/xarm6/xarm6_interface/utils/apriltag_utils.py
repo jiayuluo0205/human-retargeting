@@ -6,7 +6,7 @@ from pupil_apriltags import Detector
 
 if __name__ == "__main__":  # noqa
 
-    test_images_path = "/home/aris/projects/apriltags/test"
+    test_images_path = "3rdparty/apriltags/test"
     with open(test_images_path + "/test_info.yaml") as stream:
         parameters = yaml.load(stream, Loader=yaml.FullLoader)
 

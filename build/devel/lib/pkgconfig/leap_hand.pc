@@ -1,0 +1,8 @@
+prefix=/home/boris/workspace/human-retargeting/build/devel
+
+Name: leap_hand
+Description: Description of leap_hand
+Version: 0.0.0
+Cflags: -I/home/boris/workspace/human-retargeting/build/devel/include
+Libs: -L${prefix}/lib 
+Requires: std_msgs message_generation message_runtime

@@ -24,7 +24,8 @@ Modules included:
   computes the blending of joint-influences for each vertex based on type of skinning
 
 '''
-
+import sys
+sys.path.append('assets/Model/mano_v1_2/webuser')
 import chumpy
 import lbs
 from posemapper import posemap

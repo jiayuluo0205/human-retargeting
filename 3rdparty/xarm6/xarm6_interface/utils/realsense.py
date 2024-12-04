@@ -58,9 +58,10 @@ def get_profiles(verbose=False):
 
 
 class Realsense:
-    def __init__(self):
+    def __init__(self, serial_number="241122074374"): # '241122074374', '233622079809'
         self.pipeline = rs.pipeline()
         self.config = rs.config()
+        self.config.enable_device(serial_number)
         color_profiles, depth_profiles = get_profiles()
         w, h, fps, fmt = depth_profiles[1]
         self.config.enable_stream(rs.stream.depth, w, h, fmt, fps)
@@ -531,7 +532,7 @@ def remove_outliers(point_cloud, nb_neighbors=20, std_ratio=2.0, nb_points=50, r
 if __name__ == "__main__":
 
     camera = Realsense()
-    K_path = Path("/home/aris/projects/xarm6/xarm6_interface/calib/K.npy")
+    K_path = Path("xarm6_interface/calib/K.npy")
     K = np.load(K_path)
     camera.set_intrinsics(K[0, 0], K[1, 1], K[0, 2], K[1, 2])
     camera.create_window_and_capture_data(

@@ -12,7 +12,7 @@ from hydra.utils import instantiate
 from torchvision.ops import box_convert
 from sam2.build_sam import _load_checkpoint
 import groundingdino.datasets.transforms as T
-from xarm6_interface.utils.sam_prompt_drawer import DrawingMode, vis_mask
+from xarm6_interface.utils.sam_prompt_drawer_old import DrawingMode, vis_mask
 from sam2.modeling.sam2_base import NO_OBJ_SCORE, SAM2Base
 from groundingdino.util.inference import load_model, load_image, predict
 from sam2.utils.misc import concat_points, fill_holes_in_mask_scores, load_video_frames
@@ -1191,7 +1191,19 @@ def grounding_dino_get_bbox(rgb_np, text):
                 
 if __name__ == "__main__":
     
-    cap = cv2.VideoCapture("/home/shaol/xzhixuan/Grounded-SAM-2/sav_dataset/example/sav_000001.mp4")
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+    cap = cv2.VideoCapture("~/xzhixuan/Grounded-SAM-2/sav_dataset/example/sav_000001.mp4")
+=======
+<<<<<<< HEAD
+    cap = cv2.VideoCapture("3rdparty/Grounded-SAM-2/sav_dataset/example/sav_000001.mp4")
+=======
+    cap = cv2.VideoCapture("~/xzhixuan/Grounded-SAM-2/sav_dataset/example/sav_000001.mp4")
+>>>>>>> b38cb60ae4ce008ac68c65a43b77bda796c41b3d
+>>>>>>> Stashed changes
+=======
+    cap = cv2.VideoCapture("3rdparty/Grounded-SAM-2/sav_dataset/example/sav_000001.mp4")
+>>>>>>> Stashed changes
     ret, frame = cap.read()
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     

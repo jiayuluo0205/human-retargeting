@@ -1,0 +1,18 @@
+﻿  main.cpp
+D:\Projects\human-retargeting\utils\CM_YD_SDK_Lib_2022\CM_YD_SDK_Lib_2022\Lib\CM_YD_SDK.h(125,15): warning C4251: “GloveSDK::m_running”:“std::atomic<bool>”需要有 dll 接口以供“GloveSDK”的客户端使用
+  (编译源文件“main.cpp”)
+      D:\VS2022\VC\Tools\MSVC\14.41.34120\include\atomic(2154,8):
+      参见“std::atomic<bool>”的声明
+  
+D:\Projects\human-retargeting\utils\CM_YD_SDK_Lib_2022\CM_YD_SDK_Lib_2022\Lib\CM_YD_SDK.h(126,9): warning C4251: “GloveSDK::m_receive_thread”:“std::thread”需要有 dll 接口以供“GloveSDK”的客户端使用
+  (编译源文件“main.cpp”)
+      D:\VS2022\VC\Tools\MSVC\14.41.34120\include\thread(42,19):
+      参见“std::thread”的声明
+  
+D:\Projects\human-retargeting\utils\CM_YD_SDK_Lib_2022\CM_YD_SDK_Lib_2022\Lib\CM_YD_SDK.h(134,16): warning C4251: “GloveSDK::dataUpdateCallback”:“std::function<void (GloveSDK *)>”需要有 dll 接口以供“GloveSDK”的客户端使用
+  (编译源文件“main.cpp”)
+      D:\VS2022\VC\Tools\MSVC\14.41.34120\include\functional(1074,7):
+      参见“std::function<void (GloveSDK *)>”的声明
+  
+D:\Projects\human-retargeting\utils\CM_YD_SDK_Lib_2022\CM_YD_SDK_Lib_2022\main.cpp(105,37): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  CM_YD_SDK_Lib_2022.vcxproj -> D:\Projects\human-retargeting\utils\CM_YD_SDK_Lib_2022\x64\Debug\CM_YD_SDK_Lib_2022.exe

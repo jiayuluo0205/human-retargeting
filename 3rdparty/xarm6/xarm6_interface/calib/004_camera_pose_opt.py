@@ -23,11 +23,12 @@ ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.pa
 if __name__ == '__main__':
     arm = XArm6WOEE()
 
-    # load the collected data 
-    exp_name = "1025_excalib_capture00"
-    K_path = Path(__file__).resolve().parent.parent.parent / "data" / "camera" / "mounted_white" / "K.npy"
+    # load the collected data
+    serial_number="241122074374" 
+    exp_name = "1204_excalib_capture00"
+    K_path = Path(__file__).resolve().parent.parent.parent / "data" / "camera" / serial_number / "K.npy"
     K = np.load(K_path)
-    save_data_rel_dir_path = (Path(os.path.join(ROOT_DIR, "third_party/xarm6/data/camera/mounted_white")) / exp_name).resolve()
+    save_data_rel_dir_path = (Path(os.path.join(ROOT_DIR, f"3rdparty/xarm6/data/camera/{serial_number}")) / exp_name).resolve()
     # init_X_BaseCamera_path = (Path("data") / exp_name / "init_X_BaseCamera.npy").resolve()
     save_data_path = K_path.parent
     init_X_BaseCamera_path = save_data_path / "init_X_BaseCamera.npy"

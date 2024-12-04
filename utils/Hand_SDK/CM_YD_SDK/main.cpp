@@ -13,7 +13,6 @@
 
 double roll, pitch, yaw;
 
-
 //void OnNewGloveData(GloveSDK* glovePtr) //定义了一个函数用于注册回调
 //{
 //	//这个函数将在接受线程中被调用
@@ -134,44 +133,52 @@ double roll, pitch, yaw;
 //    cout << endl;
 //}
 
+int flag = 0;
+SOCKET clientSocket = INVALID_SOCKET;
+int count_flag = 0;
 void OnNewGloveData(GloveSDK* glovePtr)
-{
-    // 初始化Winsock
-    WSADATA wsaData;
-    WSAStartup(MAKEWORD(2, 2), &wsaData);
+{	
+	if (flag == 0) {
+		// 初始化Winsock
+		WSADATA wsaData;
+		//SOCKET clientSocket = INVALID_SOCKET;
+		WSAStartup(MAKEWORD(2, 2), &wsaData);
 
-    // 创建套接字
-    SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
-    if (sock == INVALID_SOCKET) {
-        std::cerr << "Socket creation failed!" << std::endl;
-        WSACleanup();
-        return;
-    }
+		// 创建客户端套接字
+		clientSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
-    // 设置服务器地址
-    sockaddr_in serverAddr;
-    serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons(5555);  // 设置端口号
-    if (inet_pton(AF_INET, "127.0.0.1", &serverAddr.sin_addr) <= 0) {
-        std::cerr << "Invalid address/ Address not supported" << std::endl;
-    }
+		// 设置服务端地址信息
+		sockaddr_in serverAddress;
+		serverAddress.sin_family = AF_INET;
+		serverAddress.sin_port = htons(6666); // 服务端端口号 5555 / 6666
+		inet_pton(AF_INET, "127.0.0.1", &serverAddress.sin_addr); // 服务端 IP 地址
 
-    // 连接服务器
-    if (connect(sock, (sockaddr*)&serverAddr, sizeof(serverAddr)) == SOCKET_ERROR) {
-        std::cerr << "Connection failed!" << std::endl;
-        closesocket(sock);
-        WSACleanup();
-        return;
-    }
-
+		// 连接到服务端
+		connect(clientSocket, (sockaddr*)&serverAddress, sizeof(serverAddress));
+		flag = 1;
+	}
+	float quaternionData[30][4];
     // 遍历每个关节的数据并发送
-    for (int joint = 0; joint < 15; ++joint)
-    {
-        // 获取每个关节的四元数数据
-        auto& quaternion = glovePtr->GloveData[0].HandData_L.JointDatas[joint];
-
+	for (int joint = 0; joint < 15; ++joint)
+	{
+		// 获取每个关节的四元数数据
+		auto& quaternion = glovePtr->GloveData[0].HandData_L.JointDatas[joint];
+		quaternionData[joint][0] = quaternion[0];
+		quaternionData[joint][1] = quaternion[1];
+		quaternionData[joint][2] = quaternion[2];
+		quaternionData[joint][3] = quaternion[3];
+	}
+	for (int joint = 0; joint < 15; ++joint)
+	{
+		// 获取每个关节的四元数数据
+		auto& quaternion = glovePtr->GloveData[0].HandData_R.JointDatas[joint];
+		quaternionData[joint+15][0] = quaternion[0];
+		quaternionData[joint+15][1] = quaternion[1];
+		quaternionData[joint+15][2] = quaternion[2];
+		quaternionData[joint+15][3] = quaternion[3];
+	}
         // 根据 joint 的值决定关节的名称
-        std::string jointName;
+        /*std::string jointName;
         switch (joint) {
         case 0: jointName = "LeftIndexProximal"; break;
         case 1: jointName = "LeftIndexIntermediate"; break;
@@ -188,23 +195,26 @@ void OnNewGloveData(GloveSDK* glovePtr)
         case 12: jointName = "LeftThumbProximal"; break;
         case 13: jointName = "LeftThumbIntermediate"; break;
         case 14: jointName = "LeftThumbDistal"; break;
-        }
+        }*/
 
-        // 拼接四元数数据成字符串
-        std::ostringstream dataStream;
-        dataStream << jointName << ": [" << quaternion[0] << ", " << quaternion[1] << ", " << quaternion[2] << ", " << quaternion[3] << "]";
-        std::string data = dataStream.str();
+    // 拼接四元数数据成字符串
+    std::ostringstream dataStream;
+	for (int i = 0; i < 30; ++i) {
+		for (int j = 0; j < 4; ++j) {
+			dataStream << quaternionData[i][j];
+			dataStream << ",";
+		}
+	}
+    //dataStream << jointName << ": [" << quaternion[0] << ", " << quaternion[1] << ", " << quaternion[2] << ", " << quaternion[3] << "]";
+    std::string data = dataStream.str();
 
-        // 打印要发送的数据
-        std::cout << "Sending data: " << data << std::endl;
-
-        // 发送数据
-        send(sock, data.c_str(), data.size(), 0);
-    }
-
-    // 关闭套接字
-    closesocket(sock);
-    WSACleanup();
+    // 打印要发送的数据
+	//if (flag == 1) { std::cout << "Data to send: " << data << std::endl; flag = 2; }
+	//if (count_flag < 100) {
+		std::cout << "Data to send: " << data << std::endl;
+		send(clientSocket, data.c_str(), data.size(), 0);
+		count_flag++;
+	//}
 }
 
 
@@ -224,7 +234,7 @@ int main()
 	}
 
 	//开启打印线程，打印glove_sdk的数据
-	thread print_th(print_control_thread, &glove_sdk);
+	//thread print_th(print_control_thread, &glove_sdk);
 
 	//调用后只打印帧数
 
@@ -238,7 +248,7 @@ int main()
 		{
 
 		case 1:
-			OnlyPrintFrame();
+			//OnlyPrintFrame();
 			//print_control_thread(&glove_sdk);
 			break;
 

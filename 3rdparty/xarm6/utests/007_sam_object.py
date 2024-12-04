@@ -4,13 +4,13 @@ from glob import glob
 import matplotlib.pyplot as plt
 from loguru import logger as lgr
 from scipy.spatial.transform import Rotation as R
-from xarm6_interface.utils.sam_prompt_drawer import SAMPromptDrawer
+from xarm6_interface.utils.sam_prompt_drawer_old import SAMPromptDrawer
 from xarm6_interface import SAM_TYPE, SAM_PATH
 from pathlib import Path
 
 
 if __name__ == "__main__":
-    save_dir = Path('/home/aris/projects/xarm6/xarm6_interface/utils/box_data')
+    save_dir = Path('xarm6_interface/utils/box_data')
     saved_images_paths = list(save_dir.glob('color_*.png'))
     prompt_drawer = SAMPromptDrawer(window_name="Prompt Drawer", screen_scale=2.0, sam_checkpoint=SAM_PATH, device="cuda", model_type=SAM_TYPE)
 

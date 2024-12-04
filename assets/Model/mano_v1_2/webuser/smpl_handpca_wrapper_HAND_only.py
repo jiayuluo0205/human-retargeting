@@ -20,7 +20,7 @@ Modules included:
 
 def ready_arguments(fname_or_dict, posekey4vposed='pose'):
     import numpy as np
-    import cPickle as pickle
+    import pickle
     import chumpy as ch
     from chumpy.ch import MatVecMult
     from webuser.posemapper import posemap
@@ -71,7 +71,7 @@ def load_model(fname_or_dict='./models/MANO_RIGHT.pkl', ncomps=6, flat_hand_mean
     np.random.seed(1)
 
     if not isinstance(fname_or_dict, dict):
-        smpl_data = pickle.load(open(fname_or_dict))
+        smpl_data = pickle.load(open(fname_or_dict, 'rb'), encoding='latin1')
     else:
         smpl_data = fname_or_dict
 
@@ -134,4 +134,4 @@ def load_model(fname_or_dict='./models/MANO_RIGHT.pkl', ncomps=6, flat_hand_mean
 if __name__ == '__main__':
     m = load_model()
     m.J_transformed
-    print 'FINITO'
+    print('FINITO')

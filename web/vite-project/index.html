@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no'>
+  <meta name='mobile-web-app-capable' content='yes'>
+  <meta name='apple-mobile-web-app-capable' content='yes'>
+  <link rel='icon' type='image/png' sizes='32x32' href='img/favicon-32x32.png'>
+  <link rel='icon' type='image/png' sizes='96x96' href='img/favicon-96x96.png'>
+  <link rel='stylesheet' href='./css/common.css'>
+
+  <title>Immersive AR Session with hands</title>
+</head>
+
+<body>
+  <header>
+    <details open>
+      <summary>Immersive AR Session with hands</summary>
+      <p>
+        This sample demonstrates a simple AR session that shows the user's hands.
+        If your device supports this feature, you will see your hands using a set
+        of cubes. Each cube represents a joint in your hand.
+        <a class="back" href="./">Back</a>
+      </p>
+    </details>
+  </header>
+  <main style='text-align: center;'>
+    <p>Click 'Enter AR' to see content</p>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/urdf-loader@latest/dist/urdf-loader.min.js"></script>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
