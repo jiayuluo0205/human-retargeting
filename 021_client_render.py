@@ -3,6 +3,7 @@ from __future__ import annotations
 import time
 from typing import Literal
 
+import math
 import numpy as np
 import tyro
 
@@ -14,6 +15,7 @@ import cv2
 import pyrealsense2 as rs
 from robotpy_apriltag import AprilTag, AprilTagPoseEstimator, AprilTagDetector
 from scipy.spatial.transform import Rotation as R
+from xarm.wrapper import XArmAPI
 
 def create_robot_control_sliders(
     server: viser.ViserServer, viser_urdf: ViserUrdf
@@ -46,7 +48,7 @@ def create_robot_control_sliders(
     return slider_handles, initial_config
 
 @contextlib.contextmanager
-def realsense_pipeline(fps: int = 30):
+def realsense_pipeline(fps: int = 60):
     """Context manager that yields a RealSense pipeline."""
 
     # Configure depth and color streams.
@@ -68,6 +70,11 @@ def realsense_pipeline(fps: int = 30):
     pipeline.stop()
 
 def main():
+    arm = XArmAPI('192.168.1.208')
+    arm.motion_enable(enable=True)
+    arm.set_mode(0)
+    arm.set_state(state=0)
+
     # Start viser server.
     server = viser.ViserServer()
     urdf_path = Path("assets/robots/xarm6/xarm6_wo_ee_ori_jl.urdf")
@@ -79,6 +86,7 @@ def main():
         urdf_or_path = urdf_path,
         scale=1
     )
+    
     tag_wxyz = R.from_euler("YXZ", [0.0, 180.0, 270.0], degrees=True).as_quat()[[3, 0, 1, 2]]
     server.scene.add_frame("/tag", wxyz=tag_wxyz)
     
@@ -93,21 +101,20 @@ def main():
         principal_point = (intrinsics.ppx, intrinsics.ppy)
         print(focal_length)
         print(principal_point)
-        import math
         fov_y = 2 * math.atan(cy / fy)
 
         detector = AprilTagDetector()
         detector.addFamily(fam="tag36h11")
-        estimator = AprilTagPoseEstimator(AprilTagPoseEstimator.Config(fx=fx, fy=fy, cx=cx, cy=cy, tagSize=0.0635))
+        estimator = AprilTagPoseEstimator(AprilTagPoseEstimator.Config(fx=fx, fy=fy, cx=cx, cy=cy, tagSize=0.095))
 
         # Create sliders in GUI that help us move the robot joints.
-        with server.gui.add_folder("Joint position control"):
-            (slider_handles, initial_config) = create_robot_control_sliders(
-                server, viser_urdf
-            )
+        # with server.gui.add_folder("Joint position control"):
+        #     (slider_handles, initial_config) = create_robot_control_sliders(
+        #         server, viser_urdf
+        #     )
 
         # Set initial robot configuration.
-        viser_urdf.update_cfg(np.array(initial_config))
+        # viser_urdf.update_cfg(np.array(initial_config))
 
         # Create joint reset button.
         reset_button = server.gui.add_button("Reset")
@@ -165,8 +172,16 @@ def main():
                         client.camera.fov = fov_y
                         new_image = client.camera.get_render(height=480, width=640, transport_format="png")
                         mask = new_image[:, :, 3] != 0
-                        color_image[mask] = new_image[:, :, :3][mask]
+                        new_image[:, :, 0] = (new_image[:, :, 0] * 0.4).astype(np.int8)
+                        new_image[:, :, 1] = (new_image[:, :, 1] * 0.75).astype(np.int8)
+                        new_image[:, :, 2] = (new_image[:, :, 2] * 1).astype(np.int8)
+                        # print(new_image[mask].mean(axis=0))
+                        opacity = 0.3
+                        color_image[mask] = color_image[mask] * opacity + new_image[:, :, :3][mask] * (1 - opacity)
                         cv2.imshow('2CFuture', color_image)
+                    
+                    config = arm.get_servo_angle(is_radian=True)[1][:6]
+                    viser_urdf.update_cfg(np.array(config))
             else:
                 color_image[:10, :] = [0, 0, 255]  # 红色 (BGR 格式)
                 color_image[-10:, :] = [0, 0, 255]
