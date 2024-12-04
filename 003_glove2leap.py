@@ -36,7 +36,7 @@ cuda = torch.cuda.is_available()
 device = torch.device("cuda:0" if cuda else "cpu")
 
 # 创建 socket 服务器
-def start_server(host='0.0.0.0', port=5556):
+def start_server(host='0.0.0.0', port=5555):
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((host, port))
     server_socket.listen(1)

@@ -52,7 +52,7 @@ if __name__ == '__main__':
 
     ''' params '''
     serial_number="241122074374"
-    exp_name = "1204_excalib_capture00"
+    exp_name = "1204_excalib_capture01"
     camera_data_path = Path(os.path.join(ROOT_DIR, f"3rdparty/xarm6/data/camera/{serial_number}"))
     save_data_rel_dir_path = (camera_data_path / exp_name).resolve()
     init_X_BaseCamera_path = (camera_data_path / "init_X_BaseCamera.npy").resolve() # init_X_BaseleftCamera.npy

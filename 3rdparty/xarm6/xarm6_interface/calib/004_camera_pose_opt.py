@@ -25,7 +25,7 @@ if __name__ == '__main__':
 
     # load the collected data
     serial_number="241122074374" 
-    exp_name = "1204_excalib_capture00"
+    exp_name = "1204_excalib_capture01"
     K_path = Path(__file__).resolve().parent.parent.parent / "data" / "camera" / serial_number / "K.npy"
     K = np.load(K_path)
     save_data_rel_dir_path = (Path(os.path.join(ROOT_DIR, f"3rdparty/xarm6/data/camera/{serial_number}")) / exp_name).resolve()
