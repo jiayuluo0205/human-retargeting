@@ -28,42 +28,43 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../../..'))
 ip_left = "192.168.1.232"
 ip_right = "192.168.1.208"
 
-arm_left = XArmAPI(ip_left)
+# arm_left = XArmAPI(ip_left)
 
 arm_right = XArmAPI(ip_right)
 
-arm_left.motion_enable(enable=True)
+# arm_left.motion_enable(enable=True)
 arm_right.motion_enable(enable=True)
 
-arm_left.set_mode(0)
+# arm_left.set_mode(0)
 arm_right.set_mode(0)
 
-arm_left.set_state(state=0)
+# arm_left.set_state(state=0)
 arm_right.set_state(state=0)
 
-arm_left.set_position(x=400, y=0, z=350, roll=-180, pitch=0, yaw=0, speed=100, is_radian=False, wait=True)
-arm_right.set_position(x=100, y=0, z=350, roll=-180, pitch=0, yaw=0, speed=100, is_radian=False, wait=True)
+# arm_left.set_position(x=400, y=0, z=350, roll=-180, pitch=0, yaw=0, speed=100, is_radian=False, wait=True)
+arm_right.set_position(x=400, y=100, z=350, roll=-180, pitch=0, yaw=0, speed=100, is_radian=False, wait=True)
 
 xarm_left_init_pos = [400, 0, 350]
-xarm_right_init_pos = [100, 0, 350]
+xarm_right_init_pos = [400, 100, 350]
 
 # set mode: cartesian online trajectory planning mode
 # the running command will be interrupted when the next command is received
-arm_left.set_mode(7)
+# arm_left.set_mode(7)
 arm_right.set_mode(7)
 
-arm_left.set_state(0)
+# arm_left.set_state(0EE_left_rel)
 arm_right.set_state(0)
 
 time.sleep(1)
 
 speed = 100
-scale = 1.2
+scale = 1.5
 
 while True:
     socket.send(b"request")
     print(f"request sent")
     # Get from server
+    pose24_byte = b""
     pose24_byte = socket.recv()
     pose24_np = np.frombuffer(pose24_byte, dtype=np.float64)
     pose24_lwrist = np.reshape(pose24_np[0:16],[4,4])

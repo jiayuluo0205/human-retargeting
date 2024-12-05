@@ -201,6 +201,7 @@ if __name__ == "__main__":
                 # 更新 Viser 中的滑条
                 for mapping in joint_mapping.values():
                     glove_index = mapping["glove_index"]
+                    print(right_hand_data)
                     glove_value = right_hand_data[glove_index]
                     scale = mapping["scale"]
                     joint_name = mapping["joint_name"]
