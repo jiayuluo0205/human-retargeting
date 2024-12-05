@@ -48,17 +48,6 @@ let solarSystem = new Gltf2Node({url: '../media/gltf/space/space.gltf'});
 solarSystem.scale = [0.1, 0.1, 0.1];
 scene.addNode(solarSystem);
 
-// const url = '../assets/xarm_description/urdf/xarm_device.urdf.xacro;
-// const xacroLoader = new XacroLoader();
-// xacroLoader.load( url, xml => {
-
-//     const urdfLoader = new URDFLoader();
-//     urdfLoader.workingPath = LoaderUtils.extractUrlBase( url );
-
-//     const robot = urdfLoader.parse( xml );
-//     scene.add( robot );
-
-// } );
 
 if (QueryArgs.getBool('usePolyfill', true)) {
   new WebXRPolyfill({ debug: false });
