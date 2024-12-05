@@ -218,8 +218,11 @@ def main():
         sv.scene.add_frame(
             "Link23", wxyz=R.from_matrix(X_WorldLink23[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink23[:3, 3]
         )
-
+        sv.scene.add_frame(
+            "Link23", wxyz=R.from_matrix(X_WorldLink23[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink23[:3, 3]
+        )
         # message_send = np.array(X_WorldLink20).tobytes()
+        print(X_WorldLink23)
         X_WorldLink22and23 = np.stack([X_WorldLink22, X_WorldLink23], axis=0)
         # message_send = np.array(X_WorldLink22).tobytes()
         message_send = X_WorldLink22and23.tobytes()

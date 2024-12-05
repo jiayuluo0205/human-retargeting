@@ -48,7 +48,7 @@ def main():
     print("Connecting to windows server...")
     socket = context.socket(zmq.REQ)
     '''tcp:ip adress of windows machine:5555'''
-    socket.connect("tcp://172.25.97.8:5555")
+    socket.connect("tcp://localhost:5555")
 
     # 持续接收数据import rebocap_ws_sdk
 

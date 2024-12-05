@@ -220,8 +220,6 @@ void OnNewGloveData(GloveSDK* glovePtr)
 	// 发送手套数据
 	SendGloveData(glovePtr);
 
-	cout << endl << endl;
-
 }
 
 int main()
