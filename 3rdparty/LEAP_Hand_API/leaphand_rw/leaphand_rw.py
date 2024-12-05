@@ -101,7 +101,7 @@ class LeapNode:
         self.kP = 600
         self.kI = 0
         self.kD = 200
-        self.curr_lim = 350
+        self.curr_lim = 150
         self.prev_pos = self.pos = self.curr_pos = lhu.allegro_to_LEAPhand(np.zeros(16))
         self.torque_enable = torque_enable
            
@@ -127,7 +127,7 @@ class LeapNode:
         self.dxl_client.sync_write([0,4,8], np.ones(3) * (self.kD * 0.75), 80, 2) # Dgain damping for side to side should be a bit less
         #Max at current (in unit 1ma) so don't overheat and grip too hard #500 normal or #350 for lite
         self.dxl_client.sync_write(motors, np.ones(len(motors)) * self.curr_lim, 102, 2)
-        self.dxl_client.write_desired_pos(self.motors, self.curr_pos)
+        # self.dxl_client.write_desired_pos(self.motors, self.curr_pos)
 
     #Receive LEAP pose and directly control the robot
     def set_leap(self, pose):

@@ -32,11 +32,13 @@ from utils import *
 from diff_robot_hand import POS2POS_TRANSLATER_DIR
 import glob
 
+from leaphand_rw.leaphand_rw import LeapNode
+
 cuda = torch.cuda.is_available()
 device = torch.device("cuda:0" if cuda else "cpu")
 
 # 创建 socket 服务器
-def start_server(host='0.0.0.0', port=5555):
+def start_server(host='0.0.0.0', port=5556):
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((host, port))
     server_socket.listen(1)
@@ -75,7 +77,20 @@ def update_hand_trimesh(joint_pos, start):
     else:
         joint_pos_tensor = joint_pos1
 
-    joint_pos_full = joint_pos_tensor.cpu().numpy().squeeze(0)  # Shape: [n,]
+    joint_pos_full = joint_pos_tensor.cpu().numpy().squeeze(0)  # Shape: (16,)
+    # print(joint_pos_full)
+    control_pos = [
+        joint_pos_full[1], joint_pos_full[0],  
+        joint_pos_full[2], joint_pos_full[3],
+        joint_pos_full[5], joint_pos_full[4],  
+        joint_pos_full[6], joint_pos_full[7],
+        joint_pos_full[9], joint_pos_full[8],  
+        joint_pos_full[10], joint_pos_full[11],
+        joint_pos_full[12], joint_pos_full[13],
+        joint_pos_full[14], joint_pos_full[15]
+    ]
+
+    leap_hand.set_allegro(control_pos)
     in_col, collision_result_pb = hand.get_collision_results_pb(joint_pos_full)
     result_dict = hand.get_hand_trimesh(joint_pos_full, visual=False, collision=True, collision_result_pb=collision_result_pb)
     pred_my_hand_mesh_col = result_dict["collision"].apply_translation([0.0, 0.5, 0.0])
@@ -126,6 +141,8 @@ if __name__ == "__main__":
         hand = AllegroHandLeft()
         config = Allegrohand_Config("whole","whole")
         start = 6
+
+    leap_hand = LeapNode()
 
     server = viser.ViserServer()
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"
@@ -199,6 +216,7 @@ if __name__ == "__main__":
                         slider.value = normalized_value
 
                 ordered_joint_values = [slider.value for slider in gui_joints.values()]
+                
                 update_hand_trimesh(torch.tensor(ordered_joint_values, dtype=torch.float32), start)
 
         except ConnectionResetError:
