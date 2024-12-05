@@ -1,29 +1,13 @@
 {
   "Version": 1,
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-  "WorkspaceRootPath": "C:\\Users\\50129\\Documents\\GitHub\\human-retargeting\\utils\\Hand_SDK_Unicast\\",
-=======
   "WorkspaceRootPath": "D:\\Projects\\human-retargeting\\utils\\Hand_SDK_Unicast\\",
->>>>>>> Stashed changes
   "Documents": [
     {
       "AbsoluteMoniker": "D:0:0:{55B1BC2C-EC7E-443B-B194-8D0BC59DF9BB}|CM_YD_Unicast\\CM_YD_Unicast.vcxproj|D:\\Projects\\human-retargeting\\utils\\Hand_SDK_Unicast\\CM_YD_Unicast\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{55B1BC2C-EC7E-443B-B194-8D0BC59DF9BB}|CM_YD_Unicast\\CM_YD_Unicast.vcxproj|solutionrelative:CM_YD_Unicast\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-<<<<<<< Updated upstream
     },
     {
-      "AbsoluteMoniker": "D:0:0:{55B1BC2C-EC7E-443B-B194-8D0BC59DF9BB}|CM_YD_Unicast\\CM_YD_Unicast.vcxproj|C:\\Users\\50129\\Documents\\GitHub\\human-retargeting\\utils\\Hand_SDK_Unicast\\CM_YD_Unicast\\UnicastLib\\CM_YD_Unicast.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{55B1BC2C-EC7E-443B-B194-8D0BC59DF9BB}|CM_YD_Unicast\\CM_YD_Unicast.vcxproj|solutionrelative:CM_YD_Unicast\\UnicastLib\\CM_YD_Unicast.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-=======
-  "WorkspaceRootPath": "C:\\Users\\50129\\OneDrive\\\u684C\u9762\\workspace\\human-retargeting\\utils\\Hand_SDK_Unicast\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{55B1BC2C-EC7E-443B-B194-8D0BC59DF9BB}|CM_YD_Unicast\\CM_YD_Unicast.vcxproj|C:\\Users\\50129\\OneDrive\\\u684C\u9762\\workspace\\human-retargeting\\utils\\Hand_SDK_Unicast\\CM_YD_Unicast\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{55B1BC2C-EC7E-443B-B194-8D0BC59DF9BB}|CM_YD_Unicast\\CM_YD_Unicast.vcxproj|solutionrelative:CM_YD_Unicast\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\VS2022\\MSBuild\\Microsoft\\VC\\v170\\Microsoft.CppCommon.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -39,45 +23,27 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "main.cpp",
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-              "DocumentMoniker": "C:\\Users\\50129\\Documents\\GitHub\\human-retargeting\\utils\\Hand_SDK_Unicast\\CM_YD_Unicast\\main.cpp",
-=======
               "DocumentMoniker": "D:\\Projects\\human-retargeting\\utils\\Hand_SDK_Unicast\\CM_YD_Unicast\\main.cpp",
->>>>>>> Stashed changes
               "RelativeDocumentMoniker": "CM_YD_Unicast\\main.cpp",
               "ToolTip": "D:\\Projects\\human-retargeting\\utils\\Hand_SDK_Unicast\\CM_YD_Unicast\\main.cpp",
               "RelativeToolTip": "CM_YD_Unicast\\main.cpp",
-              "ViewState": "AgIAAGsAAAAAAAAAAAAkwIQAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAGkAAAAAAAAAAAAAAHkAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-25T12:06:08.202Z",
               "IsPinned": true,
               "EditorCaption": ""
-<<<<<<< Updated upstream
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "CM_YD_Unicast.h",
-              "DocumentMoniker": "C:\\Users\\50129\\Documents\\GitHub\\human-retargeting\\utils\\Hand_SDK_Unicast\\CM_YD_Unicast\\UnicastLib\\CM_YD_Unicast.h",
-              "RelativeDocumentMoniker": "CM_YD_Unicast\\UnicastLib\\CM_YD_Unicast.h",
-              "ToolTip": "C:\\Users\\50129\\Documents\\GitHub\\human-retargeting\\utils\\Hand_SDK_Unicast\\CM_YD_Unicast\\UnicastLib\\CM_YD_Unicast.h",
-              "RelativeToolTip": "CM_YD_Unicast\\UnicastLib\\CM_YD_Unicast.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-02T14:27:34.639Z"
-=======
-              "DocumentMoniker": "C:\\Users\\50129\\OneDrive\\\u684C\u9762\\workspace\\human-retargeting\\utils\\Hand_SDK_Unicast\\CM_YD_Unicast\\main.cpp",
-              "RelativeDocumentMoniker": "CM_YD_Unicast\\main.cpp",
-              "ToolTip": "C:\\Users\\50129\\OneDrive\\\u684C\u9762\\workspace\\human-retargeting\\utils\\Hand_SDK_Unicast\\CM_YD_Unicast\\main.cpp",
-              "RelativeToolTip": "CM_YD_Unicast\\main.cpp",
-              "ViewState": "AgIAAHUAAAAAAAAAAAAAAIkAAAA5AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-04T07:43:16.85Z",
-              "EditorCaption": ""
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+              "Title": "Microsoft.CppCommon.targets",
+              "DocumentMoniker": "D:\\VS2022\\MSBuild\\Microsoft\\VC\\v170\\Microsoft.CppCommon.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\VS2022\\MSBuild\\Microsoft\\VC\\v170\\Microsoft.CppCommon.targets",
+              "ToolTip": "D:\\VS2022\\MSBuild\\Microsoft\\VC\\v170\\Microsoft.CppCommon.targets",
+              "RelativeToolTip": "..\\..\\..\\..\\VS2022\\MSBuild\\Microsoft\\VC\\v170\\Microsoft.CppCommon.targets",
+              "ViewState": "AgIAAMsCAAAAAAAAAADgv/YCAABTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2024-12-05T10:51:03.327Z"
             }
           ]
         }
