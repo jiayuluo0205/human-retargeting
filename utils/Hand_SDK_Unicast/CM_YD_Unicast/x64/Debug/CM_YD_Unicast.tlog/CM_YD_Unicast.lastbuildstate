@@ -1,12 +1,2 @@
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-PlatformToolSet=v143:VCToolArchitecture=Native64Bit:VCToolsVersion=14.41.34120:TargetPlatformVersion=10.0.22621.0:
-Debug|x64|C:\Users\50129\Documents\GitHub\human-retargeting\utils\Hand_SDK_Unicast\|
-=======
-PlatformToolSet=v143:VCToolArchitecture=Native64Bit:VCToolsVersion=14.42.34433:TargetPlatformVersion=10.0.22621.0:
-Debug|x64|C:\Users\50129\OneDrive\桌面\workspace\human-retargeting\utils\Hand_SDK_Unicast\|
->>>>>>> Stashed changes
-=======
 PlatformToolSet=v143:VCToolArchitecture=Native64Bit:VCToolsVersion=14.41.34120:TargetPlatformVersion=10.0.22621.0:VcpkgTriplet=x64-windows:
 Debug|x64|D:\Projects\human-retargeting\utils\Hand_SDK_Unicast\|
->>>>>>> Stashed changes
