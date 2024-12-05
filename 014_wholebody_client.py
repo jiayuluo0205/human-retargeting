@@ -9,7 +9,7 @@ import pybullet_data
 import viser
 from pathlib import Path
 
-from smpl_visualizer import *
+from utils.smpl_visualizer import *
 
 import socket
 import time

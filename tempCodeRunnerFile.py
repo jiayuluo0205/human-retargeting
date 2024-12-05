@@ -1,5 +1,0 @@
-), 4,(255,0,0), 2)
-                cv2.circle(color_image, (int(tag.getCorner(1).x), int(tag.getCorner(1).y)), 4,(255,0,0), 2)
-                cv2.circle(color_image, (int(tag.getCorner(2).x), int(tag.getCorner(2).y)), 4,(255,0,0), 2)
-                cv2.circle(color_image, (int(tag.getCorner(3).x), int(tag.getCorner(3).y)), 4,(255,0,0), 2)
-                cv2.circle(color_image, (int(tag.getCenter().x), int(tag.getCenter().y)), 4,(255,0,0), 2)
