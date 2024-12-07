@@ -62,10 +62,19 @@ def main():
     sim_hand = LeapHandRight(load_visual_mesh=True, load_col_mesh=False, load_balls_urdf=False, load_n_collision_point=0)
 
     leaphand_model = RobotModel(robot_name='leaphand', urdf_path='assets/robots/leap_hand/leap_hand_right_extended.urdf', meshes_path='assets/robots/leap_hand/meshes/visual')
-
+    
+    X_CameraTag25 = np.load("data/transform/camera_tag25.npy").reshape((4, 4))
+    print(X_CameraTag25)
+    X_CameraTag36 = np.load("data/transform/camera_tag36.npy").reshape((4, 4))
+    X_ArmTag36 = np.load("data/transform/rightarm_tag36.npy").reshape((4, 4))
+    X_Tag36Camera = np.linalg.inv(X_CameraTag36)
+    X_ArmTag25 = X_ArmTag36 @ X_Tag36Camera @ X_CameraTag25
+    # tag_wxyz = R.from_matrix(X_ArmTag25[:3, :3]).as_quat()[[3, 0, 1, 2]]
+    position_ArmTag25 = X_ArmTag25[:3, 3]
     tag_wxyz = R.from_euler("YXZ", [0.0, 180.0, 270.0], degrees=True).as_quat()[[3, 0, 1, 2]]
     server.scene.add_frame("/tag", wxyz=tag_wxyz)
-    
+    # server.scene.add_frame("/tag", wxyz=tag_wxyz, position=position_ArmTag25)
+
     with realsense_pipeline() as pipeline:
         profile = pipeline.get_active_profile()
         color_stream = profile.get_stream(rs.stream.color)
@@ -81,11 +90,12 @@ def main():
         fov_y = 2 * math.atan(cy / fy)
 
         detector = AprilTagDetector()
-        detector.addFamily(fam="tag36h11") # 0.178
-        # detector.addFamily(fam="tag25h9")  #0.0887
-        estimator = AprilTagPoseEstimator(AprilTagPoseEstimator.Config(fx=fx, fy=fy, cx=cx, cy=cy, tagSize=0.178))
-
-
+        # detector.addFamily(fam="tag36h11")
+        detector.addFamily(fam="tag25h9")
+        estimator = AprilTagPoseEstimator(AprilTagPoseEstimator.Config(fx=fx, fy=fy, cx=cx, cy=cy, tagSize=0.12))
+        
+        
+    
         while True:
           
             # Wait for a coherent pair of frames: depth and color

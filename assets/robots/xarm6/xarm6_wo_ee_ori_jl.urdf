@@ -214,7 +214,7 @@
   </joint>
   <link name="eef_point"/>
   <joint name="dummy_eef" type="fixed">
-    <origin rpy="3.1416 -1.5708 0" xyz="-0.06 0.02 0.03"/>
+    <origin rpy="3.1416 -1.5708 0" xyz="-0.03 0.02 0.012"/>
     <parent link="link_eef"/>
     <child link="eef_point"/>
   </joint>

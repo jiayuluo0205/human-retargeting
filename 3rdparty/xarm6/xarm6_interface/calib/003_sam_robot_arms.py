@@ -9,7 +9,7 @@ ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.pa
 
 if __name__ == "__main__":
     serial_number="241122074374"
-    exp_name = "1204_excalib_capture01"
+    exp_name = "1206_excalib_capture00"
     save_data_rel_dir_path = (Path(os.path.join(ROOT_DIR, f"3rdparty/xarm6/data/camera/{serial_number}")) / exp_name).resolve()
     sample_id_paths = list(save_data_rel_dir_path.glob("*"))
     sample_id_paths = sorted(sample_id_paths)

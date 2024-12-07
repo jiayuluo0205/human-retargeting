@@ -29,19 +29,20 @@ def realsense_pipeline(fps: int = 30):
 
 with realsense_pipeline() as pipeline:
     detector = AprilTagDetector()
-    detector.addFamily(fam="tag36h11")
-    # detector.addFamily(fam="tag25h9")
-    K_path = "3rdparty/xarm6/data/camera/241122074374/K.npy"
-    # camera2arm_path = "3rdparty/xarm6/data/camera/241122074374/1206_excalib_capture00/optimized_X_BaseCamera.npy"
-    X_ArmCamera1_path = "3rdparty/xarm6/data/camera/241122074374/1206_excalib_capture00/optimized_X_BaseCamera.npy"
+    # detector.addFamily(fam="tag36h11")
+    detector.addFamily(fam="tag25h9")
     while True:
         # Wait for a coherent pair of frames: depth and color
         frames = pipeline.wait_for_frames()
         color_frame = frames.get_color_frame()
         color_image = np.asanyarray(color_frame.get_data())
-        intrinsics = np.load(K_path)
-        fx, fy = intrinsics[0, 0], intrinsics[1, 1]
-        cx, cy = intrinsics[0, 2], intrinsics[1, 2]
+
+        profile = pipeline.get_active_profile()
+        color_stream = profile.get_stream(rs.stream.color)
+        intrinsics = color_stream.as_video_stream_profile().get_intrinsics()
+        fx, fy = intrinsics.fx, intrinsics.fy
+        cx, cy = intrinsics.ppx, intrinsics.ppy
+
         estimator = AprilTagPoseEstimator(AprilTagPoseEstimator.Config(fx=fx, fy=fy, cx=cx, cy=cy, tagSize=0.178))
         gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
         tags = detector.detect(gray)
@@ -51,7 +52,6 @@ with realsense_pipeline() as pipeline:
             cv2.circle(color_image, (int(tag.getCorner(2).x), int(tag.getCorner(2).y)), 4,(255,0,0), 2)
             cv2.circle(color_image, (int(tag.getCorner(3).x), int(tag.getCorner(3).y)), 4,(255,0,0), 2)
             cv2.circle(color_image, (int(tag.getCenter().x), int(tag.getCenter().y)), 4,(255,0,0), 2)
-            # tag transform in Camera 2
             tag_tf3d = estimator.estimate(tag)
             tag_xyzw = ( 
                 tag_tf3d.rotation().getQuaternion().X(), 
@@ -65,13 +65,10 @@ with realsense_pipeline() as pipeline:
                 tag_tf3d.translation().Z()
             )
             # print(tag_xyzw)
-            X_CameraTag36 = np.eye(4)
-            X_CameraTag36[:3, :3] = R.from_quat(tag_xyzw).as_matrix()
-            X_CameraTag36[:3, 3] = tag_position
-            X_ArmCamera = np.load(X_ArmCamera1_path) # 241122074374
-            X_ArmTag36 = X_ArmCamera @ X_CameraTag36
-            print(X_ArmCamera)
-            # np.save("data/transform/rightarm_tag36.npy", X_ArmTag36)
+            X_CameraTag25 = np.eye(4) #147122075879
+            X_CameraTag25[:3, :3] = R.from_quat(tag_xyzw).as_matrix()
+            X_CameraTag25[:3, 3] = tag_position
+            np.save("data/transform/camera_tag25.npy", X_CameraTag25)
 
         # # 显示检测结果
         cv2.imshow('capture', color_image)

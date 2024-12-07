@@ -58,13 +58,18 @@ def main():
     server = viser.ViserServer()
     XArm_model = RobotModel(robot_name='xarm', urdf_path='assets/robots/xarm6/xarm6_wo_ee_ori_jl.urdf', meshes_path='assets/robots/xarm6/meshes/')
     
-    rw_hand = LeapNode(torque_enable=False)    
+    rw_hand = LeapNode(torque_enable=True)    
     sim_hand = LeapHandRight(load_visual_mesh=True, load_col_mesh=False, load_balls_urdf=False, load_n_collision_point=0)
 
     leaphand_model = RobotModel(robot_name='leaphand', urdf_path='assets/robots/leap_hand/leap_hand_right_extended.urdf', meshes_path='assets/robots/leap_hand/meshes/visual')
 
-    tag_wxyz = R.from_euler("YXZ", [0.0, 180.0, 270.0], degrees=True).as_quat()[[3, 0, 1, 2]]
-    server.scene.add_frame("/tag", wxyz=tag_wxyz)
+    X_ArmTag25_path = "/data/gjx/human-retargeting/data/transform/X_ArmTag25.npy"
+    X_ArmTag25 = np.load(X_ArmTag25_path)
+    X_ArmTag25[0, 3] += 0.05
+    X_ArmTag25[1, 3] -= 0.02
+    X_ArmTag25[2, 3] -= 0.0
+    wxyz_ArmTag25 = R.from_matrix(X_ArmTag25[:3, :3]).as_quat()
+    server.scene.add_frame("/tag", wxyz=wxyz_ArmTag25, position=X_ArmTag25[:3, 3])
     
     with realsense_pipeline() as pipeline:
         profile = pipeline.get_active_profile()
@@ -74,16 +79,12 @@ def main():
         # intrinsc matrix of camera
         fx, fy = intrinsics.fx, intrinsics.fy
         cx, cy = intrinsics.ppx, intrinsics.ppy
-        focal_length = (intrinsics.fx, intrinsics.fy)
-        principal_point = (intrinsics.ppx, intrinsics.ppy)
-        print(focal_length)
-        print(principal_point)
         fov_y = 2 * math.atan(cy / fy)
 
         detector = AprilTagDetector()
-        detector.addFamily(fam="tag36h11") # 0.178
-        # detector.addFamily(fam="tag25h9")  #0.0887
-        estimator = AprilTagPoseEstimator(AprilTagPoseEstimator.Config(fx=fx, fy=fy, cx=cx, cy=cy, tagSize=0.178))
+        # detector.addFamily(fam="tag36h11") # 0.178
+        detector.addFamily(fam="tag25h9")  # 0.0887
+        estimator = AprilTagPoseEstimator(AprilTagPoseEstimator.Config(fx=fx, fy=fy, cx=cx, cy=cy, tagSize=0.0887))
 
 
         while True:
@@ -115,22 +116,22 @@ def main():
                     server.scene.add_frame("/tag/camera", wxyz=camera_wxyz, position=camera_position)
 
                     
-                    X_WorldTag = np.eye(4)
-                    tag_xyzw = (tag_wxyz[1], tag_wxyz[2], tag_wxyz[3], tag_wxyz[0])
-                    X_WorldTag[:3, :3] = R.from_quat(tag_xyzw).as_matrix()
+                    # X_WorldTag = np.eye(4)
+                    # tag_xyzw = (tag_wxyz[1], tag_wxyz[2], tag_wxyz[3], tag_wxyz[0])
+                    # X_WorldTag[:3, :3] = R.from_quat(tag_xyzw).as_matrix()
                     
                     camera_xyzw = (camera_wxyz[1], camera_wxyz[2], camera_wxyz[3], camera_wxyz[0])
                     camera_rotmat = R.from_quat(camera_xyzw).as_matrix()
-                    X_TagCamera = np.eye(4)
-                    X_TagCamera[:3, :3] = camera_rotmat
-                    X_TagCamera[:3, 3] = np.array(camera_position)
+                    X_Tag25Camera2 = np.eye(4)
+                    X_Tag25Camera2[:3, :3] = camera_rotmat
+                    X_Tag25Camera2[:3, 3] = np.array(camera_position)
 
-                    X_WorldCamera = X_WorldTag @ X_TagCamera
+                    X_ArmCamera2 = X_ArmTag25 @ X_Tag25Camera2
                     
                     clients = server.get_clients()
                     for id, client in clients.items():
-                        client.camera.wxyz = R.from_matrix(X_WorldCamera[:3, :3]).as_quat()[[3, 0, 1, 2]]
-                        client.camera.position = X_WorldCamera[:3, 3]
+                        client.camera.wxyz = R.from_matrix(X_ArmCamera2[:3, :3]).as_quat()[[3, 0, 1, 2]]
+                        client.camera.position = X_ArmCamera2[:3, 3]
                         client.camera.fov = fov_y
                         new_image = client.camera.get_render(height=480, width=640, transport_format="png")
                         mask = new_image[:, :, 3] != 0
@@ -143,6 +144,7 @@ def main():
                         cv2.imshow('2CFuture', color_image)
                     
                     # viser_urdf.update_cfg(np.array(config))
+
                     # hand read pos
                     rw_joint_values = rw_hand.read_pos()
                     sim_joint_values = leap_from_rw_to_sim(rw_joint_values, sim_hand.actuated_joint_names)
