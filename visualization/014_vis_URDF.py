@@ -11,9 +11,12 @@ import torch
 import viser
 from utils.hand_model import HandModel
 
-urdf_path = 'assets/robots/mano/mano.urdf'
-robot_name = 'mano'
-meshes_path = 'assets/robots/mano/meshes'
+# urdf_path = 'assets/robots/mano/mano.urdf'
+# robot_name = 'mano'
+# meshes_path = 'assets/robots/mano/meshes'
+urdf_path = 'assets/robots/leap_hand/leap_hand_right_extended.urdf'
+robot_name = 'leaphand'
+meshes_path = 'assets/robots/leap_hand/meshes/visual'
 
 hand = HandModel(robot_name, urdf_path, meshes_path)
 

@@ -81,9 +81,9 @@ def main():
         fov_y = 2 * math.atan(cy / fy)
 
         detector = AprilTagDetector()
-        detector.addFamily(fam="tag36h11") # 0.178
-        # detector.addFamily(fam="tag25h9")  #0.0887
-        estimator = AprilTagPoseEstimator(AprilTagPoseEstimator.Config(fx=fx, fy=fy, cx=cx, cy=cy, tagSize=0.178))
+        # detector.addFamily(fam="tag36h11") # 0.178
+        detector.addFamily(fam="tag25h9")  #0.0887
+        estimator = AprilTagPoseEstimator(AprilTagPoseEstimator.Config(fx=fx, fy=fy, cx=cx, cy=cy, tagSize=0.0887))
 
 
         while True:

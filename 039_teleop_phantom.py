@@ -91,7 +91,6 @@ def main():
         profile = pipeline.get_active_profile()
         color_stream = profile.get_stream(rs.stream.color)
         intrinsics = color_stream.as_video_stream_profile().get_intrinsics()
-        print(intrinsics)
         # intrinsc matrix of camera
         fx, fy = intrinsics.fx, intrinsics.fy
         cx, cy = intrinsics.ppx, intrinsics.ppy
@@ -158,12 +157,7 @@ def main():
                     )
                     # print(camera_position)
                     server.scene.add_frame("/tag/camera", wxyz=camera_wxyz, position=camera_position)
-
-                    
-                    # X_WorldTag = np.eye(4)
-                    # tag_xyzw = (tag_wxyz[1], tag_wxyz[2], tag_wxyz[3], tag_wxyz[0])
-                    # X_WorldTag[:3, :3] = R.from_quat(tag_xyzw).as_matrix()
-                    
+     
                     camera_xyzw = (camera_wxyz[1], camera_wxyz[2], camera_wxyz[3], camera_wxyz[0])
                     camera_rotmat = R.from_quat(camera_xyzw).as_matrix()
                     X_Tag25Camera2 = np.eye(4)
@@ -187,15 +181,6 @@ def main():
                         color_image[mask] = color_image[mask] * opacity + new_image[:, :, :3][mask] * (1 - opacity)
                         cv2.imshow('2CFuture', color_image)
 
-                    # hand read pos
-
-                    rw_hand.set_allegro(np.zeros(16))
-
-                    rw_joint_values = rw_hand.read_pos()
-                    sim_joint_values = leap_from_rw_to_sim(rw_joint_values, sim_hand.actuated_joint_names)
-                    sim_to_rw_joint_values = leap_from_sim_to_rw(sim_joint_values, sim_hand.actuated_joint_names)
-                    assert np.allclose(sim_to_rw_joint_values, rw_joint_values)
-
                     config = arm.get_servo_angle(is_radian=True)[1][:6]
 
                     start_qpos = [math.degrees(rad) for rad in config]
@@ -214,20 +199,24 @@ def main():
                     translation = root_transform[:3, 3]
                     euler = R.from_matrix(rotation).as_euler('XYZ')
                     dummy_values = np.concatenate([translation, euler])
-                    
+
+                    # hand read pos
+
+                    rw_joint_values = rw_hand.read_pos()
+                    sim_joint_values = leap_from_rw_to_sim(rw_joint_values, sim_hand.actuated_joint_names)
                     sim_dummy_joint_values = np.concatenate([dummy_values, sim_joint_values]) #virtual_joint_x/y/z/r/p/y
 
                     leaphand_trimesh = leaphand_model.get_trimesh_q(sim_dummy_joint_values)['visual']
                     server.scene.add_mesh_trimesh('leaphand_trimesh', leaphand_trimesh)
 
 
-                    server.scene.add_frame(
-                        "set_position_frame",
-                        axes_length=0.1, 
-                        axes_radius=0.01,
-                        wxyz=R.from_matrix(X_target_m[:3, :3]).as_quat()[[3, 0, 1, 2]],
-                        position=X_target_m[:3, 3],
-                    )
+                    # server.scene.add_frame(
+                    #     "set_position_frame",
+                    #     axes_length=0.1, 
+                    #     axes_radius=0.01,
+                    #     wxyz=R.from_matrix(X_target_m[:3, :3]).as_quat()[[3, 0, 1, 2]],
+                    #     position=X_target_m[:3, 3],
+                    # )
 
                     # euler = R.from_matrix(X_target[:3, :3]).as_euler("xyz", degrees=True)
                     # print("set position", X_target[0, 3], X_target[1, 3], X_target[2, 3], euler)
