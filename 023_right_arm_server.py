@@ -121,7 +121,7 @@ def get_link(sdk):
 counter = 0
 
 def main():
-    def print_debug_msg(self: rebocap_ws_sdk.RebocapWsSdk, trans, pose24, static_index, ts):
+    def print_debug_msg(self: rebocap_ws_sdk.RebocapWsSdk, trans, pose24, static_inlocaldex, ts):
         global counter
 
         is_left_on_floor = 0 <= static_index <= 5
@@ -182,7 +182,7 @@ def main():
     
     # memory = []
 
-    sv = viser.ViserServer(port=8085)
+    # sv = viser.ViserServer(port=8085)
 
     while True:
         global X_WorldLink20
@@ -191,38 +191,38 @@ def main():
 
         X_WorldLink9, X_WorldLink16, X_WorldLink17, X_WorldLink18, X_WorldLink19, X_WorldLink20, X_WorldLink21, X_WorldLink22, X_WorldLink23 = get_link(sdk)
 
-        sv.scene.add_frame(
-            "Link9", wxyz=R.from_matrix(X_WorldLink9[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink9[:3, 3]
-        )
-        sv.scene.add_frame(
-            "Link16", wxyz=R.from_matrix(X_WorldLink16[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink16[:3, 3]
-        )
-        sv.scene.add_frame(
-            "Link17", wxyz=R.from_matrix(X_WorldLink17[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink17[:3, 3]
-        )
-        sv.scene.add_frame(
-            "Link18", wxyz=R.from_matrix(X_WorldLink18[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink18[:3, 3]
-        )
-        sv.scene.add_frame(
-            "Link19", wxyz=R.from_matrix(X_WorldLink19[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink19[:3, 3]
-        )
-        sv.scene.add_frame(
-            "Link20", wxyz=R.from_matrix(X_WorldLink20[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink20[:3, 3]
-        )
-        sv.scene.add_frame(
-            "Link21", wxyz=R.from_matrix(X_WorldLink21[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink21[:3, 3]
-        )
-        sv.scene.add_frame(
-            "Link22", wxyz=R.from_matrix(X_WorldLink22[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink22[:3, 3]
-        )
-        sv.scene.add_frame(
-            "Link23", wxyz=R.from_matrix(X_WorldLink23[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink23[:3, 3]
-        )
-        sv.scene.add_frame(
-            "Link23", wxyz=R.from_matrix(X_WorldLink23[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink23[:3, 3]
-        )
+        # sv.scene.add_frame(
+        #     "Link9", wxyz=R.from_matrix(X_WorldLink9[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink9[:3, 3]
+        # )
+        # sv.scene.add_frame(
+        #     "Link16", wxyz=R.from_matrix(X_WorldLink16[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink16[:3, 3]
+        # )
+        # sv.scene.add_frame(
+        #     "Link17", wxyz=R.from_matrix(X_WorldLink17[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink17[:3, 3]
+        # )
+        # sv.scene.add_frame(
+        #     "Link18", wxyz=R.from_matrix(X_WorldLink18[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink18[:3, 3]
+        # )
+        # sv.scene.add_frame(
+        #     "Link19", wxyz=R.from_matrix(X_WorldLink19[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink19[:3, 3]
+        # )
+        # sv.scene.add_frame(
+        #     "Link20", wxyz=R.from_matrix(X_WorldLink20[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink20[:3, 3]
+        # )
+        # sv.scene.add_frame(
+        #     "Link21", wxyz=R.from_matrix(X_WorldLink21[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink21[:3, 3]
+        # )
+        # sv.scene.add_frame(
+        #     "Link22", wxyz=R.from_matrix(X_WorldLink22[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink22[:3, 3]
+        # )
+        # sv.scene.add_frame(
+        #     "Link23", wxyz=R.from_matrix(X_WorldLink23[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink23[:3, 3]
+        # )
+        # sv.scene.add_frame(
+        #     "Link23", wxyz=R.from_matrix(X_WorldLink23[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink23[:3, 3]
+        # )
         # message_send = np.array(X_WorldLink20).tobytes()
-        print(X_WorldLink23)
+        # print(X_WorldLink23)
         X_WorldLink22and23 = np.stack([X_WorldLink22, X_WorldLink23], axis=0)
         # message_send = np.array(X_WorldLink22).tobytes()
         message_send = X_WorldLink22and23.tobytes()
