@@ -373,6 +373,13 @@ def main():
 
                         leaphand_trimesh = leaphand_model.get_trimesh_q(sim_dummy_joint_values)['visual'] # hand qpos
                         server.scene.add_mesh_trimesh('leaphand_trimesh', leaphand_trimesh)
+                        # server.scene.add_frame(
+                        #     "set_position_frame",
+                        #     axes_length=0.1, 
+                        #     axes_radius=0.01,
+                        #     wxyz=R.from_matrix(X_target_m[:3, :3]).as_quat()[[3, 0, 1, 2]],
+                        #     position=X_target_m[:3, 3],
+                        # )
 
                 else:
                     color_image[:10, :] = [0, 0, 255]  # 红色 (BGR 格式)
