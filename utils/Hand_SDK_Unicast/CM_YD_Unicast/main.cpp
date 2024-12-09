@@ -32,7 +32,7 @@ bool InitializeSocket()
 
 	sockaddr_in serverAddr;
 	serverAddr.sin_family = AF_INET;
-	serverAddr.sin_port = htons(5556);
+	serverAddr.sin_port = htons(5559);
 
 	if (inet_pton(AF_INET, "172.25.105.244", &serverAddr.sin_addr) <= 0) {
 		std::cerr << "Invalid address/ Address not supported" << std::endl;
@@ -119,7 +119,7 @@ void SendGloveData(GloveSDK* glovePtr) {
 		std::cerr << "Send failed!" << std::endl;
 	}
 	else {
-		std::cout << "Data sent successfully! Bytes sent: " << bytesSent << std::endl;
+		//std::cout << "Data sent successfully! Bytes sent: " << bytesSent << std::endl;
 	}
 }
 
@@ -229,9 +229,13 @@ int main()
 	*/
 	glove_sdk.RegisterGloveCallBack(OnNewGloveData);
 
-	if (!InitializeSocket()) {
+	/*if (!InitializeSocket()) {
 		std::cerr << "Failed to initialize socket." << std::endl;
 		return -1;
+	}*/
+
+	while (!InitializeSocket()) {
+		std::cerr << "Failed to initialize socket." << std::endl;
 	}
 
 	/*
