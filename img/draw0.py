@@ -2,9 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 categories = ['Pick&Place', 'Plug', 'Pour', 'Functional']
-means = [20, 35, 30, 35]
-std_devs = [2, 3, 4, 1]
-attempts_for_10_success = [25, 40, 35, 45] 
+means = [15, 25, 20, 30]
+std_devs = [3, 2, 5, 2]
+attempts_for_10_success = [12, 15, 18, 10] 
 
 # Positions of the bars on the x-axis
 x_pos = np.arange(len(categories))
@@ -25,19 +25,19 @@ background_bars = ax2.bar(
     background_bar_width, 
     align='center', 
     alpha=0.6,               # Transparency
-    color='saddlebrown', 
+    color='peru', 
     edgecolor='black',
     label='Attempts for 10 Successes'
 )
 
-# Plot red line with error bars on the primary y-axis
+# Plot blue line with error bars on the primary y-axis
 line = ax1.errorbar(
     x_pos, 
     means, 
     yerr=std_devs, 
     fmt='-o',                # Line with circle markers
-    color='red', 
-    ecolor='red',         # Error bar color
+    color='blue', 
+    ecolor='blue',         # Error bar color
     elinewidth=2, 
     capsize=5, 
     label='Mean ± Std Compelete Time'
@@ -52,11 +52,11 @@ ax1.set_ylabel('Mean Compelete Time (s)', fontsize=12, color='black')
 ax2.set_ylabel('Attempts for 10 Successes', fontsize=12, color='black')
 ax1.set_xticks(x_pos)
 ax1.set_xticklabels(categories, fontsize=12)
-ax1.set_title('Our teleop system w/o FuScope assistant', fontsize=14)
+ax1.set_title('Our teleop system w/ FuScope assistant', fontsize=14)
 
 # Match the color of y-axis labels to the corresponding elements
-ax1.tick_params(axis='y', labelcolor='red')
-ax2.tick_params(axis='y', labelcolor='saddlebrown')
+ax1.tick_params(axis='y', labelcolor='blue')
+ax2.tick_params(axis='y', labelcolor='peru')
 
 # Combine legends from both axes
 bars = [background_bars, line]
