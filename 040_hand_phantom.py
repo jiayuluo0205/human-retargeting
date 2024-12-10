@@ -269,6 +269,7 @@ def main():
                 # 匹配右手传感器值
                 right_hand_matches = re.findall(r"R\d+:\s(-?\d+\.\d+)", data)
                 right_hand_data = [float(value) for value in right_hand_matches[:28]]
+                print(right_hand_data)
 
                 """phantom arm calculation"""
                 socket.send(b"request")

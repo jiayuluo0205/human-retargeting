@@ -13,6 +13,7 @@ print(f"Joystick: {joystick.get_name()}")
 button_map = {0: 'A', 1: 'B', 2: 'X', 3: 'Y', 4: 'LB', 5: 'RB', 6: 'Window', 7: 'Menu', 11: 'Screen'}
 
 while True:
+    # print(pygame.event.get())
     for event in pygame.event.get():
         if event.type == pygame.JOYBUTTONDOWN:
             print(f"Button {button_map[event.button]} pressed")

@@ -15,20 +15,12 @@ else:
 
 try:
     while True:
-        # 处理 pygame 事件
-        pygame.event.pump()
-
-        # 获取控制器的轴数量
-        num_axes = joystick.get_numaxes()
-
-        print(f'Axis 0: {joystick.get_axis(0):.2f},\
-                Axis 1: {joystick.get_axis(1):.2f},\
-                Axis 2: {joystick.get_axis(2):.2f}')
-
-        # 每隔0.1秒刷新一次，避免输出太快
-        time.sleep(0.1)
+        pygame.event.get()
+        left = joystick.get_axis(1)
+        right = joystick.get_axis(2)
+        print(f'Left: {left:.2f}, Right: {right:.2f}')
 
 except KeyboardInterrupt:
-    print("退出程序...")
+    print("Quiting...")
 finally:
     pygame.quit()
