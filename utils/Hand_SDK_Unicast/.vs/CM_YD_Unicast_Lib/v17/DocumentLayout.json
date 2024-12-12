@@ -5,9 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{55B1BC2C-EC7E-443B-B194-8D0BC59DF9BB}|CM_YD_Unicast\\CM_YD_Unicast.vcxproj|D:\\Projects\\human-retargeting\\utils\\Hand_SDK_Unicast\\CM_YD_Unicast\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{55B1BC2C-EC7E-443B-B194-8D0BC59DF9BB}|CM_YD_Unicast\\CM_YD_Unicast.vcxproj|solutionrelative:CM_YD_Unicast\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\VS2022\\MSBuild\\Microsoft\\VC\\v170\\Microsoft.CppCommon.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,23 +24,11 @@
               "RelativeDocumentMoniker": "CM_YD_Unicast\\main.cpp",
               "ToolTip": "D:\\Projects\\human-retargeting\\utils\\Hand_SDK_Unicast\\CM_YD_Unicast\\main.cpp",
               "RelativeToolTip": "CM_YD_Unicast\\main.cpp",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAAADcAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAOAAAAAAAAAAAAAIwO4AAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-25T12:06:08.202Z",
               "IsPinned": true,
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Microsoft.CppCommon.targets",
-              "DocumentMoniker": "D:\\VS2022\\MSBuild\\Microsoft\\VC\\v170\\Microsoft.CppCommon.targets",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\VS2022\\MSBuild\\Microsoft\\VC\\v170\\Microsoft.CppCommon.targets",
-              "ToolTip": "D:\\VS2022\\MSBuild\\Microsoft\\VC\\v170\\Microsoft.CppCommon.targets",
-              "RelativeToolTip": "..\\..\\..\\..\\VS2022\\MSBuild\\Microsoft\\VC\\v170\\Microsoft.CppCommon.targets",
-              "ViewState": "AgIAAMsCAAAAAAAAAADgv/YCAABTAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2024-12-05T10:51:03.327Z"
             }
           ]
         }

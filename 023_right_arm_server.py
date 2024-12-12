@@ -152,7 +152,7 @@ def main():
     # server initialize
     context = zmq.Context()
     # # talk to client linux machine
-    socket = context.socket(zmq.REP)
+    socket = context.socket(zmq.REP) # server
     socket.bind("tcp://*:5555")
     
     # rebocap initialize
