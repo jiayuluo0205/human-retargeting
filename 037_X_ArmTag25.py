@@ -48,7 +48,7 @@ def main():
             server.scene.add_frame("Tag25", wxyz=wxyz_Tag25, position=X_ArmTag25[:3, 3])
 
             """save"""
-            np.save("data/transform/X_ArmTag25.npy", X_ArmTag25)
+            # np.save("data/transform/X_ArmTag25.npy", X_ArmTag25)
 
 if __name__ == "__main__":
     tyro.cli(main)

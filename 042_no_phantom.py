@@ -9,8 +9,7 @@ import tyro
 import torch
 import pygame
 
-import viser
-from viser.extras import ViserUrdf
+import pyrender
 from pathlib import Path
 import contextlib
 import cv2
@@ -136,15 +135,32 @@ def non_collide_mlp(joint_pos):
 
 def main():
     global leap_hand, mlp
-    server = viser.ViserServer(port=8000)
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
+    renderer = pyrender.OffscreenRenderer(640, 480)
+
+    # pygame (pedal)
     pygame.init()
     if pygame.joystick.get_count() == 0:
         print("No joystick connected!")
         exit()
     joystick = pygame.joystick.Joystick(0)
     joystick.init()
+
+    # XArm
+    init_flag = 0
+    arm = XArmAPI('192.168.1.208')
+    arm.motion_enable(enable=True)
+    arm.set_mode(0)
+    arm.set_state(state=0)
+    xarm_right_init_pos = [400, 100, 450]
+    arm.set_position(
+        x=xarm_right_init_pos[0], y=xarm_right_init_pos[1], z=xarm_right_init_pos[2],
+        roll=-180, pitch=0, yaw=0, speed=100, is_radian=False, wait=True
+    )
+    arm.set_mode(7)
+    arm.set_state(0)
+    scale = 1.5
 
     # socket (motion)
     motion_context = zmq.Context()
@@ -179,21 +195,6 @@ def main():
     else:
         mlp.load_state_dict(torch.load(file_list[0]))     
 
-    # XArm
-    init_flag = 0
-    arm = XArmAPI('192.168.1.208')
-    arm.motion_enable(enable=True)
-    arm.set_mode(0)
-    arm.set_state(state=0)
-    xarm_right_init_pos = [400, 100, 450]
-    arm.set_position(
-        x=xarm_right_init_pos[0], y=xarm_right_init_pos[1], z=xarm_right_init_pos[2],
-        roll=-180, pitch=0, yaw=0, speed=100, is_radian=False, wait=True
-    )
-    arm.set_mode(7)
-    arm.set_state(0)
-    scale = 1.5
-
     # phantom visualization model
     XArm_vis_model = RobotModel(robot_name='xarm', urdf_path='assets/robots/xarm6/xarm6_wo_ee_ori_jl.urdf', meshes_path='assets/robots/xarm6/meshes/')
     leaphand_vis_model = RobotModel(robot_name='leaphand', urdf_path='assets/robots/leap_hand/leap_hand_right_extended.urdf', meshes_path='assets/robots/leap_hand/meshes/visual')
@@ -202,8 +203,6 @@ def main():
     X_ArmTag25_path = "/data/gjx/human-retargeting/data/transform/X_ArmTag25.npy"
     X_ArmTag25 = np.load(X_ArmTag25_path)
     X_ArmTag25[:3, 3] += [0.05, -0.02, 0.0]  # add bias between tag and arm to align imaginary and real
-    wxyz_ArmTag25 = R.from_matrix(X_ArmTag25[:3, :3]).as_quat()
-    server.scene.add_frame("/tag", wxyz=wxyz_ArmTag25, position=X_ArmTag25[:3, 3])
     
     with realsense_pipeline() as pipeline:
         profile = pipeline.get_active_profile()
@@ -222,23 +221,16 @@ def main():
         xarm6_planner_cfg = XARM6PlannerCfg(vis=False)
         xarm6_planner = XARM6Planner(xarm6_planner_cfg)
 
-
         last_phantom_mode = False
         while True:
+            # get current mode
             pygame.event.get()
             pedal_value = joystick.get_axis(2)
+            print(pedal_value)
             phantom_mode = pedal_value < 0
-            # print(f"Mode: {'Phantom' if phantom_mode else 'Control'}")
-
-            data = ""
-            chunk = glove_client_socket.recv(65536)
-            if not chunk:
-                break
-            data += chunk.decode("utf-8")
-            data = data[:data.rfind("Left Hand Calibration Status")]  # ignore the incomplete data
-
-            right_hand_matches = re.findall(r"R\d+:\s(-?\d+\.\d+)", data)
-            right_hand_data = [float(value) for value in right_hand_matches[:28]]
+            if phantom_mode:
+                print("Phantom mode")
+                # exit()
 
             # phantom arm calculation
             motion_socket.send(b"request")
@@ -247,23 +239,53 @@ def main():
             pose24_np = np.frombuffer(pose24_byte, dtype=np.float64)
             pose24_rwrist = np.reshape(pose24_np[16:],[4,4])
             EE_right_position = pose24_rwrist[:3, 3]    
-            EE_right_rot_np = pose24_rwrist[:3,:3]
+            EE_right_rot_np = pose24_rwrist[:3, :3]
             if init_flag == 0:
-                EE_right_init = EE_right_position
+                EE_right_pos_init = EE_right_position
                 init_flag = 1
                 continue
             else:
-                EE_right_rel = EE_right_position - EE_right_init
+                EE_right_rel = EE_right_position - EE_right_pos_init
                 EE_right_rot = EE_right_rot_np.copy()
                 EE_right_euler = R.from_matrix(EE_right_rot).as_euler('xyz', degrees=True)
             xarm_right_target_position = np.zeros(3)
-            xarm_right_target_position[0] = xarm_right_init_pos[0] + scale * EE_right_rel[0]*1000
-            xarm_right_target_position[1] = xarm_right_init_pos[1] + scale * EE_right_rel[1]*1000
-            xarm_right_target_position[2] = xarm_right_init_pos[2] + scale * EE_right_rel[2]*1000
-            X_target = np.eye(4)
-            X_target[:3, 3] = np.array(xarm_right_target_position)
-            X_target[:3, :3] = R.from_euler("xyz", [-EE_right_euler[0]-90, -EE_right_euler[1], EE_right_euler[2]-180], degrees=True).as_matrix()
+            xarm_right_target_position[0] = xarm_right_init_pos[0] + scale * EE_right_rel[0] * 1000
+            xarm_right_target_position[1] = xarm_right_init_pos[1] + scale * EE_right_rel[1] * 1000
+            xarm_right_target_position[2] = xarm_right_init_pos[2] + scale * EE_right_rel[2] * 1000
+            
+            # set XArm
 
+            xyz = xarm_right_target_position
+            rpy = R.from_euler("xyz", np.array([EE_right_euler[2], -EE_right_euler[1], -EE_right_euler[0]]), degrees=True).as_euler("ZYX", degrees=True)
+            rpy += [-90, 0, -180]
+            arm.set_position(
+                x=xyz[0], y=xyz[1], z=xyz[2], 
+                roll=rpy[0], pitch=rpy[1], yaw=rpy[2], 
+                speed=150, wait=False
+            )
+
+            # receive glove data
+            start_time = time.time()
+            while True:
+                data = ""
+                chunk = glove_client_socket.recv(65536)
+                data += chunk.decode("utf-8")
+
+                right_hand_matches = re.findall(r"R\d+:\s(-?\d+\.\d+)", data)
+                right_hand_data = [float(value) for value in right_hand_matches[-28:]]
+                if len(right_hand_data) == 28:
+                    break
+            end_time = time.time()
+            if end_time - start_time > 0.02:
+                print(end_time - start_time)
+
+            # set LeapHand
+            ordered_joint_values = link2link(right_hand_data)
+            joint_pos_full, sim_joint_values = non_collide_mlp(torch.tensor(ordered_joint_values, dtype=torch.float32))
+            leap_hand.set_allegro(joint_pos_full)
+
+            continue
+            
             # Wait for a coherent pair of frames: depth and color
             frames = pipeline.wait_for_frames()
             color_frame = frames.get_color_frame()
@@ -271,83 +293,82 @@ def main():
             gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
             color_image = cv2.cvtColor(color_image, cv2.COLOR_BGR2RGB)
 
+
+            # hand read pos
+            config = arm.get_servo_angle(is_radian=True)[1][:6]
+            start_qpos = [math.degrees(rad) for rad in config]
+            X_target_m = X_target.copy()
+            X_target_m[:3, 3] = X_target_m[:3, 3] / 1000.0
+            _, xarm_qpos = xarm6_planner.mplib_ik(current_qpos=np.array(start_qpos), target_pose=X_target_m, return_closest=True)
+            if xarm_qpos is None:
+                continue
+            xarm_trimesh = XArm_vis_model.get_trimesh_q(xarm_qpos)['visual'] # arm qpos
+            # server.scene.add_mesh_trimesh('xarm_trimesh', xarm_trimesh)
+
+            root_transform = XArm_vis_model.frame_status['eef_point'].get_matrix()[0].cpu().numpy()
+            rotation = root_transform[:3, :3]
+            translation = root_transform[:3, 3]
+            euler = R.from_matrix(rotation).as_euler('XYZ')
+            dummy_values = np.concatenate([translation, euler]) #virtual_joint_x/y/z/r/p/y
+
+            ordered_joint_values = link2link(right_hand_data)
+            joint_pos_full, sim_joint_values = non_collide_mlp(torch.tensor(ordered_joint_values, dtype=torch.float32))
+            if phantom_mode:
+                phantom_joint_value = joint_pos_full
+            elif last_phantom_mode:
+                leap_hand.set_allegro(phantom_joint_value)
+            # rw_joint_values = rw_hand.read_pos()
+            # sim_joint_values = leap_from_rw_to_sim(rw_joint_values, sim_hand.actuated_joint_names)
+            sim_dummy_joint_values = np.concatenate([dummy_values, sim_joint_values]) 
+
+            leaphand_trimesh = leaphand_vis_model.get_trimesh_q(sim_dummy_joint_values)['visual'] # hand qpos
+            # server.scene.add_mesh_trimesh('leaphand_trimesh', leaphand_trimesh)
+
             tags = detector.detect(gray)
-            if tags:
-                for tag in tags:
-                    camera_tf3d = estimator.estimate(tag).inverse()
-                    camera_wxyz = (
-                        camera_tf3d.rotation().getQuaternion().W(), 
-                        camera_tf3d.rotation().getQuaternion().X(), 
-                        camera_tf3d.rotation().getQuaternion().Y(), 
-                        camera_tf3d.rotation().getQuaternion().Z()
-                    )
-                    camera_position = (
-                        camera_tf3d.translation().X(),
-                        camera_tf3d.translation().Y(),
-                        camera_tf3d.translation().Z()
-                    )
-                    server.scene.add_frame("/tag/camera", wxyz=camera_wxyz, position=camera_position)
-                    
-                    camera_xyzw = (camera_wxyz[1], camera_wxyz[2], camera_wxyz[3], camera_wxyz[0])
-                    camera_rotmat = R.from_quat(camera_xyzw).as_matrix()
-                    X_Tag25Camera2 = np.eye(4)
-                    X_Tag25Camera2[:3, :3] = camera_rotmat
-                    X_Tag25Camera2[:3, 3] = np.array(camera_position)
-
-                    X_ArmCamera2 = X_ArmTag25 @ X_Tag25Camera2
-                    
-                    clients = server.get_clients()
-                    for id, client in clients.items():
-                        client.camera.wxyz = R.from_matrix(X_ArmCamera2[:3, :3]).as_quat()[[3, 0, 1, 2]]
-                        client.camera.position = X_ArmCamera2[:3, 3]
-                        client.camera.fov = fov_y
-                        new_image = client.camera.get_render(height=480, width=640, transport_format="png")
-                        mask = new_image[:, :, 3] != 0
-                        new_image[:, :, 0] = (new_image[:, :, 0] * 0.4).astype(np.int8)
-                        new_image[:, :, 1] = (new_image[:, :, 1] * 0.75).astype(np.int8)
-                        new_image[:, :, 2] = (new_image[:, :, 2] * 1).astype(np.int8)
-                        opacity = 0.3
-                        color_image[mask] = color_image[mask] * opacity + new_image[:, :, :3][mask] * (1 - opacity)
-                        cv2.imshow('2CFuture', color_image)
-
-                    # hand read pos
-                    config = arm.get_servo_angle(is_radian=True)[1][:6]
-
-                    # arm phantom
-                    start_qpos = [math.degrees(rad) for rad in config]
-                    X_target_m = X_target.copy()
-                    X_target_m[:3, 3] = X_target_m[:3, 3] / 1000.0
-                    _, qpos = xarm6_planner.mplib_ik(current_qpos=np.array(start_qpos), target_pose=X_target_m, return_closest=True)
-                    if qpos is None:
-                        continue
-                    xarm_trimesh = XArm_vis_model.get_trimesh_q(qpos)['visual'] # arm qpos
-                    server.scene.add_mesh_trimesh('xarm_trimesh', xarm_trimesh)
-
-                    root_transform = XArm_vis_model.frame_status['eef_point'].get_matrix()[0].cpu().numpy()
-                    rotation = root_transform[:3, :3]
-                    translation = root_transform[:3, 3]
-                    euler = R.from_matrix(rotation).as_euler('XYZ')
-                    dummy_values = np.concatenate([translation, euler]) #virtual_joint_x/y/z/r/p/y
-
-                    ordered_joint_values = link2link(right_hand_data)
-                    joint_pos_full, sim_joint_values = non_collide_mlp(torch.tensor(ordered_joint_values, dtype=torch.float32))
-                    if phantom_mode:
-                        phantom_joint_value = joint_pos_full
-                    elif last_phantom_mode:
-                        leap_hand.set_allegro(phantom_joint_value)
-                    # rw_joint_values = rw_hand.read_pos()
-                    # sim_joint_values = leap_from_rw_to_sim(rw_joint_values, sim_hand.actuated_joint_names)
-                    sim_dummy_joint_values = np.concatenate([dummy_values, sim_joint_values]) 
-
-                    leaphand_trimesh = leaphand_vis_model.get_trimesh_q(sim_dummy_joint_values)['visual'] # hand qpos
-                    server.scene.add_mesh_trimesh('leaphand_trimesh', leaphand_trimesh)
-
+            if not tags:
+                show_image = color_image.copy()
+                show_image[:10, :] = [0, 0, 255]  # 红色 (BGR 格式)
+                show_image[-10:, :] = [0, 0, 255]
+                show_image[:, :10] = [0, 0, 255]
+                show_image[:, -10:] = [0, 0, 255]
+                if phantom_mode:
+                    print("No tag detected! Unable to show phantom.")
             else:
-                color_image[:10, :] = [0, 0, 255]  # 红色 (BGR 格式)
-                color_image[-10:, :] = [0, 0, 255]
-                color_image[:, :10] = [0, 0, 255]
-                color_image[:, -10:] = [0, 0, 255]
-                cv2.imshow('2CFuture', color_image)
+                assert len(tags) == 1
+                tag = tags[0]
+
+                # get camera frame
+                camera_tf3d = estimator.estimate(tag).inverse()
+                camera_wxyz = (
+                    camera_tf3d.rotation().getQuaternion().W(), 
+                    camera_tf3d.rotation().getQuaternion().X(), 
+                    camera_tf3d.rotation().getQuaternion().Y(), 
+                    camera_tf3d.rotation().getQuaternion().Z()
+                )
+                camera_position = (
+                    camera_tf3d.translation().X(),
+                    camera_tf3d.translation().Y(),
+                    camera_tf3d.translation().Z()
+                )
+            
+                camera_xyzw = (camera_wxyz[1], camera_wxyz[2], camera_wxyz[3], camera_wxyz[0])
+                camera_rotmat = R.from_quat(camera_xyzw).as_matrix()
+                X_Tag25Camera2 = np.eye(4)
+                X_Tag25Camera2[:3, :3] = camera_rotmat
+                X_Tag25Camera2[:3, 3] = np.array(camera_position)
+                X_ArmCamera2 = X_ArmTag25 @ X_Tag25Camera2
+                
+                X_ArmCamera2  # camera frame
+                fov_y # camera fov
+
+                # mask = new_image[:, :, 3] != 0
+                # new_image[:, :, 0] = (new_image[:, :, 0] * 0.4).astype(np.int8)
+                # new_image[:, :, 1] = (new_image[:, :, 1] * 0.75).astype(np.int8)
+                # new_image[:, :, 2] = (new_image[:, :, 2] * 1).astype(np.int8)
+                # opacity = 0.3
+                # color_image[mask] = color_image[mask] * opacity + new_image[:, :, :3][mask] * (1 - opacity)
+                # cv2.imshow('2CFuture', color_image)
+
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
             last_phantom_mode = phantom_mode
