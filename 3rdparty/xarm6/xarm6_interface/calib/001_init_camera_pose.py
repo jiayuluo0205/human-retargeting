@@ -14,25 +14,25 @@ from xarm6_interface.arm_mplib import XARM6PlannerCfg, XARM6Planner
 from xarm6_interface.envs.table_and_workspace_pc import WoodenTableMount, create_bounding_box_pc, create_plane_pc, env_pc_post_process
 from xarm6_interface.utils import as_mesh, NVDiffrastRenderer, vis_robot_frames, Realsense, convert_camera_pose_z_forward_to_sapien, add_noise_to_transform, robust_compute_rotation_matrix_from_ortho6d 
 
-# an initial camera pose guess
-X_BaseCamera = np.eye(4)
-rotation_matrix = R.from_euler('z', 180, degrees=True).as_matrix() @ R.from_euler('x', 90+65, degrees=True).as_matrix()
-X_BaseCamera[0:3, 0:3] = rotation_matrix
-# X_BaseCamera[0:3, 0:3] = R.from_euler('x', 90+65, degrees=True).as_matrix()
-X_BaseCamera[0:3, 3] = np.array([0.5, -0.4, 0.9])
-
-# # top cam + right arm
+# # an initial camera pose guess
 # X_BaseCamera = np.eye(4)
-# rotation_matrix = R.from_euler('x', 180, degrees=True).as_matrix() @ R.from_euler('z', 180, degrees=True).as_matrix()
-# # rotation_matrix = R.from_euler('z', 90, degrees=True).as_matrix() @ R.from_euler('x', 90, degrees=True).as_matrix()
+# rotation_matrix = R.from_euler('z', 180, degrees=True).as_matrix() @ R.from_euler('x', 90+65, degrees=True).as_matrix()
 # X_BaseCamera[0:3, 0:3] = rotation_matrix
-# X_BaseCamera[0:3, 3] = np.array([0.5, 0, 1.0])
+# # X_BaseCamera[0:3, 0:3] = R.from_euler('x', 90+65, degrees=True).as_matrix()
+# X_BaseCamera[0:3, 3] = np.array([0.5, -0.4, 0.9])
+
+# top cam + right arm
+X_BaseCamera = np.eye(4)
+rotation_matrix = R.from_euler('x', 180, degrees=True).as_matrix() @ R.from_euler('z', 180, degrees=True).as_matrix()
+# rotation_matrix = R.from_euler('z', 90, degrees=True).as_matrix() @ R.from_euler('x', 90, degrees=True).as_matrix()
+X_BaseCamera[0:3, 0:3] = rotation_matrix
+X_BaseCamera[0:3, 3] = np.array([0.5, 0, 1.0])
 print(f'X_BaseCamera = {X_BaseCamera}')
 
 if __name__ == '__main__':
     ''' the test '''
     # setup the real camera
-    serial_number = '241122074374' # '241122074374', '233622079809'
+    serial_number = '233622079809' # '241122074374', '233622079809'
     camera = Realsense(serial_number)
     
     K_path = Path(__file__).resolve().parent.parent.parent / "data" / "camera" / serial_number / "K.npy"

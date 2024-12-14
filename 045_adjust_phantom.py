@@ -35,6 +35,7 @@ from scripts.pos2pos.mlp import FingerMLP
 import glob
 import re
 from diff_robot_hand import POS2POS_TRANSLATER_DIR
+from xarm6_interface.utils  import MultiRealsense
 
 cuda = torch.cuda.is_available()
 device = torch.device("cuda:0" if cuda else "cpu")
@@ -65,6 +66,10 @@ def realsense_pipeline(fps: int = 60):
     # Configure depth and color streams.
     pipeline = rs.pipeline()  # type: ignore
     config = rs.config()  # type: ignore
+    serial_number = '233622079809'
+    config.enable_device(serial_number)
+    #
+    config.enable_device('147122075879')
 
     pipeline_wrapper = rs.pipeline_wrapper(pipeline)  # type: ignore
     config.resolve(pipeline_wrapper)
@@ -185,8 +190,8 @@ def main():
     X_ArmTag25 = np.load(X_ArmTag25_path)
     wxyz_ArmTag25 = R.from_matrix(X_ArmTag25[:3, :3]).as_quat()  # viser only
 
-    rw_hand = LeapNode(torque_enable=True)    
-    sim_hand = LeapHandRight(load_visual_mesh=True, load_col_mesh=False, load_balls_urdf=False, load_n_collision_point=0)
+    # rw_hand = LeapNode(torque_enable=True)    
+    # sim_hand = LeapHandRight(load_visual_mesh=True, load_col_mesh=False, load_balls_urdf=False, load_n_collision_point=0)
 
     import viser
     server = viser.ViserServer()
@@ -215,20 +220,20 @@ def main():
             pedal_value = joystick.get_axis(2)
             phantom_mode = pedal_value < 0
 
-            # # set XArm
-            # xyz = xarm_right_target_position
-            # rpy = R.from_euler("xyz", np.array([EE_right_euler[2], -EE_right_euler[1], -EE_right_euler[0]]), degrees=True).as_euler("ZYX", degrees=True)
-            # rpy += [-90, 0, -180]
-            # arm.set_position(
-            #     x=xyz[0], y=xyz[1], z=xyz[2], 
-            #     roll=rpy[0], pitch=rpy[1], yaw=rpy[2], 
-            #     speed=150, wait=False
-            # )
+            # set XArm
+            xyz = xarm_right_target_position
+            rpy = R.from_euler("xyz", np.array([EE_right_euler[2], -EE_right_euler[1], -EE_right_euler[0]]), degrees=True).as_euler("ZYX", degrees=True)
+            rpy += [-90, 0, -180]
+            arm.set_position(
+                x=xyz[0], y=xyz[1], z=xyz[2], 
+                roll=rpy[0], pitch=rpy[1], yaw=rpy[2], 
+                speed=150, wait=False
+            )
 
-            # # set LeapHand
-            # ordered_joint_values = link2link(right_hand_data)
-            # joint_pos_full, sim_joint_values = non_collide_mlp(torch.tensor(ordered_joint_values, dtype=torch.float32))
-            # leap_hand.set_allegro(joint_pos_full)
+            # set LeapHand
+            ordered_joint_values = link2link(right_hand_data)
+            joint_pos_full, sim_joint_values = non_collide_mlp(torch.tensor(ordered_joint_values, dtype=torch.float32))
+            leap_hand.set_allegro(joint_pos_full)
             
             # Wait for a coherent pair of frames: depth and color
             frames = pipeline.wait_for_frames()
@@ -251,107 +256,80 @@ def main():
             # print(xarm_qpos)
 
             # hand trimesh
-            root_transform = XArm_vis_model.frame_status['eef_point'].get_matrix()[0].cpu().numpy()
-            rotation = root_transform[:3, :3]
-            translation = root_transform[:3, 3]
-            euler = R.from_matrix(rotation).as_euler('XYZ')
-            dummy_values = np.concatenate([translation, euler]) #virtual_joint_x/y/z/r/p/y
-            rw_joint_values = rw_hand.read_pos()
-            sim_joint_values = leap_from_rw_to_sim(rw_joint_values, sim_hand.actuated_joint_names)
-            sim_dummy_joint_values = np.concatenate([dummy_values, sim_joint_values]) 
-            leaphand_trimesh = leaphand_vis_model.get_trimesh_q(sim_dummy_joint_values)['visual'] # hand qpos
-            server.scene.add_mesh_trimesh('leaphand_trimesh', leaphand_trimesh)
+            # root_transform = XArm_vis_model.frame_status['eef_point'].get_matrix()[0].cpu().numpy()
+            # rotation = root_transform[:3, :3]
+            # translation = root_transform[:3, 3]
+            # euler = R.from_matrix(rotation).as_euler('XYZ')
+            # dummy_values = np.concatenate([translation, euler]) #virtual_joint_x/y/z/r/p/y
+            # rw_joint_values = rw_hand.read_pos()
+            # sim_joint_values = leap_from_rw_to_sim(rw_joint_values, sim_hand.actuated_joint_names)
+            # sim_dummy_joint_values = np.concatenate([dummy_values, sim_joint_values]) 
+            # leaphand_trimesh = leaphand_vis_model.get_trimesh_q(sim_dummy_joint_values)['visual'] # hand qpos
+            # server.scene.add_mesh_trimesh('leaphand_trimesh', leaphand_trimesh)
 
             show_image = color_image.copy()
-            tags = detector.detect(gray)
-            if not tags:
-                show_image[:10, :] = [0, 0, 255]  # 红色 (BGR 格式)
-                show_image[-10:, :] = [0, 0, 255]
-                show_image[:, :10] = [0, 0, 255]
-                show_image[:, -10:] = [0, 0, 255]
-                if phantom_mode:
-                    print("No tag detected! Unable to show phantom.")
-            else:
-                # assert len(tags) == 1
-                tag = tags[0]
-
-                # get camera frame
-                camera_tf3d = estimator.estimate(tag).inverse()
-                camera_wxyz = (
-                    camera_tf3d.rotation().getQuaternion().W(), 
-                    camera_tf3d.rotation().getQuaternion().X(), 
-                    camera_tf3d.rotation().getQuaternion().Y(), 
-                    camera_tf3d.rotation().getQuaternion().Z()
-                )
-                camera_position = (
-                    camera_tf3d.translation().X(),
-                    camera_tf3d.translation().Y(),
-                    camera_tf3d.translation().Z()
-                )
             
-                camera_xyzw = (camera_wxyz[1], camera_wxyz[2], camera_wxyz[3], camera_wxyz[0])
-                camera_rotmat = R.from_quat(camera_xyzw).as_matrix()
-                X_Tag25Camera2 = np.eye(4)
-                X_Tag25Camera2[:3, :3] = camera_rotmat
-                X_Tag25Camera2[:3, 3] = np.array(camera_position)
-                X_ArmCamera2 = X_ArmTag25 @ X_Tag25Camera2
-                X_ArmCamera2[:3, 3] += np.array([0.06, -0.04, 0.0])
-                # X_ArmCamera2[:3, :3] = R.from_euler("Z", [9], degrees=True).as_matrix() @ X_ArmCamera2[:3, :3]
+            # camera_pose = np.array(X_ArmCamera2)
+            camera_pose = np.array([
+                [-0.9998680353164673, 0.016218112781643867, 0.0008981706923805177, 0.4588461220264435],
+                [0.01620866172015667, 0.999822199344635, -0.009639588184654713, -0.011901105754077435],
+                [-0.0010543467942625284, -0.009623757563531399, -0.9999530911445618, 0.9407138824462891],
+                [0, 0, 0, 1]
+            ])
+            # camera_pose[:3, 3] += [0.03, -0.02, 0.0]
+            X_ArmCamera = camera_pose
 
-                X_ArmPhantom = np.eye(4)
-                X_ArmPhantom[:3, 3] = np.array([0.0, 0.0, 0.0])
-                X_ArmPhantom[:3, :3] = R.from_euler("XYZ", [-5, -2.05, 1.5], degrees=True).as_matrix()
+            X_PhantomArm = np.eye(4)
+            X_PhantomArm[:3, 3] = [0.03, -0.02, 0.0]
+            X_PhantomArm[:3, :3] = R.from_euler('Y', [-6], degrees=True).as_matrix()
+            X_PhantomCamera = X_PhantomArm @ X_ArmCamera
 
-                X_ArmCamera2 = X_ArmPhantom @ X_ArmCamera2
+            camera_pose = X_PhantomCamera
 
-                combined_trimesh = trimesh.util.concatenate([xarm_trimesh, leaphand_trimesh])
-                # combined_trimesh.show()
+            rotation_matrix = np.array([
+                [1.0, 0.0, 0.0, 0.0],
+                [0.0, -1.0, 0.0, 0.0],
+                [0.0, 0.0, -1.0, 0.0],
+                [0.0, 0.0, 0.0, 1.0]
+            ])
+            camera_pose = np.dot(camera_pose, rotation_matrix)
 
-                camera_pose = np.array(X_ArmCamera2)
-                rotation_matrix = np.array([
-                    [1.0, 0.0, 0.0, 0.0],
-                    [0.0, -1.0, 0.0, 0.0],
-                    [0.0, 0.0, -1.0, 0.0],
-                    [0.0, 0.0, 0.0, 1.0]
-                ])
-                camera_pose = np.dot(camera_pose, rotation_matrix)
+            # server.scene.add_mesh_trimesh('combined_trimesh', xarm_trimesh)
+            # server.scene.add_frame("tag", wxyz=wxyz_ArmTag25, position=X_ArmTag25[:3, 3])
+            # position = camera_pose[:3, 3]
+            # wxyz = R.from_matrix(camera_pose[:3, :3]).as_quat()[[3, 0, 1, 2]]
+            # server.scene.add_frame("camera", wxyz=wxyz, position=position)
 
-                # server.scene.add_mesh_trimesh('combined_trimesh', xarm_trimesh)
-                # server.scene.add_frame("tag", wxyz=wxyz_ArmTag25, position=X_ArmTag25[:3, 3])
-                # position = camera_pose[:3, 3]
-                # wxyz = R.from_matrix(camera_pose[:3, :3]).as_quat()[[3, 0, 1, 2]]
-                # server.scene.add_frame("camera", wxyz=wxyz, position=position)
+            scene = pyrender.Scene()
+            scene.bg_color = np.array([0, 0, 0, 0])
 
-                scene = pyrender.Scene()
-                scene.bg_color = np.array([0, 0, 0, 0])
+            camera = pyrender.PerspectiveCamera(yfov=fov_y)
+            scene.add(camera, pose=camera_pose)
 
-                camera = pyrender.PerspectiveCamera(yfov=fov_y)
-                scene.add(camera, pose=camera_pose)
+            light = pyrender.PointLight(color=np.ones(3), intensity=10.0)
+            scene.add(light, pose=camera_pose)
 
-                light = pyrender.PointLight(color=np.ones(3), intensity=10.0)
-                scene.add(light, pose=camera_pose)
+            ambient_light = pyrender.DirectionalLight(color=np.ones(3) * 0.1, intensity=0.2)
+            scene.add(ambient_light, pose=camera_pose)
 
-                ambient_light = pyrender.DirectionalLight(color=np.ones(3) * 0.1, intensity=0.2)
-                scene.add(ambient_light, pose=camera_pose)
+            emissive_material = pyrender.MetallicRoughnessMaterial(
+                baseColorFactor=np.array([0.7, 0.7, 0.7, 1.0]),  # 银色金属外观
+                metallicFactor=0.9,  # 金属感
+                roughnessFactor=0.5,  # 适中的粗糙度
+                emissiveFactor=np.array([0.7, 0.7, 0.7])
+            )
+            scene.add(pyrender.Mesh.from_trimesh(xarm_trimesh, material=emissive_material))
 
-                emissive_material = pyrender.MetallicRoughnessMaterial(
-                    baseColorFactor=np.array([0.7, 0.7, 0.7, 1.0]),  # 银色金属外观
-                    metallicFactor=0.9,  # 金属感
-                    roughnessFactor=0.5,  # 适中的粗糙度
-                    emissiveFactor=np.array([0.7, 0.7, 0.7])
-                )
-                scene.add(pyrender.Mesh.from_trimesh(combined_trimesh, material=emissive_material))
-
-                renderer = pyrender.OffscreenRenderer(640, 480)
-                render_rgba, render_depth = renderer.render(scene, flags=pyrender.RenderFlags.RGBA)
-                mask = render_rgba[:, :, 3] != 0
-                render_rgba = np.array(render_rgba[:, :, :3])
-                cv2.imshow('Phantom', cv2.cvtColor(render_rgba, cv2.COLOR_RGB2BGR))
-                render_rgba[:, :, 0] = (render_rgba[:, :, 0] * 0.8).astype(np.int8)
-                render_rgba[:, :, 1] = (render_rgba[:, :, 1] * 0.8).astype(np.int8)
-                render_rgba[:, :, 2] = (render_rgba[:, :, 2] * 0.3).astype(np.int8)
-                opacity = 0.5
-                show_image[mask] = show_image[mask] * opacity + render_rgba[mask] * (1 - opacity)
+            renderer = pyrender.OffscreenRenderer(640, 480)
+            render_rgba, render_depth = renderer.render(scene, flags=pyrender.RenderFlags.RGBA)
+            mask = render_rgba[:, :, 3] != 0
+            render_rgba = np.array(render_rgba[:, :, :3])
+            cv2.imshow('Phantom', cv2.cvtColor(render_rgba, cv2.COLOR_RGB2BGR))
+            render_rgba[:, :, 0] = (render_rgba[:, :, 0] * 0.8).astype(np.int8)
+            render_rgba[:, :, 1] = (render_rgba[:, :, 1] * 0.8).astype(np.int8)
+            render_rgba[:, :, 2] = (render_rgba[:, :, 2] * 0.3).astype(np.int8)
+            opacity = 0.5
+            show_image[mask] = show_image[mask] * opacity + render_rgba[mask] * (1 - opacity)
             
             show_image = cv2.resize(show_image, (1280, 960))
             cv2.imshow('TelePhantom', show_image)

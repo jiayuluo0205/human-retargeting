@@ -24,8 +24,8 @@ if __name__ == '__main__':
     arm = XArm6WOEE()
 
     # load the collected data
-    serial_number="241122074374" 
-    exp_name = "1206_excalib_capture00"
+    serial_number= "233622079809" # "241122074374", "233622079809"
+    exp_name = "1214_excalib_capture01"
     K_path = Path(__file__).resolve().parent.parent.parent / "data" / "camera" / serial_number / "K.npy"
     K = np.load(K_path)
     save_data_rel_dir_path = (Path(os.path.join(ROOT_DIR, f"3rdparty/xarm6/data/camera/{serial_number}")) / exp_name).resolve()

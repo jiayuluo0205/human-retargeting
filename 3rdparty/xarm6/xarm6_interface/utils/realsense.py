@@ -362,6 +362,9 @@ class MultiRealsense:
 
         lgr.info(f"Updated intrinsics for camera {camera_index + 1}: {intr}")
 
+    def get_intrinsics(self):
+        return self.intrinsics
+
     def getCurrentData(self, pointcloud=True, apply_filters=True):
         for i, pipeline in enumerate(self.pipelines):
             frames = pipeline.wait_for_frames()
@@ -435,6 +438,19 @@ class MultiRealsense:
     def stop(self):
         for pipeline in self.pipelines:
             pipeline.stop()
+
+    def get_obs(self):
+        rtr_dict_list = self.getCurrentData(pointcloud=False, apply_filters=False)
+        images = []
+        for camera_idx in range(len(rtr_dict_list)):
+            rtr_dict = rtr_dict_list[camera_idx]
+            
+            rgb = rtr_dict["rgb"]
+            rgb = cv2.cvtColor(rgb, cv2.COLOR_BGR2RGB)
+            
+            images.append(rgb)
+        
+        return images
 
 
 def build_rs_cam(cam_K_path, X_BaseCamera_path):

@@ -41,14 +41,14 @@ def main():
             frames = pipeline.wait_for_frames()
             color_frame = frames.get_color_frame()
             color_image = np.asanyarray(color_frame.get_data())
-            # intrinsics = np.load(K_path)
-            # fx, fy = intrinsics[0, 0], intrinsics[1, 1]
-            # cx, cy = intrinsics[0, 2], intrinsics[1, 2]
-            profile = pipeline.get_active_profile()
-            color_stream = profile.get_stream(rs.stream.color)
-            intrinsics = color_stream.as_video_stream_profile().get_intrinsics()
-            fx, fy = intrinsics.fx, intrinsics.fy
-            cx, cy = intrinsics.ppx, intrinsics.ppy
+            intrinsics = np.load(K_path)
+            fx, fy = intrinsics[0, 0], intrinsics[1, 1]
+            cx, cy = intrinsics[0, 2], intrinsics[1, 2]
+            # profile = pipeline.get_active_profile()
+            # color_stream = profile.get_stream(rs.stream.color)
+            # intrinsics = color_stream.as_video_stream_profile().get_intrinsics()
+            # fx, fy = intrinsics.fx, intrinsics.fy
+            # cx, cy = intrinsics.ppx, intrinsics.ppy
             estimator = AprilTagPoseEstimator(AprilTagPoseEstimator.Config(fx=fx, fy=fy, cx=cx, cy=cy, tagSize=0.178))
             gray = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
             tags = detector.detect(gray)
@@ -85,7 +85,7 @@ def main():
                 X_Camera1Tag36 = np.eye(4)
                 X_Camera1Tag36[:3, :3] = R.from_quat(xyzw_Camera1Tag36).as_matrix()
                 X_Camera1Tag36[:3, 3] = position_Camera1Tag36
-                np.save("data/transform/X_Camera1Tag36.npy", X_Camera1Tag36)
+                # np.save("data/transform/X_Camera1Tag36.npy", X_Camera1Tag36)
 
 if __name__ == "__main__":
     tyro.cli(main)

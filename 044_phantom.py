@@ -65,6 +65,8 @@ def realsense_pipeline(fps: int = 60):
     # Configure depth and color streams.
     pipeline = rs.pipeline()  # type: ignore
     config = rs.config()  # type: ignore
+    # serial_number = '233622079809'
+    # config.enable_device(serial_number)
 
     pipeline_wrapper = rs.pipeline_wrapper(pipeline)  # type: ignore
     config.resolve(pipeline_wrapper)
@@ -201,10 +203,11 @@ def main():
     # April Tag 
     X_ArmTag25_path = "/data/gjx/human-retargeting/data/transform/X_ArmTag25.npy"
     X_ArmTag25 = np.load(X_ArmTag25_path)
-    X_ArmTag25[:3, 3] += [0.1, 0.0, 0.0]  # add bias between tag and arm to align imaginary and real
-    X_ArmTag25_euler = R.from_matrix(X_ArmTag25[:3, :3]).as_euler('XYZ', degrees=True)
-    X_ArmTag25_euler += [-7, -2, -3]
-    X_ArmTag25[:3, :3] = R.from_euler('XYZ', X_ArmTag25_euler, degrees=True).as_matrix()
+    # X_ArmTag25[:3, 3] += [0.1, 0.0, 0.0]  # add bias between tag and arm to align imaginary and real
+    # X_ArmTag25_euler = R.from_matrix(X_ArmTag25[:3, :3]).as_euler('XYZ', degrees=True)
+    # X_ArmTag25_euler += [-7, -2, -3]
+    # X_ArmTag25[:3, :3] = R.from_euler('XYZ', X_ArmTag25_euler, degrees=True).as_matrix()
+
     # wxyz_ArmTag25 = R.from_matrix(X_ArmTag25[:3, :3]).as_quat()  # viser only
     
     with realsense_pipeline() as pipeline:
@@ -344,10 +347,20 @@ def main():
                 X_Tag25Camera2[:3, 3] = np.array(camera_position)
                 X_ArmCamera2 = X_ArmTag25 @ X_Tag25Camera2
                 # X_ArmCamera2 = X_Tag25Camera2
+
+                X_ArmCamera2[:3, 3] += np.array([0.06, -0.04, 0.0])
+                X_ArmPhantom = np.eye(4)
+                X_ArmPhantom[:3, 3] = np.array([0.0, 0.0, 0.0])
+                X_ArmPhantom[:3, :3] = R.from_euler("XYZ", [-5, -2.05, 1.5], degrees=True).as_matrix()
+                X_ArmCamera2 = X_ArmPhantom @ X_ArmCamera2
                 
                 combined_trimesh = trimesh.util.concatenate([xarm_trimesh, leaphand_trimesh])
                 # combined_trimesh.show()
 
+                # X_ArmCamera2 = [[-0.9998680353164673, 0.016218112781643867, 0.0008981706923805177, 0.4588461220264435],
+                #     [0.01620866172015667, 0.999822199344635, -0.009639588184654713, -0.011901105754077435],
+                #     [-0.0010543467942625284, -0.009623757563531399, -0.9999530911445618, 0.9407138824462891],
+                #     [0, 0, 0, 1]]
                 camera_pose = np.array(X_ArmCamera2)
                 rotation_matrix = np.array([
                     [1.0, 0.0, 0.0, 0.0],
