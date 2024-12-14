@@ -183,10 +183,6 @@ def main():
     # April Tag 
     X_ArmTag25_path = "/data/gjx/human-retargeting/data/transform/X_ArmTag25.npy"
     X_ArmTag25 = np.load(X_ArmTag25_path)
-    X_ArmTag25[:3, 3] += [0.1, 0.0, 0.0]  # add bias between tag and arm to align imaginary and real
-    X_ArmTag25_euler = R.from_matrix(X_ArmTag25[:3, :3]).as_euler('XYZ', degrees=True)
-    X_ArmTag25_euler += [-7, -2, -3]
-    X_ArmTag25[:3, :3] = R.from_euler('XYZ', X_ArmTag25_euler, degrees=True).as_matrix()
     wxyz_ArmTag25 = R.from_matrix(X_ArmTag25[:3, :3]).as_quat()  # viser only
 
     rw_hand = LeapNode(torque_enable=True)    
@@ -243,11 +239,11 @@ def main():
 
             # xarm trimesh
             xarm_qpos = arm.get_servo_angle(is_radian=True)[1][:6]
-            print(xarm_qpos)
+            # print(xarm_qpos)
 
-            xarm_qpos = [19.0, 13.5, -57.2, -4.9, 44.4, -1.2]
-            xarm_qpos = [math.radians(degree) for degree in xarm_qpos]
-            print(xarm_qpos)
+            # xarm_qpos = [19.0, 13.5, -57.2, -4.9, 44.4, -1.2]
+            # xarm_qpos = [math.radians(degree) for degree in xarm_qpos]
+            # print(xarm_qpos)
             xarm_trimesh = XArm_vis_model.get_trimesh_q(xarm_qpos)['visual'] # arm qpos
 
             # xarm_qpos = [1.7, -44.6, -53.8, -4.9, 96.3, -1.2]
@@ -255,11 +251,16 @@ def main():
             # print(xarm_qpos)
 
             # hand trimesh
-            # rw_joint_values = rw_hand.read_pos()
-            # sim_joint_values = leap_from_rw_to_sim(rw_joint_values, sim_hand.actuated_joint_names)
-            # sim_dummy_joint_values = np.concatenate([dummy_values, sim_joint_values]) 
-            # leaphand_trimesh = leaphand_vis_model.get_trimesh_q(sim_dummy_joint_values)['visual'] # hand qpos
-            # server.scene.add_mesh_trimesh('leaphand_trimesh', leaphand_trimesh)
+            root_transform = XArm_vis_model.frame_status['eef_point'].get_matrix()[0].cpu().numpy()
+            rotation = root_transform[:3, :3]
+            translation = root_transform[:3, 3]
+            euler = R.from_matrix(rotation).as_euler('XYZ')
+            dummy_values = np.concatenate([translation, euler]) #virtual_joint_x/y/z/r/p/y
+            rw_joint_values = rw_hand.read_pos()
+            sim_joint_values = leap_from_rw_to_sim(rw_joint_values, sim_hand.actuated_joint_names)
+            sim_dummy_joint_values = np.concatenate([dummy_values, sim_joint_values]) 
+            leaphand_trimesh = leaphand_vis_model.get_trimesh_q(sim_dummy_joint_values)['visual'] # hand qpos
+            server.scene.add_mesh_trimesh('leaphand_trimesh', leaphand_trimesh)
 
             show_image = color_image.copy()
             tags = detector.detect(gray)
@@ -294,9 +295,16 @@ def main():
                 X_Tag25Camera2[:3, :3] = camera_rotmat
                 X_Tag25Camera2[:3, 3] = np.array(camera_position)
                 X_ArmCamera2 = X_ArmTag25 @ X_Tag25Camera2
+                X_ArmCamera2[:3, 3] += np.array([0.06, -0.04, 0.0])
+                # X_ArmCamera2[:3, :3] = R.from_euler("Z", [9], degrees=True).as_matrix() @ X_ArmCamera2[:3, :3]
 
-                
-                # combined_trimesh = trimesh.util.concatenate([xarm_trimesh, leaphand_trimesh])
+                X_ArmPhantom = np.eye(4)
+                X_ArmPhantom[:3, 3] = np.array([0.0, 0.0, 0.0])
+                X_ArmPhantom[:3, :3] = R.from_euler("XYZ", [-5, -2.05, 1.5], degrees=True).as_matrix()
+
+                X_ArmCamera2 = X_ArmPhantom @ X_ArmCamera2
+
+                combined_trimesh = trimesh.util.concatenate([xarm_trimesh, leaphand_trimesh])
                 # combined_trimesh.show()
 
                 camera_pose = np.array(X_ArmCamera2)
@@ -332,7 +340,7 @@ def main():
                     roughnessFactor=0.5,  # 适中的粗糙度
                     emissiveFactor=np.array([0.7, 0.7, 0.7])
                 )
-                scene.add(pyrender.Mesh.from_trimesh(xarm_trimesh, material=emissive_material))
+                scene.add(pyrender.Mesh.from_trimesh(combined_trimesh, material=emissive_material))
 
                 renderer = pyrender.OffscreenRenderer(640, 480)
                 render_rgba, render_depth = renderer.render(scene, flags=pyrender.RenderFlags.RGBA)

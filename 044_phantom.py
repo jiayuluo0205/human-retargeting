@@ -136,7 +136,9 @@ def non_collide_mlp(joint_pos):
 def main():
     global leap_hand, mlp
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
+    exc_time = 0
+    start_time = 0
+    end_time = 0
     renderer = pyrender.OffscreenRenderer(640, 480)
 
     # pygame (pedal)
@@ -224,6 +226,7 @@ def main():
 
         last_phantom_mode = False
         while True:
+            print(f"execution time: {exc_time}")
             # get current mode
             pygame.event.get()
             pedal_value = joystick.get_axis(2)
@@ -254,7 +257,7 @@ def main():
             X_target[:3, :3] = R.from_euler("xyz", [-EE_right_euler[0]-90, -EE_right_euler[1], EE_right_euler[2]-180], degrees=True).as_matrix()
                 
             # receive glove data
-            start_time = time.time()
+            # start_time = time.time()
             while True:
                 data = ""
                 chunk = glove_client_socket.recv(65536)
@@ -266,7 +269,7 @@ def main():
                 right_hand_data = [float(value) for value in right_hand_matches[-28:]]
                 if len(right_hand_data) == 28:
                     break
-            end_time = time.time()
+            # end_time = time.time()
             # if end_time - start_time > 0.02:
             #     print(end_time - start_time)
             
@@ -314,6 +317,8 @@ def main():
                 show_image[:, -10:] = [0, 0, 255]
                 if phantom_mode:
                     print("No tag detected! Unable to show phantom.")
+                show_image = cv2.resize(show_image, (1280, 960))
+                cv2.imshow('TelePhantom', show_image)
                 continue
 
             tag = tags[0]
@@ -392,6 +397,7 @@ def main():
 
             # set XArm
             if last_phantom_mode and not phantom_mode:
+                start_time = time.time()
                 xyz, rpy = phantom_xyz, phantom_rpy
                 joint = phantom_joint
             else:
@@ -410,6 +416,10 @@ def main():
                 leap_hand.set_allegro(joint)
 
             if phantom_mode:
+                end_time = time.time()
+                if start_time != 0:
+                    exc_time += end_time - start_time
+                    start_time = 0
                 phantom_xyz, phantom_rpy = xyz, rpy
                 phantom_joint = joint
 
