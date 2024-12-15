@@ -365,22 +365,25 @@ class MultiRealsense:
     def get_intrinsics(self):
         return self.intrinsics
 
-    def getCurrentData(self, pointcloud=True, apply_filters=True):
+    def getCurrentData(self, pointcloud=True, apply_filters=True, depth=False):
         for i, pipeline in enumerate(self.pipelines):
             frames = pipeline.wait_for_frames()
             align_frames = self.align_to_color[i].process(frames)
-            depth_frame = align_frames.get_depth_frame()
+            if depth:
+                depth_frame = align_frames.get_depth_frame()
             if apply_filters:
                 for f in self.filters:
                     depth_frame = f.process(depth_frame)
             color_frame = align_frames.get_color_frame()
-            depth_image = np.asanyarray(depth_frame.get_data())
+            if depth:
+                depth_image = np.asanyarray(depth_frame.get_data())
             # depth_image = smooth_depth_image(depth_image)
             color_image = np.asanyarray(color_frame.get_data())
             
             # Store data in the corresponding camera dictionary
             self.camera_data[i]['rgb'] = color_image
-            self.camera_data[i]['depth'] = depth_image
+            if depth:
+                self.camera_data[i]['depth'] = depth_image
             self.camera_data[i]['pointcloud_o3d'] = None
 
             if pointcloud:

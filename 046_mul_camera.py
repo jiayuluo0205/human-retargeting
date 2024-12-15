@@ -6,9 +6,12 @@ from xarm6_interface.utils import MultiRealsense
 cameras = MultiRealsense(['233622079809', '147122075879'])
 
 
-
+import time
 while True:
+    t = time.time()
     obs = cameras.get_obs()
+    print(time.time() - t)
+    continue
     agentview_img = obs[0]
     eye_in_hand_img = obs[1]
     # agentview_img_resized = cv2.resize(agentview_img)

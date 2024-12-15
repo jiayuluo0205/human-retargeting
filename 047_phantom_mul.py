@@ -264,6 +264,7 @@ def main():
     last_phantom_mode = False
     while True:
         print(f"execution time: {exc_time}")
+        t = time.time()
         # get current mode
         pygame.event.get()
         pedal_value = joystick.get_axis(2)
@@ -292,7 +293,9 @@ def main():
         X_target = np.eye(4)
         X_target[:3, 3] = np.array(xarm_right_target_position)
         X_target[:3, :3] = R.from_euler("xyz", [-EE_right_euler[0]-90, -EE_right_euler[1], EE_right_euler[2]-180], degrees=True).as_matrix()
-            
+        # print('stage 1', time.time()-t)
+        t = time.time()    
+        
         # receive glove data
         # start_time = time.time()
         while True:
@@ -309,39 +312,41 @@ def main():
         # end_time = time.time()
         # if end_time - start_time > 0.02:
         #     print(end_time - start_time)
+        # print('stage 2', time.time()-t)
+        t = time.time()    
         
         obs = cameras.get_obs()
         color_image_1 = obs[0]
         color_image_2 = obs[1]
         gray = cv2.cvtColor(color_image_1, cv2.COLOR_RGB2GRAY)
 
-        # xarm trimesh
-        config = arm.get_servo_angle(is_radian=True)[1][:6]
-        start_qpos = [math.degrees(rad) for rad in config]
-        X_target_m = X_target.copy()
-        X_target_m[:3, 3] = X_target_m[:3, 3] / 1000.0
-        _, xarm_qpos = xarm6_planner.mplib_ik(current_qpos=np.array(start_qpos), target_pose=X_target_m, return_closest=True)
-        if xarm_qpos is None:
-            continue
-        xarm_trimesh = XArm_vis_model.get_trimesh_q(xarm_qpos)['visual'] # arm qpos
-
-        # hand trimesh
-        root_transform = XArm_vis_model.frame_status['eef_point'].get_matrix()[0].cpu().numpy()
-        rotation = root_transform[:3, :3]
-        translation = root_transform[:3, 3]
-        euler = R.from_matrix(rotation).as_euler('XYZ')
-        dummy_values = np.concatenate([translation, euler]) #virtual_joint_x/y/z/r/p/y
-        ordered_joint_values = link2link(right_hand_data)
-        joint_pos_full, sim_joint_values = non_collide_mlp(torch.tensor(ordered_joint_values, dtype=torch.float32))
         if phantom_mode:
-            phantom_joint_value = joint_pos_full
-        elif last_phantom_mode:
-            leap_hand.set_allegro(phantom_joint_value)
-        # rw_joint_values = rw_hand.read_pos()
-        # sim_joint_values = leap_from_rw_to_sim(rw_joint_values, sim_hand.actuated_joint_names)
-        sim_dummy_joint_values = np.concatenate([dummy_values, sim_joint_values]) 
-        leaphand_trimesh = leaphand_vis_model.get_trimesh_q(sim_dummy_joint_values)['visual'] # hand qpos
-        # server.scene.add_mesh_trimesh('leaphand_trimesh', leaphand_trimesh)
+            # xarm trimesh
+            config = arm.get_servo_angle(is_radian=True)[1][:6]
+            start_qpos = [math.degrees(rad) for rad in config]
+            X_target_m = X_target.copy()
+            X_target_m[:3, 3] = X_target_m[:3, 3] / 1000.0
+            _, xarm_qpos = xarm6_planner.mplib_ik(current_qpos=np.array(start_qpos), target_pose=X_target_m, return_closest=True)
+            if xarm_qpos is None:
+                continue
+            xarm_trimesh = XArm_vis_model.get_trimesh_q(xarm_qpos)['visual'] # arm qpos
+            
+            # print('stage 3', time.time()-t)
+            t = time.time()    
+
+            # hand trimesh
+            root_transform = XArm_vis_model.frame_status['eef_point'].get_matrix()[0].cpu().numpy()
+            rotation = root_transform[:3, :3]
+            translation = root_transform[:3, 3]
+            euler = R.from_matrix(rotation).as_euler('XYZ')
+            dummy_values = np.concatenate([translation, euler]) #virtual_joint_x/y/z/r/p/y
+            ordered_joint_values = link2link(right_hand_data)
+            joint_pos_full, sim_joint_values = non_collide_mlp(torch.tensor(ordered_joint_values, dtype=torch.float32))
+            sim_dummy_joint_values = np.concatenate([dummy_values, sim_joint_values]) 
+            leaphand_trimesh = leaphand_vis_model.get_trimesh_q(sim_dummy_joint_values)['visual'] # hand qpos
+
+        # print('stage 4', time.time()-t)
+        t = time.time()    
 
         show_image_1 = color_image_1.copy()
         show_image_2 = color_image_2.copy()
@@ -358,6 +363,9 @@ def main():
             show_image = cv2.resize(show_image, (1920, 540))
             cv2.imshow('TelePhantom', show_image)
             continue
+        
+        # print('stage 5', time.time()-t)
+        t = time.time()    
 
         tag = tags[0]
         if phantom_mode:
@@ -427,11 +435,18 @@ def main():
             show_image_1 = color_image_1.copy()
             show_image_2 = color_image_2.copy()
         
+        # print('stage 6', time.time()-t)
+        t = time.time()    
+        
         show_image = np.hstack((show_image_1, show_image_2))
         show_image = cv2.resize(show_image, (1920, 540))
         cv2.imshow('TelePhantom', show_image)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+        cv2.waitKey(1)
+        # if cv2.waitKey(1):
+        #     break
+
+        # print('stage 7', time.time()-t)
+        t = time.time()    
 
         # set XArm
         if last_phantom_mode and not phantom_mode:
@@ -445,11 +460,14 @@ def main():
             ordered_joint_values = link2link(right_hand_data)
             joint, sim_joint_values = non_collide_mlp(torch.tensor(ordered_joint_values, dtype=torch.float32))
         
+        # print('stage 8', time.time()-t)
+        t = time.time()    
+
         if not phantom_mode:
             arm.set_position(
                 x=xyz[0], y=xyz[1], z=xyz[2], 
                 roll=rpy[0], pitch=rpy[1], yaw=rpy[2], 
-                speed=150, wait=False
+                speed=250, wait=False
             )
             leap_hand.set_allegro(joint)
 
@@ -460,6 +478,7 @@ def main():
                 start_time = 0
             phantom_xyz, phantom_rpy = xyz, rpy
             phantom_joint = joint
+        # print("****************************************")  
 
         last_phantom_mode = phantom_mode
 
