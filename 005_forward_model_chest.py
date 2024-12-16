@@ -187,7 +187,7 @@ def main():
     while True:
         global X_WorldLink20
 
-        message_recv = socket.recv()
+        # message_recv = socket.recv()
 
         X_WorldLink9, X_WorldLink16, X_WorldLink17, X_WorldLink18, X_WorldLink19, X_WorldLink20, X_WorldLink21, X_WorldLink22, X_WorldLink23 = get_link(sdk)
 
@@ -226,7 +226,7 @@ def main():
         X_WorldLink22and23 = np.stack([X_WorldLink22, X_WorldLink23], axis=0)
         # message_send = np.array(X_WorldLink22).tobytes()
         message_send = X_WorldLink22and23.tobytes()
-        socket.send(message_send)
+        # socket.send(message_send)
 
         '''
         # (24, 4), xyzw

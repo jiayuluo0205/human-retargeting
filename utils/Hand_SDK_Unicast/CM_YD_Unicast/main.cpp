@@ -117,10 +117,11 @@ void SendGloveData(GloveSDK* glovePtr) {
 
 	if (bytesSent == SOCKET_ERROR) {
 		std::cerr << "Send failed!" << std::endl;
+		exit(0);
 	}
-	else {
-		//std::cout << "Data sent successfully! Bytes sent: " << bytesSent << std::endl;
-	}
+	//else {
+	//	//std::cout << "Data sent successfully! Bytes sent: " << bytesSent << std::endl;
+	//}
 }
 
 /*
@@ -133,7 +134,7 @@ void OnNewGloveData(GloveSDK* glovePtr)
 	* 打印手数据
 	* Print gloveData
 	*/
-	//PrintGloveData(glovePtr);
+	PrintGloveData(glovePtr);
 
 	//Print all data 
 	//glovePtr->PrintAllGloveData(glovePtr->gloveDataList[0]);

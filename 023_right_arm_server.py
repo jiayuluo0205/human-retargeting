@@ -8,37 +8,11 @@ from time import sleep
 import pybullet_data
 import viser
 
-
-# physicsClient = p.connect(p.GUI)
-
-# p.setAdditionalSearchPath(pybullet_data.getDataPath())
-
-# p.setGravity(0, 0, -10)
-# planeId = p.loadURDF("plane.urdf")
-
-##### notice: manually copy these link lengths from the SDK
-# link22_length = 0.04 # meter
-# link20_length = 0.266
-# link18_length = 0.257
-
-# def initAxis(center, rot_mat):
-#     rotmat = np.array(rot_mat).reshape((3, 3))
-#     p.addUserDebugLine(lineFromXYZ=center,lineToXYZ=center+ rotmat[:3,0] * 0.1,lineColorRGB=[1,0,0],lineWidth=10)
-#     p.addUserDebugLine(lineFromXYZ=center, lineToXYZ=center + rotmat[:3, 1] * 0.1, lineColorRGB=[0, 1, 0], lineWidth=10)
-#     p.addUserDebugLine(lineFromXYZ=center, lineToXYZ=center + rotmat[:3, 2] * 0.1, lineColorRGB=[0, 0, 1], lineWidth=10)
-
-# useRealTimeSimulation = 0
-
-# if (useRealTimeSimulation):
-#   p.setRealTimeSimulation(1)
 def get_link(sdk):
     tran, pose24, static_index, tp = sdk.get_last_msg()
 
     pose24_np = np.array(pose24)#.tobytes()
 
-    # X_RebocapWorld = np.eye(4)
-    # # X_RebocapWorld[:3, :3] = R.from_euler("x", -90, degrees=True).as_matrix()
-    # X_RebocapWorld[:3, :3] = R.from_euler("ZX", [-90, -90], degrees=True).as_matrix()
     X_WorldRebocap = np.eye(4)
     X_WorldRebocap[:3, :3] = R.from_euler("x",[90.0] , degrees=True).as_matrix()
     
@@ -97,14 +71,6 @@ def get_link(sdk):
     X_RebocapLink22 = X_RebocapLink20 @ X_Link20Link22
     X_RebocapLink23 = X_RebocapLink21 @ X_Link21Link23
 
-    # X_WorldLink9 = np.linalg.inv(X_RebocapWorld) @ X_RebocapLink9
-    # X_WorldLink16 = np.linalg.inv(X_RebocapWorld) @ X_RebocapLink16
-    # X_WorldLink17 = np.linalg.inv(X_RebocapWorld) @ X_RebocapLink17
-    # X_WorldLink18 = np.linalg.inv(X_RebocapWorld) @ X_RebocapLink18
-    # X_WorldLink19 = np.linalg.inv(X_RebocapWorld) @ X_RebocapLink19
-    # X_WorldLink20 = np.linalg.inv(X_RebocapWorld) @ X_RebocapLink20
-    # X_WorldLink21 = np.linalg.inv(X_RebocapWorld) @ X_RebocapLink21
-
     X_WorldLink9 = X_WorldRebocap @ X_RebocapLink9
     X_WorldLink16 = X_WorldRebocap @ X_RebocapLink16
     X_WorldLink17 = X_WorldRebocap @ X_RebocapLink17
@@ -114,9 +80,8 @@ def get_link(sdk):
     X_WorldLink21 = X_WorldRebocap @ X_RebocapLink21
     X_WorldLink22 = X_WorldRebocap @ X_RebocapLink22
     X_WorldLink23 = X_WorldRebocap @ X_RebocapLink23
-
     
-    return X_WorldLink9, X_WorldLink16, X_WorldLink17, X_WorldLink18, X_WorldLink19, X_WorldLink20, X_WorldLink21, X_WorldLink22, X_WorldLink23
+    return X_WorldLink22, X_WorldLink23
 
 counter = 0
 
@@ -138,11 +103,7 @@ def main():
 
     # 姿态数据回调
     def pose_msg_callback(self: rebocap_ws_sdk.RebocapWsSdk, tran: list, pose24: list, static_index: int, ts: float):
-        # print(f'X_RecocapLink20: \n{X_RecocapLink20}\n')
         print_debug_msg(self, tran, pose24, static_index, ts)
-        # message = socket.recv()
-        # 将 X_RecocapLink20 通过 zmq 发送
-        # socket.send(X_RecocapLink20.tobytes())
         pass
 
 
@@ -152,7 +113,7 @@ def main():
     # server initialize
     context = zmq.Context()
     # # talk to client linux machine
-    socket = context.socket(zmq.REP) # server
+    socket = context.socket(zmq.REP) # we r server
     socket.bind("tcp://*:5555")
     
     # rebocap initialize
@@ -179,53 +140,92 @@ def main():
         else:
             print("未知错误", open_ret)
         exit(1)
-    
-    # memory = []
-
-    # sv = viser.ViserServer(port=8085)
 
     while True:
-        global X_WorldLink20
-
         message_recv = socket.recv()
-
-        X_WorldLink9, X_WorldLink16, X_WorldLink17, X_WorldLink18, X_WorldLink19, X_WorldLink20, X_WorldLink21, X_WorldLink22, X_WorldLink23 = get_link(sdk)
-
-        # sv.scene.add_frame(
-        #     "Link9", wxyz=R.from_matrix(X_WorldLink9[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink9[:3, 3]
-        # )
-        # sv.scene.add_frame(
-        #     "Link16", wxyz=R.from_matrix(X_WorldLink16[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink16[:3, 3]
-        # )
-        # sv.scene.add_frame(
-        #     "Link17", wxyz=R.from_matrix(X_WorldLink17[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink17[:3, 3]
-        # )
-        # sv.scene.add_frame(
-        #     "Link18", wxyz=R.from_matrix(X_WorldLink18[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink18[:3, 3]
-        # )
-        # sv.scene.add_frame(
-        #     "Link19", wxyz=R.from_matrix(X_WorldLink19[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink19[:3, 3]
-        # )
-        # sv.scene.add_frame(
-        #     "Link20", wxyz=R.from_matrix(X_WorldLink20[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink20[:3, 3]
-        # )
-        # sv.scene.add_frame(
-        #     "Link21", wxyz=R.from_matrix(X_WorldLink21[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink21[:3, 3]
-        # )
-        # sv.scene.add_frame(
-        #     "Link22", wxyz=R.from_matrix(X_WorldLink22[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink22[:3, 3]
-        # )
-        # sv.scene.add_frame(
-        #     "Link23", wxyz=R.from_matrix(X_WorldLink23[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink23[:3, 3]
-        # )
-        # sv.scene.add_frame(
-        #     "Link23", wxyz=R.from_matrix(X_WorldLink23[:3, :3]).as_quat()[[3, 0, 1, 2]], position=X_WorldLink23[:3, 3]
-        # )
-        # message_send = np.array(X_WorldLink20).tobytes()
-        # print(X_WorldLink23)
+        print(message_recv)
+        
+        X_WorldLink22, X_WorldLink23 = get_link(sdk)
         X_WorldLink22and23 = np.stack([X_WorldLink22, X_WorldLink23], axis=0)
-        # message_send = np.array(X_WorldLink22).tobytes()
         message_send = X_WorldLink22and23.tobytes()
+
+        '''
+        Pick & Place
+          Expert  Rookie  Phantom
+        1 8.69s   13.17s fail 17.41s
+        2 7.09s   33.72s      14.82s
+        3 7.04s   11.46s fail 15.85s
+        4 8.77s   22.20s      10.56s
+        5 7.96s   22.04s      9.11s
+        6 7.31s   19.43s      
+        7 8.88s   21.84s
+        8 7.57s   22.13s
+        9 7.16s   8.91s fail
+        10 6.63s  9.43s fail
+        0.6 - 1.0
+        23.56s - 13.55s
+
+        Hang
+          Expert  Rookie            Phantom
+        1 16.33s  39.50s fail       28.72s
+        2 27.98s  28.98s            29.08s
+        3 19.69s  1.02.73s          28.08s
+        4 16.78s  49.36s fail       38.00s
+        5 fail 14.30s  38.61s fail  30.28s
+        6 10.37s  16.42s fail
+        7 14.05s  24.48s
+        8 14.66s  23.57s
+        9 14.89s  17.49s
+        10 16.25s  18.53s
+        0.6 - 1.0
+        29.30s - 30.832s
+
+        Pour
+          Expert  Rookie        Phantom
+        1 29.39s  56.17s        49.96s
+        2 27.90s  36.04s        41.34s fail
+        3 26.65s  38.28s        35.15s
+        4 23.76s  40.58s        30.27s
+        5 23.65s  23.73s fail   29.15s
+        6 23.14s  53.11s
+        7 22.33s  41.25s
+        8 20.25s  45.95s
+        9 20.30s  40.58s
+        10 21.23s  36.87s
+        0.9 - 0.8
+        43.20s - 36.1325s
+
+        Box Rotate
+          Expert  Rookie        Phantom
+        1 10.27s  1.01.12s      21.27s
+        2 15.57s  12.57s fail   13.40s
+        3 16.46s  18.16s        11.66s fail
+        4 15.16s  24.02s        20.48s
+        5 12.33s  22.23s fail   21.34s
+        6 15.35s  36.75s fail
+        7 12.58s  32.79s fail
+        8 16.84s  26.71s
+        9 13.80s  28.70s
+        10 13.42s  24.12s
+        0.6 - 0.8
+        30.47s - 19.1225s
+
+        2 Cup Stacking
+          Expert  Rookie        Phantom
+        1 16.82s  14.46s fail   20.48s
+        2 13.26s  33.23s fail   17.61s
+        3 15.86s  29.12s        17.20s
+        4 18.03s  18.99s fail   19.98s
+        5 16.99s  34.78s        19.30s
+        6 14.79s  32.65s
+        7 17.28s  16.76s fail
+        8 14.22s  21.55s
+        9 10.84s  25.90s fail
+        10 10.62s  39.59s
+        0.5 - 1.0
+        31.538s - 18.914s
+
+        '''
         socket.send(message_send)
 
 if __name__ == "__main__":
