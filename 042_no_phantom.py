@@ -256,12 +256,19 @@ def main():
             # set XArm
 
             xyz = xarm_right_target_position
+            xmin, xmax = 200, 800  # X轴的安全边界
+            ymin, ymax = -300, 300  # Y轴的安全边界
+            zmin, zmax = 100, 700  # Z轴的安全边界
+            xyz[0] = np.clip(xyz[0], xmin, xmax)
+            xyz[1] = np.clip(xyz[1], ymin, ymax)
+            xyz[2] = np.clip(xyz[2], zmin, zmax)
+
             rpy = R.from_euler("xyz", np.array([EE_right_euler[2], -EE_right_euler[1], -EE_right_euler[0]]), degrees=True).as_euler("ZYX", degrees=True)
             rpy += [-90, 0, -180]
             arm.set_position(
                 x=xyz[0], y=xyz[1], z=xyz[2], 
                 roll=rpy[0], pitch=rpy[1], yaw=rpy[2], 
-                speed=150, wait=False
+                speed=100, wait=False
             )
 
             # receive glove data

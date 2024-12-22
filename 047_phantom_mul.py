@@ -205,10 +205,10 @@ def main():
     motion_context = zmq.Context()
     print("Connecting to windows server...")
     motion_socket = motion_context.socket(zmq.REQ)
-    motion_socket.connect("tcp://172.25.97.8:5555")
+    motion_socket.connect("tcp://192.168.113.216:5555")
 
     # socket (glove)
-    host, port = '0.0.0.0', 5559
+    host, port = '0.0.0.0', 5560
     glove_server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     glove_server_socket.bind((host, port))
     glove_server_socket.listen(1)
@@ -402,15 +402,6 @@ def main():
 
             opacity = 0.5
 
-            render_rgba = render_phantom(X_ArmCamera2, combined_trimesh, yfov_1)
-            mask = render_rgba[:, :, 3] != 0
-            render_rgba = np.array(render_rgba[:, :, :3])
-            # cv2.imshow('Phantom_side', cv2.cvtColor(render_rgba, cv2.COLOR_RGB2BGR))
-            render_rgba[:, :, 0] = (render_rgba[:, :, 0] * 0.8).astype(np.int8)
-            render_rgba[:, :, 1] = (render_rgba[:, :, 1] * 0.8).astype(np.int8)
-            render_rgba[:, :, 2] = (render_rgba[:, :, 2] * 0.3).astype(np.int8)
-            show_image_1[mask] = show_image_1[mask] * opacity + render_rgba[mask] * (1 - opacity)
-
             # top_camera_pose = np.array([
             #     [-0.9998680353164673, 0.016218112781643867, 0.0008981706923805177, 0.4588461220264435],
             #     [0.01620866172015667, 0.999822199344635, -0.009639588184654713, -0.011901105754077435],
@@ -427,10 +418,19 @@ def main():
             mask = render_rgba[:, :, 3] != 0
             render_rgba = np.array(render_rgba[:, :, :3])
             # cv2.imshow('Phantom_top', cv2.cvtColor(render_rgba, cv2.COLOR_RGB2BGR))
-            render_rgba[:, :, 0] = (render_rgba[:, :, 0] * 0.8).astype(np.int8)
-            render_rgba[:, :, 1] = (render_rgba[:, :, 1] * 0.8).astype(np.int8)
-            render_rgba[:, :, 2] = (render_rgba[:, :, 2] * 0.3).astype(np.int8)
+            render_rgba[:, :, 0] = (render_rgba[:, :, 0] * 0.4).astype(np.int8)
+            render_rgba[:, :, 1] = (render_rgba[:, :, 1] * 0.75).astype(np.int8)
+            render_rgba[:, :, 2] = (render_rgba[:, :, 2] * 1).astype(np.int8)
             show_image_2[mask] = show_image_2[mask] * opacity + render_rgba[mask] * (1 - opacity)
+
+            render_rgba = render_phantom(X_ArmCamera2, combined_trimesh, yfov_1)
+            mask = render_rgba[:, :, 3] != 0
+            render_rgba = np.array(render_rgba[:, :, :3])
+            # cv2.imshow('Phantom_side', cv2.cvtColor(render_rgba, cv2.COLOR_RGB2BGR))
+            render_rgba[:, :, 0] = (render_rgba[:, :, 0] * 0.4).astype(np.int8)
+            render_rgba[:, :, 1] = (render_rgba[:, :, 1] * 0.75).astype(np.int8)
+            render_rgba[:, :, 2] = (render_rgba[:, :, 2] * 1).astype(np.int8)
+            show_image_1[mask] = show_image_1[mask] * opacity + render_rgba[mask] * (1 - opacity)
         else:
             show_image_1 = color_image_1.copy()
             show_image_2 = color_image_2.copy()
@@ -462,12 +462,17 @@ def main():
         
         # print('stage 8', time.time()-t)
         t = time.time()    
-
+        xmin, xmax = 200, 800  # X轴的安全边界
+        ymin, ymax = -300, 300  # Y轴的安全边界
+        zmin, zmax = 100, 700  # Z轴的安全边界
+        xyz[0] = np.clip(xyz[0], xmin, xmax)
+        xyz[1] = np.clip(xyz[1], ymin, ymax)
+        xyz[2] = np.clip(xyz[2], zmin, zmax)
         if not phantom_mode:
             arm.set_position(
                 x=xyz[0], y=xyz[1], z=xyz[2], 
                 roll=rpy[0], pitch=rpy[1], yaw=rpy[2], 
-                speed=250, wait=False
+                speed=200, wait=False
             )
             leap_hand.set_allegro(joint)
 

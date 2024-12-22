@@ -38,7 +38,7 @@ cuda = torch.cuda.is_available()
 device = torch.device("cuda:0" if cuda else "cpu")
 
 # 创建 socket 服务器
-def start_server(host='0.0.0.0', port=5559):
+def start_server(host='0.0.0.0', port=5560):
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((host, port))
     server_socket.listen(1)
@@ -96,18 +96,27 @@ def update_hand_trimesh(joint_pos, start):
     pred_my_hand_mesh_col = result_dict["collision"].apply_translation([0.0, 0.5, 0.0])
     server.scene.add_mesh_trimesh("pred_hand_mesh_col", pred_my_hand_mesh_col)
 
-def normalize_value(value, scale, bias=0.0, reverse=False):
-    value -= bias
+def normalize_value(value, scale, bias=0.0, reverse=False, softplus=False, softplus_offset=0.0):
+    value += bias
     if reverse:
         value = -value
-    return value / scale
+    if softplus: # softplus 函数
+        if not reverse:
+            value = -value
+        value = np.log(1 + np.exp(value))
+    value /= scale
+    if softplus:
+        if not reverse:
+            value = -value
+        value += softplus_offset
+    return value
 
 # joint_mapping 定义
 joint_mapping = {
-    "R0": {"glove_index": 0, "joint_name": "15", "scale": 32.0, "reverse": True, "bias": 0.0},
-    "R1": {"glove_index": 1, "joint_name": "14", "scale": 32.0, "reverse": True, "bias": 0.0},
-    "R2": {"glove_index": 2, "joint_name": "12", "scale": 30.0, "reverse": True, "bias": 0.0},
-    "R20": {"glove_index": 20, "joint_name": "13", "scale": 20.0, "reverse": True, "bias": 0.0},
+    "R0": {"glove_index": 0, "joint_name": "15", "scale": 16.0, "reverse": True, "bias": 35.0, "softplus": True},
+    "R1": {"glove_index": 0, "joint_name": "14", "scale": 16.0, "reverse": True, "bias": 35.0, "softplus": True},
+    "R2": {"glove_index": 1, "joint_name": "12", "scale": 38.0, "reverse": True, "bias": 0.0},
+    "R20": {"glove_index": 2, "joint_name": "13", "scale": 19.0, "reverse": False, "bias": 35.0, "softplus": True, "softplus_offset": 1.57},
     "R4": {"glove_index": 4, "joint_name": "3", "scale": 40.0, "reverse": True, "bias": 0.0},
     "R5": {"glove_index": 5, "joint_name": "2", "scale": 53.0, "reverse": True, "bias": 0.0},
     "R6": {"glove_index": 6, "joint_name": "1", "scale": 50.0, "reverse": True, "bias": 0.0},
@@ -188,20 +197,26 @@ if __name__ == "__main__":
     for client_socket in start_server():
         try:
             while True:
-                data = ""  # 清空data确保每次为新的数据包
+                data = ""
                 chunk = client_socket.recv(65536)
-                if not chunk:
-                    break
                 data += chunk.decode("utf-8")
 
-                # 匹配右手传感器值
                 right_hand_matches = re.findall(r"R\d+:\s(-?\d+\.\d+)", data)
-                right_hand_data = [float(value) for value in right_hand_matches[:28]]
+                # print(right_hand_matches)
+                # print("***", len(right_hand_matches))
+                right_hand_data = [float(value) for value in right_hand_matches[-28:]]
+                if len(right_hand_data) != 28:
+                    continue
+
+                # # 匹配右手传感器值
+                # right_hand_matches = re.findall(r"R\d+:\s(-?\d+\.\d+)", data)
+                # right_hand_data = [float(value) for value in right_hand_matches[:28]]
                 
                 # 更新 Viser 中的滑条
+                print_info = ""
                 for mapping in joint_mapping.values():
                     glove_index = mapping["glove_index"]
-                    print(right_hand_data)
+                    # print(right_hand_data)
                     glove_value = right_hand_data[glove_index]
                     scale = mapping["scale"]
                     joint_name = mapping["joint_name"]
@@ -212,9 +227,16 @@ if __name__ == "__main__":
                             glove_value,
                             scale,
                             bias=mapping.get("bias", 0.0),
-                            reverse=mapping.get("reverse", False)
+                            reverse=mapping.get("reverse", False),
+                            softplus=mapping.get("softplus", False),
+                            softplus_offset=mapping.get("softplus_offset", 0.0)
                         )
                         slider.value = normalized_value
+
+                    if joint_name in ["12", "13", "14", "15"]:
+                        print_info += f"{joint_name}: {normalized_value:.2f} "
+
+                print(print_info)
 
                 ordered_joint_values = [slider.value for slider in gui_joints.values()]
                 

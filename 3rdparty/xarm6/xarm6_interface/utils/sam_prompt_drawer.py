@@ -9,7 +9,7 @@ import numpy as np
 from enum import Enum
 from xarm6_interface.utils.misc import to_array, findContours
 from segment_anything import sam_model_registry, SamPredictor
-# from sam2.build_sam import build_sam2_camera_predictor
+from sam2.build_sam import build_sam2_camera_predictor
 
 
 class DrawingMode(Enum):
