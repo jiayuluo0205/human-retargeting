@@ -15,7 +15,7 @@ context =zmq.Context()
 # talk to server windows machine
 print("Connecting to windows server...")
 socket = context.socket(zmq.REQ)
-socket.connect("tcp://192.168.43.105:5555")
+socket.connect("tcp://192.168.43.50:5555")
 
 i = 0
 # EE_np_init = np.array([0,0,0])
