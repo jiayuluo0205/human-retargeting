@@ -5,8 +5,6 @@ import rebocap_ws_sdk
 import numpy as np
 from scipy.spatial.transform import Rotation as R
 from time import sleep
-import pybullet_data
-import viser
 
 def get_link(sdk):
     tran, pose24, static_index, tp = sdk.get_last_msg()
