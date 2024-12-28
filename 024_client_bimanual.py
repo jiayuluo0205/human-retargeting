@@ -15,7 +15,7 @@ context =zmq.Context()
 # talk to server windows machine
 print("Connecting to windows server...")
 socket = context.socket(zmq.REQ)
-socket.connect("tcp://192.168.43.50:5555")
+socket.connect("tcp://192.168.43.105:5555")
 
 i = 0
 # EE_np_init = np.array([0,0,0])
@@ -69,6 +69,7 @@ while True:
     pose24_np = np.frombuffer(pose24_byte, dtype=np.float64)
     pose24_lwrist = np.reshape(pose24_np[0:16],[4,4])
     pose24_rwrist = np.reshape(pose24_np[16:],[4,4])
+    print(pose24_rwrist)
 
 
     EE_left_position = pose24_lwrist[:3,3]    

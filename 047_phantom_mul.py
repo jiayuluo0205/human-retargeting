@@ -205,10 +205,10 @@ def main():
     motion_context = zmq.Context()
     print("Connecting to windows server...")
     motion_socket = motion_context.socket(zmq.REQ)
-    motion_socket.connect("tcp://192.168.113.216:5555")
+    motion_socket.connect("tcp://192.168.250.216:5555")
 
     # socket (glove)
-    host, port = '0.0.0.0', 5560
+    host, port = '0.0.0.0', 8888
     glove_server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     glove_server_socket.bind((host, port))
     glove_server_socket.listen(1)
