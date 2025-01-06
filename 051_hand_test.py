@@ -190,6 +190,7 @@ if __name__ == "__main__":
         data_rwrist = np.reshape(data_np[16:32],[4,4])
         data_rhand = np.reshape(data_np[32:])
         right_hand_data = data_rhand.copy()
+        print(right_hand_data)
 
         print_info = ""
         for mapping in joint_mapping.values():
@@ -213,11 +214,8 @@ if __name__ == "__main__":
             if joint_name in ["12", "13", "14", "15"]:
                 print_info += f"{joint_name}: {normalized_value:.2f} "
 
-            print(print_info)
+            # print(print_info)
             ordered_joint_values = [slider.value for slider in gui_joints.values()]
             update_hand_trimesh(torch.tensor(ordered_joint_values, dtype=torch.float32), start)
-        
-        client_socket.close()
-        print(f"Connection from {client_address} closed.\n")
-    
-    input()
+            
+    # input()
