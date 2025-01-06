@@ -165,7 +165,7 @@ if __name__ == "__main__":
         raise ValueError("找到多个匹配的模型文件，请更具体地指定文件名。")
     else:
         file_path = file_list[0]
-        mlp.load_state_dict(torch.load(file_path))     
+        mlp.load_state_dict(torch.load(file_path))
                 
     # Create joint angle sliders.
     gui_joints = {}

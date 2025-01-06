@@ -112,10 +112,10 @@ def main():
         print("exception_close_callback")
     
     # # server (motion)
-    # context = zmq.Context()
+    context = zmq.Context()
     # # # talk to client linux machine
-    # socket = context.socket(zmq.REP) # we r server
-    # socket.bind("tcp://*:5555")
+    motion_socket = context.socket(zmq.REP) # we r server
+    motion_socket.bind("tcp://*:5555")
 
     # server (glove)
     host, port = '0.0.0.0', 5559
@@ -165,7 +165,7 @@ def main():
                 break
         right_hand_data = np.array(right_hand_data).reshape((-1, 4))
 
-        message_recv = socket.recv()
+        message_recv = motion_socket.recv()
         X_WorldLink22, X_WorldLink23 = get_link(sdk)
         X_WorldLink22_23_rhanddata = np.concatenate([X_WorldLink22, X_WorldLink23, right_hand_data], axis=0)
         print(X_WorldLink22)
@@ -174,7 +174,7 @@ def main():
         print(X_WorldLink22_23_rhanddata.shape)
         print(X_WorldLink22_23_rhanddata)
         message_send = X_WorldLink22_23_rhanddata.tobytes()
-        socket.send(message_send)
+        motion_socket.send(message_send)
 
 if __name__ == "__main__":
     main()
