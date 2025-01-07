@@ -111,12 +111,6 @@ def main():
     def exception_close_callback(self: rebocap_ws_sdk.RebocapWsSdk):
         print("exception_close_callback")
     
-    # # server (motion)
-    context = zmq.Context()
-    # # # talk to client linux machine
-    motion_socket = context.socket(zmq.REP) # we r server
-    motion_socket.bind("tcp://*:5555")
-
     # server (glove)
     host, port = '0.0.0.0', 5559
     glove_server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -127,7 +121,7 @@ def main():
     glove_server_socket.settimeout(10.0)
     glove_client_socket, client_address = glove_server_socket.accept()
     print(f"Connection from {client_address} established.")
-    
+
     # rebocap initialize
     # 初始化sdk  这里可以选择控件坐标系， 控件坐标系目前已经测试过的有： 1. UE  2. Unity  3. Blender
     # 选择输出角度是否是 global 角度，默认是 local 角度【简单解释，global 角度不受父节点影响 local角度受父节点影响， local角度逐级相乘就是 global 角度
@@ -153,6 +147,12 @@ def main():
             print("未知错误", open_ret)
         exit(1)
 
+    # # server (motion)
+    context = zmq.Context()
+    # # # talk to client linux machine
+    motion_socket = context.socket(zmq.REP) # we r server
+    motion_socket.bind("tcp://*:5555")
+
     while True:
         while True:
             data = ""
@@ -165,15 +165,15 @@ def main():
                 break
         right_hand_data = np.array(right_hand_data).reshape((-1, 4))
 
-        message_recv = motion_socket.recv()
         X_WorldLink22, X_WorldLink23 = get_link(sdk)
         X_WorldLink22_23_rhanddata = np.concatenate([X_WorldLink22, X_WorldLink23, right_hand_data], axis=0)
         # print(X_WorldLink22)
         # print(X_WorldLink23)
-        print(right_hand_data)
+        # print(right_hand_data)
         # print(X_WorldLink22_23_rhanddata.shape)
-        # print(X_WorldLink22_23_rhanddata)
+        print(X_WorldLink22_23_rhanddata)
         message_send = X_WorldLink22_23_rhanddata.tobytes()
+        message_recv = motion_socket.recv()
         motion_socket.send(message_send)
 
 if __name__ == "__main__":

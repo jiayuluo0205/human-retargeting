@@ -33,8 +33,8 @@ def main():
             if len(right_hand_data) == 28:
                 break
         right_hand_data = np.array(right_hand_data).reshape((-1, 4))
-        print(type(right_hand_data))
-        print(right_hand_data.shape)
+        # print(type(right_hand_data))
+        print(right_hand_data)
 
 if __name__ == "__main__":
     main()
