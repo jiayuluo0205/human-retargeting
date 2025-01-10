@@ -73,7 +73,7 @@ def update_hand_trimesh(joint_pos, start):
         joint_pos_full[14], joint_pos_full[15]
     ]
 
-    # leap_hand.set_allegro(control_pos)
+    leap_hand.set_allegro(control_pos)
     in_col, collision_result_pb = hand.get_collision_results_pb(joint_pos_full)
     result_dict = hand.get_hand_trimesh(joint_pos_full, visual=False, collision=True, collision_result_pb=collision_result_pb)
     pred_my_hand_mesh_col = result_dict["collision"].apply_translation([0.0, 0.5, 0.0])
@@ -134,7 +134,7 @@ if __name__ == "__main__":
         config = Allegrohand_Config("whole","whole")
         start = 6
 
-    # leap_hand = LeapNode()
+    leap_hand = LeapNode()
 
     server = viser.ViserServer(port=8888)
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"

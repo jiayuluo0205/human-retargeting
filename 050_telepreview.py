@@ -205,7 +205,7 @@ def main():
     motion_context = zmq.Context()
     print("Connecting to windows server...")
     motion_socket = motion_context.socket(zmq.REQ)
-    motion_socket.connect("tcp://192.168.113.216:5555")
+    motion_socket.connect("tcp://192.168.43.50:5555")
 
     hand = LeapHandRight() 
     config = Leaphand_Config("whole","whole")
@@ -235,7 +235,7 @@ def main():
 
     # wxyz_ArmTag25 = R.from_matrix(X_ArmTag25[:3, :3]).as_quat()  # viser only
     
-    cameras = MultiRealsense(['147122075879', '233622079809'])
+    cameras = MultiRealsense(['233622079809', '317222073552'])
     intrinsics = cameras.get_intrinsics()
         
     # intrinsc matrix of camera
@@ -266,7 +266,7 @@ def main():
         data_byte = motion_socket.recv()
         data_np = np.frombuffer(data_byte, dtype=np.float64)
         data_rwrist = np.reshape(data_np[16:32],[4,4])
-        data_rhand = np.reshape(data_np[32:])
+        data_rhand = data_np[32:]
         right_hand_data = data_rhand.copy()
         EE_right_position = data_rwrist[:3, 3]
         EE_right_rot_np = data_rwrist[:3, :3]
