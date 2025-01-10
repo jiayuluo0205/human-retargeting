@@ -73,7 +73,7 @@ def update_hand_trimesh(joint_pos, start):
         joint_pos_full[14], joint_pos_full[15]
     ]
 
-    # leap_hand.set_allegro(control_pos)
+    leap_hand.set_allegro(control_pos)
     in_col, collision_result_pb = hand.get_collision_results_pb(joint_pos_full)
     result_dict = hand.get_hand_trimesh(joint_pos_full, visual=False, collision=True, collision_result_pb=collision_result_pb)
     pred_my_hand_mesh_col = result_dict["collision"].apply_translation([0.0, 0.5, 0.0])
@@ -136,7 +136,7 @@ if __name__ == "__main__":
 
     leap_hand = LeapNode()
 
-    server = viser.ViserServer()
+    server = viser.ViserServer(port=8888)
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     mlp = FingerMLP(hand, hand.ndof - start, hand.ndof - start, start=start).to(device)
@@ -180,7 +180,7 @@ if __name__ == "__main__":
     motion_context = zmq.Context()
     print("Connecting to windows server...")
     motion_socket = motion_context.socket(zmq.REQ)
-    motion_socket.connect("tcp://172.25.108.127:5555")
+    motion_socket.connect("tcp://192.168.43.50:5555")
 
     while True:
         motion_socket.send(b"request")
@@ -188,7 +188,7 @@ if __name__ == "__main__":
         data_byte = motion_socket.recv()
         data_np = np.frombuffer(data_byte, dtype=np.float64)
         data_rwrist = np.reshape(data_np[16:32],[4,4])
-        data_rhand = np.reshape(data_np[32:])
+        data_rhand = data_np[32:]
         right_hand_data = data_rhand.copy()
         print(right_hand_data)
 
@@ -217,5 +217,3 @@ if __name__ == "__main__":
             # print(print_info)
             ordered_joint_values = [slider.value for slider in gui_joints.values()]
             update_hand_trimesh(torch.tensor(ordered_joint_values, dtype=torch.float32), start)
-            
-    # input()

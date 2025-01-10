@@ -34,6 +34,8 @@ import glob
 
 from leaphand_rw.leaphand_rw import LeapNode
 
+import zmq
+
 cuda = torch.cuda.is_available()
 device = torch.device("cuda:0" if cuda else "cpu")
 
