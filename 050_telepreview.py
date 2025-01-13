@@ -205,7 +205,7 @@ def main():
     motion_context = zmq.Context()
     print("Connecting to windows server...")
     motion_socket = motion_context.socket(zmq.REQ)
-    motion_socket.connect("tcp://192.168.43.50:5555")
+    motion_socket.connect("tcp://192.168.243.216:5555")
 
     hand = LeapHandRight() 
     config = Leaphand_Config("whole","whole")
