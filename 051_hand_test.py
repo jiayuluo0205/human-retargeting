@@ -180,7 +180,7 @@ if __name__ == "__main__":
     motion_context = zmq.Context()
     print("Connecting to windows server...")
     motion_socket = motion_context.socket(zmq.REQ)
-    motion_socket.connect("tcp://192.168.234.216:5555")
+    motion_socket.connect("tcp://192.168.43.50:5555")
 
     while True:
         motion_socket.send(b"request")

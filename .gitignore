@@ -9,3 +9,4 @@
 *.pem
 /build
 /utils/Hand_SDK/.vs
+*.mp4

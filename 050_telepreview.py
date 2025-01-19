@@ -205,7 +205,7 @@ def main():
     motion_context = zmq.Context()
     print("Connecting to windows server...")
     motion_socket = motion_context.socket(zmq.REQ)
-    motion_socket.connect("tcp://192.168.243.216:5555")
+    motion_socket.connect("tcp://192.168.43.50:5555")
 
     hand = LeapHandRight() 
     config = Leaphand_Config("whole","whole")
@@ -253,7 +253,7 @@ def main():
 
     last_phantom_mode = False
     while True:
-        print(f"execution time: {exc_time}")
+        # print(f"execution time: {exc_time}")
         t = time.time()
         # get current mode
         pygame.event.get()
@@ -461,6 +461,7 @@ def main():
         xyz[1] = np.clip(xyz[1], ymin, ymax)
         xyz[2] = np.clip(xyz[2], zmin, zmax)
         if not phantom_mode:
+            print(xyz)
             arm.set_position(
                 x=xyz[0], y=xyz[1], z=xyz[2], 
                 roll=rpy[0], pitch=rpy[1], yaw=rpy[2], 
