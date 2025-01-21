@@ -251,6 +251,9 @@ def main():
     xarm6_planner_cfg = XARM6PlannerCfg(vis=False)
     xarm6_planner = XARM6Planner(xarm6_planner_cfg)
 
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    video = cv2.VideoWriter("video.mp4", fourcc, fps=90.0, (1920, 540), True)
+
     last_phantom_mode = False
     while True:
         print(f"execution time: {exc_time}")
@@ -432,6 +435,9 @@ def main():
         
         show_image = np.hstack((show_image_1, show_image_2))
         show_image = cv2.resize(show_image, (1920, 540))
+
+        video.write(show_image)
+
         cv2.imshow('TelePhantom', show_image)
         cv2.waitKey(1)
         # if cv2.waitKey(1):

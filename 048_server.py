@@ -171,7 +171,7 @@ def main():
         # print(X_WorldLink23)
         # print(right_hand_data)
         # print(X_WorldLink22_23_rhanddata.shape)
-        print(X_WorldLink22_23_rhanddata)
+        # print(X_WorldLink22_23_rhanddata)
         message_send = X_WorldLink22_23_rhanddata.tobytes()
         message_recv = motion_socket.recv()
         motion_socket.send(message_send)

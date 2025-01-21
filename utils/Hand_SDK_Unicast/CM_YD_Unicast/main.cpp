@@ -34,7 +34,7 @@ bool InitializeSocket()
 	serverAddr.sin_family = AF_INET;
 	serverAddr.sin_port = htons(5559);
 
-	if (inet_pton(AF_INET, "192.168.43.50", &serverAddr.sin_addr) <= 0) {
+	if (inet_pton(AF_INET, "127.0.0.1", &serverAddr.sin_addr) <= 0) {
 		std::cerr << "Invalid address/ Address not supported" << std::endl;
 		closesocket(sock);
 		WSACleanup();
@@ -134,7 +134,7 @@ void OnNewGloveData(GloveSDK* glovePtr)
 	* 打印手数据
 	* Print gloveData
 	*/
-	PrintGloveData(glovePtr);
+	//PrintGloveData(glovePtr);
 
 	//Print all data 
 	//glovePtr->PrintAllGloveData(glovePtr->gloveDataList[0]);
