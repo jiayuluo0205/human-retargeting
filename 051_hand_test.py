@@ -190,7 +190,7 @@ if __name__ == "__main__":
         data_rwrist = np.reshape(data_np[16:32],[4,4])
         data_rhand = data_np[32:]
         right_hand_data = data_rhand.copy()
-        print(right_hand_data)
+        # print(right_hand_data)
 
         print_info = ""
         for mapping in joint_mapping.values():

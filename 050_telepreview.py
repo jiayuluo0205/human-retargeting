@@ -256,7 +256,7 @@ def main():
 
     last_phantom_mode = False
     while True:
-        print(f"execution time: {exc_time}")
+        # print(f"execution time: {exc_time}")
         t = time.time()
         # get current mode
         pygame.event.get()
@@ -467,6 +467,7 @@ def main():
         xyz[1] = np.clip(xyz[1], ymin, ymax)
         xyz[2] = np.clip(xyz[2], zmin, zmax)
         if not phantom_mode:
+            print(xyz)
             arm.set_position(
                 x=xyz[0], y=xyz[1], z=xyz[2], 
                 roll=rpy[0], pitch=rpy[1], yaw=rpy[2], 
