@@ -3,13 +3,12 @@ import numpy as np
 from pathlib import Path
 from xarm6_interface import SAM_TYPE, SAM_PATH
 from xarm6_interface.utils.sam_prompt_drawer import SAMPromptDrawer
-
 import os
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
 
 if __name__ == "__main__":
-    serial_number= "233622079809" # "241122074374", "233622079809"
-    exp_name = "1214_excalib_capture01"
+    serial_number= "241122074374" # "241122074374", "233622079809"
+    exp_name = "0223_excalib_capture00_front"
     save_data_rel_dir_path = (Path(os.path.join(ROOT_DIR, f"3rdparty/xarm6/data/camera/{serial_number}")) / exp_name).resolve()
     sample_id_paths = list(save_data_rel_dir_path.glob("*"))
     sample_id_paths = sorted(sample_id_paths)

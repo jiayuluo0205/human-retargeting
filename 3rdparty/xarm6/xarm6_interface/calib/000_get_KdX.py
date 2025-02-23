@@ -4,7 +4,7 @@ import os
 
 from xarm6_interface.utils import as_mesh, NVDiffrastRenderer, vis_robot_frames, Realsense, convert_camera_pose_z_forward_to_sapien, add_noise_to_transform, robust_compute_rotation_matrix_from_ortho6d 
 
-serial_number = '233622079809' # '241122074374', '233622079809'
+serial_number = '147122075879' # '241122074374', '233622079809'
 camera = Realsense(serial_number)
 K = camera.K
 

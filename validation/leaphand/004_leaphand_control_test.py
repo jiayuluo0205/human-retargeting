@@ -29,7 +29,7 @@ if __name__ == "__main__":
     # open_pos = np.array([3.2934568, 3.2888548, 2.808719, 3.34868, 3.110913, 3.2919228, 2.888486,
     #              3.2474372, 2.9789908, 3.282719, 3.126253, 2.876214, 3.4146411, 4.735399,
     #              2.6185052, 3.5557675])
-    time.sleep(4)
+    time.sleep(2)
     open_pos = np.array([3.14159] * 16)
     leaphand.set_leap(open_pos)
     # leaphand.set_allegro(np.zeros(16))

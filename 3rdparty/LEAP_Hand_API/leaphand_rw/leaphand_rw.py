@@ -101,7 +101,7 @@ class LeapNode:
         self.kP = 600
         self.kI = 0
         self.kD = 200
-        self.curr_lim = 150
+        self.curr_lim = 350
         self.prev_pos = self.pos = self.curr_pos = lhu.allegro_to_LEAPhand(np.zeros(16))
         self.torque_enable = torque_enable
            
