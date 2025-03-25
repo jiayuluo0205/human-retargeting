@@ -23,16 +23,17 @@ from xarm6_interface.utils import as_mesh, NVDiffrastRenderer, vis_robot_frames,
 
 # top cam + right arm
 X_BaseCamera = np.eye(4)
-# rotation_matrix = R.from_euler('z', 45, degrees=True).as_matrix() @ R.from_euler('x', 90, degrees=True).as_matrix()
-rotation_matrix = R.from_euler('y', -90, degrees=True).as_matrix() @ R.from_euler('z', 180, degrees=True).as_matrix() @ R.from_euler('x', 90, degrees=True).as_matrix()
+# rotation_matrix = R.from_euler('y', 180, degrees=True).as_matrix() @ R.from_euler('z', 180, degrees=True).as_matrix() @ R.from_euler('x', 60, degrees=True).as_matrix()
+rotation_matrix = R.from_euler('y', 0, degrees=True).as_matrix() @ R.from_euler('z', 180, degrees=True).as_matrix() @ R.from_euler('x', -120, degrees=True).as_matrix()
 X_BaseCamera[0:3, 0:3] = rotation_matrix
-X_BaseCamera[0:3, 3] = np.array([0.42, -0.37, 0.22])
+X_BaseCamera[0:3, 3] = np.array([0.49, 0.32, 0.26])
+# X_BaseCamera[0:3, 3] = np.array([0.85,0, 0.37])
 print(f'X_BaseCamera = {X_BaseCamera}')
 
 if __name__ == '__main__':
     ''' the test '''
     # setup the real camera
-    serial_number = '241122074374' # '241122074374', '233622079809'
+    serial_number = '147122075879' # '241122074374', '233622079809'
     camera = Realsense(serial_number)
     
     K_path = Path(__file__).resolve().parent.parent.parent / "data" / "camera" / serial_number / "K.npy"
